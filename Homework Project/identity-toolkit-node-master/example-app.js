@@ -58,6 +58,37 @@ app.post('/sendemail', renderSendEmailPage);
 //Testing a post request
 app.post('/receive', receive);
 
+
+
+
+/*
+The below codes uses mongoose to create a database, and define schemas with which to
+input data into the database. 
+*/
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/homework_database');
+
+var Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
+ 
+var StudentSchema = new Schema({
+    userId:ObjectId,
+    googleId:String,
+    courses:Array,
+    connectedSpreadsheet:Boolean,
+    spreadsheetURL:String,
+    ICSURL:String,
+    assignments:Array
+});
+
+var Student = mongoose.model('Student', StudentSchema);
+//var Arun = new Student({courses:["SPAN401", "CHEM230"], connectedSpreadsheet: false, spreadsheetUrl : "", assignments: []})
+//console.log(Arun.courses[0])
+
+Arun.save(function (err, Arun) {
+    if (err) return console.error(err);
+  });
+
 function renderGitkitWidgetPage(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     var html = new Buffer(fs.readFileSync('./gitkit-widget.html')).toString();
@@ -72,18 +103,16 @@ function receive(req, res) {
             if (err) {
                 printLoginInfo(res, 'Invalid token: ' + err);
             } else {
-                console.log('starting save');
-                var body = '';
-                var filePath = __dirname + '/submission/' + resp.email + '.js';
-                console.log('recorded file path: ' + filePath);
-                body += req.body.data;
-                console.log('added data to body variable');
-                fs.writeFile(filePath, body, function () {
-                    console.log('final part running');
-                    var html = 'Your code has been saved!'
-                    res.redirect('Home.html');
-                    res.end(html);
-                });
+                console.log('Updating student database with new URL. Looking for student with id of: ' + req.body.id + ' and planning to add the url ' + req.body.url);
+                Student.findOne({_id:req.body.id}, function(err,student){
+                        if (err){
+                            console.log("Unable to add URL to student database because: " + err);
+                        }
+                        student.spreadsheetURL = req.body.url;
+                        console.log("adding url: " + req.body.url)
+                        student.save(function(err){if(err){console.log("Unable to save url added to student databse because: " + err)}});
+                    }
+                )
             }
         });
     } else {
@@ -108,6 +137,7 @@ function renderIndexPage(req, res) {
 
 
 function renderHomePage(req, res) {
+    var specificStudent;
     if (req.cookies.gtoken) {
         console.log("First statement true")
         gitkitClient.verifyGitkitToken(req.cookies.gtoken, function (err, resp) {
@@ -115,21 +145,43 @@ function renderHomePage(req, res) {
                 console.log("An error occurred" + err)
                 printLoginInfo(res, 'Invalid token: ' + err);
             } else {
-                console.log("No error occurred")
-                var filePath = __dirname + '/submission/' + resp.email + '.js';
-                console.log('looking for file path: ' + filePath);
-                var program;
-                if (fs.existsSync(filePath)) {
-                    program = new Buffer(fs.readFileSync(filePath));
-                } else {
-                    console.log('looging for file path: ./Example.js');
-                    program = new Buffer(fs.readFileSync("./Example.js"));
-                }
-                res.writeHead(200, {'Content-Type': 'text/html'});
-                var html = new Buffer(fs.readFileSync('./Home.html'))
+                Student.findOne({"googleId" : resp.email}, function(err,student){
+                    if (err) {
+                        console.log("A database error occured");
+                    }
+                
+                    if (student) {    
+                        console.log("Welcome back!")
+                        console.log("Welcome back!")
+                        console.log("Welcome back!")
+                        console.log("Welcome back!")
+                        url = student.spreadsheetURL
+                        specificStudent = student
+                    }
+                    else{
+                        var newStudent = new Student({googleId:resp.email,courses:[],connectedSpredsheet:false, spreadsheetUrl : "", ICSURL : "", assignments: []})
+                        newStudent.save(function(err){
+                            if(err){
+                                console.log("Could not save to database because: " + err)
+                            }
+                            else{
+                                console.log("New student saved to database")
+                            }
+                        });
+                        specificStudent = newStudent
+                        url = student.spreadsheetURL;
+                        console.log("Welcome! Created new student collection")
+                        console.log("Welcome! Created new student collection")
+                        console.log("Welcome! Created new student collection")
+                        console.log("Welcome! Created new student collection")
+                    }
+                    
+                   res.writeHead(200, {'Content-Type': 'text/html'});
+                   var html = new Buffer(fs.readFileSync('./Home.html'))
                         .toString()
-                var html = replaceAll(html,'%%program%%', program);
-                res.end(html);
+                   var html = replaceAll(html,'%%student%%', JSON.stringify(student));
+                   res.end(html);
+                });
             }
         });
     } else {

@@ -20,9 +20,23 @@ var StudentSchema = new Schema({
 });
 
 var Student = mongoose.model('Student', StudentSchema);
-var Arun = new Student({courses:["SPAN401", "CHEM230"], connectedSpreadsheet: false, spreadsheetUrl : "", assignments: []})
-console.log(Arun.courses[0])
-
-Arun.save(function (err, Arun) {
+//var Arun = new Student({courses:["SPAN401", "CHEM230"], connectedSpreadsheet: false, spreadsheetUrl : "", assignments: []})
+//console.log(Arun.courses[0])
+/* Arun.save(function (err, Arun) {
     if (err) return console.error(err);
-  });
+  }); */
+var email = "Arun2642@gmail.com"
+
+Student.findOne({"googleId" : resp.email}, function(err,student){
+    if (err) {
+        console.log("A database error occured (When trying to search for student with e-mail: " + email);
+    }
+
+    if (student) {    
+        console.log("Welcome back!")
+        console.log("Welcome back!")
+        console.log("Welcome back!")
+        console.log("Welcome back!")
+        url = student.spreadsheetURL
+        specificStudent = student
+

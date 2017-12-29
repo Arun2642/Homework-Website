@@ -41,7 +41,7 @@
           <br>
           <br>
           <h2>Two Options to Begin</h2>
-          <p>If you've been using the spreadsheet, import your data, otherwise, input dirrectly!</p>
+          <p>There are two ways to use this website. Either link a google spreadsheet, which this website will read the data from to make graphs and add to class statistics, or use the website to input assignments dirrectly. Choose one:</p>
         </header>
 		<!-- Three -->
 			<section id="three" class="wrapper">
@@ -75,7 +75,7 @@
 			<footer id="footer">
 				<div class="inner">
 
-					<h3>Get in touch</h3>
+					<h3>Give me feedback! (Or report bugs)</h3>
 
 					<form action="#" method="post">
 
@@ -118,6 +118,7 @@ var stopTime = 0;
 var running = false;
 var started = false;
 var duration = 0;
+var currentStudent = %%student%%;
 
 function selectability(){
   document.querySelector('ul').addEventListener('click', function(e){
@@ -231,8 +232,9 @@ function renderURLInput(){
 	document.getElementById("buttons").innerHTML = "";
 	var newInstructions = "<h2 id='inst_1'>Please enter the URL</h2> <p  id='inst_2'>Paste the sharing url for the spreadsheet you wish to import into the box below: </p>"
 	document.getElementById("instructions").innerHTML = newInstructions;
-	var newForm = "<form method='post' action='receive' id='spreadsheetURL'><textarea name='data' rows='10' cols='60'>%%program%%</textarea><br><button class='button button-small'>Save</button></form><button class='button button-small' onclick='fetchCSV()'>Make Graphs!</button>"
-	document.getElementById("urlForm").innerHTML = newForm;
+	var newForm = "<form method='post' action='receive' id='spreadsheetURL'><textarea name='url' rows='10' cols='60'>" + currentStudent.spreadsheetURL + "</textarea><input type='hidden' name='id' id='id' value='" + currentStudent._id + "'></input><br><button class='button button-small'>Save</button></form><button class='button button-small' onclick='fetchCSV()'>Make Graphs!</button>"
+  document.getElementById("urlForm").innerHTML = newForm;
+  document.getElementById("introMessage").innerHTML = "";
 }
 function renderDirrectInput(){
   console.log("Changing")
@@ -301,7 +303,6 @@ function renderDirrectInput(){
   document.getElementById("urlForm").innerHTML = dirrectInputFramework;
   document.getElementById("introMessage").innerHTML = "";
   selectability();
-
 }
 
 function toggle(id){
@@ -348,7 +349,7 @@ function fetchICS(){
 
 function fetchCSV(){
 	console.log("fetching...")
-    const givenURL = '%%program%%'
+    const givenURL = currentStudent.spreadsheetURL;
     if (!/gid/.test(givenURL)){
         alert("To clarify, after sharing the document, paste the url as it appears in your browser NOT the sharing url")
     }

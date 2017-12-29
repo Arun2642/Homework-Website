@@ -1,0 +1,1333 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:PUBLISH
+X-WR-CALDESC:Calendar events for the user\, Arun Johnson
+X-WR-CALNAME:Arun Johnson Calendar (Canvas)
+CALSCALE:GREGORIAN
+PRODID:iCalendar-Ruby
+BEGIN:VEVENT
+DESCRIPTION:On the agenda this Wednesday:\n\n- Culmination: anyone interest
+ ed ?? I can help you pick and develop an activity (something already done i
+ n class).\n\n- UCM (part 2) We will go over the answers. [04.Vectors and UC
+ M.Problem set.p2-1.pdf](https://nuevaschool.instructure.com/courses/1076/fi
+ les/121600/download?wrap=1)\n\n- UCM (part 3): Our work period will be spen
+ t on these 3 problems [04.Vectors and UCM.Problem set.p3.pdf](https://nueva
+ school.instructure.com/courses/1076/files/121602/download?wrap=1)\n\n \n\n 
+DTEND:20171122T163500Z
+DTSTAMP:20171121T173700Z
+DTSTART:20171122T163500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Diavolo and his bicycle [PHYS260 Advanced Mechanics Section 1 Perio
+ d 7]
+UID:event-assignment-21781
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_107
+ 6&month=11&year=2017#assignment_21781
+X-ALT-DESC;FMTTYPE=text/html:<p>On the agenda this Wednesday:</p>\n<p>- Cul
+ mination: anyone interested ?? I can help yaou pick and develop an activity 
+ (something already done in class).</p>\n<p>- UCM (part 2) We will go over t
+ he answers. <a class="instructure_file_link instructure_scribd_file" title=
+ "04.Vectors and UCM.Problem set.p2-1.pdf" href="https://nuevaschool.instruc
+ ture.com/courses/1076/files/121600/download?wrap=1" data-api-endpoint="http
+ s://nuevaschool.instructure.com/api/v1/courses/1076/files/121600" data-api-
+ returntype="File">04.Vectors and UCM.Problem set.p2-1.pdf</a></p>\n<p>- UCM
+  (part 3): Our work period will be spent on these 3 problems <a class="inst
+ ructure_file_link instructure_scribd_file" title="04.Vectors and UCM.Proble
+ m set.p3.pdf" href="https://nuevaschool.instructure.com/courses/1076/files/
+ 121602/download?wrap=1" data-api-endpoint="https://nuevaschool.instructure.
+ com/api/v1/courses/1076/files/121602" data-api-returntype="File">04.Vectors
+  and UCM.Problem set.p3.pdf</a></p>\n<p> </p>\n<p> </p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:American Vistas: Writing and Visual Culture in the Mid-19th Cen
+ tury\n\nhttps://docs.google.com/a/nuevaschool.org/document/d/1RVgJ4ahtZJ87k
+ 6kh3x00rNNQNRCNADSYgJnrr__fKmk/edit?usp=sharing\n\nRationale\n\nThe four au
+ thors we have studied from the American Renaissance (Whitman\, Dickinson\, 
+ Thoreau\, Douglass) all create in their writing a strong sense of landscape
+ \, be it rural or urban\, domestic or exterior\, Northern or Southern. In t
+ his project\, you will create a visual representation by combining your int
+ erpretation of a literary text with an understanding of the writer’s biogra
+ phy and historical/cultural context.\n\nAssignment Instructions\n\n*    Cho
+ ose a passage from a poem or piece of prose by Emily Dickinson\, Frederick 
+ Douglass\, Henry David Thoreau\, or Walt Whitman. The passage you choose sh
+ ould contain an evocation of a particular image\, landscape\, or vista\, br
+ oadly defined. In other words\, there should be a visual quality to the wri
+ ting. You are encouraged to choose from the texts we have studied\, though 
+ you are welcome to select a passage from another work.\n\n*    Research the
+  writer’s biography and historical/cultural context\, paying attention to w
+ hat kinds of images and landscapes the writer might have encountered in eve
+ ryday life. What would she or he have seen that might have influenced the v
+ isual quality of the passage you have selected?\n\n*    Create a visual int
+ erpretation of the passage that includes the text itself in the artwork. Yo
+ u may choose any medium\, including painting\, collage\, drawing\, photogra
+ phy\, sculpture\, or graphic design. The artwork should be large-scale (abo
+ ut the size of a standard poster)\, and it should clearly illustrate some a
+ spect of your text.\n\n*    Write a 3-4 paragraph artist’s statement that e
+ xplains your choice of text and how the text and the author’s biography inf
+ luenced the visual illustration you created. Hand this in separately.\n\nDu
+ e Date\n\nTurn in your visual illustration and your artist’s statement some
+ time during the week before Thanksgiving. They should both be in by noon on
+  Wednesday November 22nd  at the latest. Please note that you will be readi
+ ng The Great Gatsby during the same time period.\n\nFeel free to discuss yo
+ ur ideas for the visual illustration and the literary passage with your tea
+ cher--we’d be happy to help you develop ideas and strategies!
+DTEND:20171123T000000Z
+DTSTAMP:20171214T170100Z
+DTSTART:20171123T000000Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:American Vistas Project [ENG301 English 11 Section 2 Period 3]
+UID:event-assignment-21425
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_109
+ 5&month=11&year=2017#assignment_21425
+X-ALT-DESC;FMTTYPE=text/html:<p><strong>American Vistas: Writing and Visual
+  Culture in the Mid-19th Century</strong></p>\n<p><strong>https://docs.goog
+ le.com/a/nuevaschool.org/document/d/1RVgJ4ahtZJ87k6kh3x00rNNQNRCNADSYgJnrr_
+ _fKmk/edit?usp=sharing</strong></p>\n<p><span style="font-weight: 400\;">Ra
+ tionale</span></p>\n<p><span style="font-weight: 400\;">The four authors we
+  have studied from the American Renaissance (Whitman\, Dickinson\, Thoreau\
+ , Douglass) all create in their writing a strong sense of landscape\, be it
+  rural or urban\, domestic or exterior\, Northern or Southern. In this proj
+ ect\, you will create a visual representation by combining your interpretat
+ ion of a literary text with an understanding of the writer’s biography and 
+ historical/cultural context.</span></p>\n<p><span style="font-weight: 400\;
+ ">Assignment Instructions</span></p>\n<ol>\n<li>\n<span style="font-weight:
+  400\;"></span><span style="font-weight: 400\;">    </span><strong>Choose</
+ strong><span style="font-weight: 400\;"> a passage from a poem or piece of 
+ prose by Emily Dickinson\, Frederick Douglass\, Henry David Thoreau\, or Wa
+ lt Whitman. The passage you choose should contain an evocation of a particu
+ lar image\, landscape\, or vista\, broadly defined. In other words\, there 
+ should be a visual quality to the writing. You are encouraged to choose fro
+ m the texts we have studied\, though you are welcome to select a passage fr
+ om another work.</span>\n</li>\n<li>\n<span style="font-weight: 400\;"></sp
+ an><span style="font-weight: 400\;">    </span><strong>Research</strong><sp
+ an style="font-weight: 400\;"> the writer’s biography and historical/cultur
+ al context\, paying attention to what kinds of images and landscapes the wr
+ iter might have encountered in everyday life. What would she or he have see
+ n that might have influenced the visual quality of the passage you have sel
+ ected?</span>\n</li>\n<li>\n<span style="font-weight: 400\;"></span><span s
+ tyle="font-weight: 400\;">    </span><strong>Create</strong><span style="fo
+ nt-weight: 400\;"> a visual interpretation of the passage that includes the
+  text itself in the artwork. You may choose any medium\, including painting
+ \, collage\, drawing\, photography\, sculpture\, or graphic design. The art
+ work should be large-scale (about the size of a standard poster)\, and it s
+ hould clearly illustrate some aspect of your text.</span>\n</li>\n<li>\n<sp
+ an style="font-weight: 400\;"></span><span style="font-weight: 400\;">    <
+ /span><strong>Write</strong><span style="font-weight: 400\;"> a 3-4 paragra
+ ph artist’s statement that explains your choice of text and how the text an
+ d the author’s biography influenced the visual illustration you created. Ha
+ nd this in separately.</span>\n</li>\n</ol>\n<p><span style="font-weight: 4
+ 00\;"> Due Date</span></p>\n<p><span style="font-weight: 400\;">Turn in you
+ r visual illustration and your artist’s statement sometime during the week 
+ before Thanksgiving. They should both be in by noon on Wednesday November 2
+ 2nd  at the latest. Please note that you will be reading </span><i><span st
+ yle="font-weight: 400\;">The Great Gatsby</span></i><span style="font-weigh
+ t: 400\;"> during the same time period.</span></p>\n<p><span style="font-we
+ ight: 400\;">Feel free to discuss your ideas for the visual illustration an
+ d the literary passage with your teacher--we’d be happy to help you develop
+  ideas and strategies!</span></p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:
+DTEND:20171127T191500Z
+DTSTAMP:20171113T201400Z
+DTSTART:20171127T191500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Read Chapters 1 and 2 in The Great Gatsby [ENG301 English 11 Sectio
+ n 2 Period 3]
+UID:event-assignment-21426
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_109
+ 5&month=11&year=2017#assignment_21426
+X-ALT-DESC;FMTTYPE=text/html:
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Presentations will be scheduled in class for specific dates fro
+ m Nov 27th to Dec 11th.
+DTEND:20171127T195900Z
+DTSTAMP:20171106T172100Z
+DTSTART:20171127T195900Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Presentations [HIST301 US History Section 4 Period 5]
+UID:event-assignment-21133
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_103
+ 6&month=11&year=2017#assignment_21133
+X-ALT-DESC;FMTTYPE=text/html:<p>Presentations will be scheduled in class fo
+ r specific dates from Nov 27th to Dec 11th.</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:FYI...and if you want to check your answers:\n\n[04.Vectors and
+  UCM.Problem set.Answers.pdf](https://nuevaschool.instructure.com/courses/1
+ 076/files/121904/download?wrap=1)\n\n 
+DTEND:20171128T211500Z
+DTSTAMP:20171122T173000Z
+DTSTART:20171128T211500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:UCM: check your answers [PHYS260 Advanced Mechanics Section 1 Perio
+ d 7]
+UID:event-assignment-21834
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_107
+ 6&month=11&year=2017#assignment_21834
+X-ALT-DESC;FMTTYPE=text/html:<p>FYI...and if you want to check your answers
+ :</p>\n<p><a class="instructure_file_link instructure_scribd_file" title="0
+ 4.Vectors and UCM.Problem set.Answers.pdf" href="https://nuevaschool.instru
+ cture.com/courses/1076/files/121904/download?wrap=1" data-api-endpoint="htt
+ ps://nuevaschool.instructure.com/api/v1/courses/1076/files/121904" data-api
+ -returntype="File">04.Vectors and UCM.Problem set.Answers.pdf</a></p>\n<p> 
+ </p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Estas son las preguntas que van a contestar en clase. Una parte
+  será escrita  y la otra oral (una conversación entre amigos)\n\nPueden tra
+ er y usar el artículo sobre la ecuación de la felicidad.\n\n \n\nPrimera pa
+ rte:\n\n¿Cómo defines tú la felicidad?  Explica la diferencia entre “ser fe
+ liz” y “estar feliz” en el contexto de tu experiencia o la de tus amigas/os
+ .\n\nSegunda parte:\n\n¿Cómo se compara tu definición personal de la felici
+ dad con…\n\n-la del artículo que leímos en clase\n\n-la de Estados Unidos (
+ de la cultura dominante)\n\n-la del país que seleccionaste?\n\nTienes 25 mi
+ nutos para escribir sobre este tema.  No se permiten ni diccionarios\, ni t
+ raductores\, ni el diario.\n\n \n\nLo que quiero ver:\n\nUn vocabulario amp
+ lio y preciso para hablar sobre la felicidad.\n\nUso efectivo de las prepos
+ iciones y de los pronombres relativos.\n\nUso de artículos\n\nConocimiento 
+ del género de los sustantivos y la concordancia de los adjetivos y artículo
+ s\n\nConjugación precisa de los verbos
+DTEND:20171129T160000Z
+DTSTAMP:20171128T001800Z
+DTSTART:20171129T160000Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Tarea veintitrés semestre uno: Preparación para la evaluación [SPAN
+ 401 Spanish 4 Section 1 Period 1]
+UID:event-assignment-21963
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_113
+ 3&month=11&year=2017#assignment_21963
+X-ALT-DESC;FMTTYPE=text/html:<p><strong>Estas son las preguntas que van a c
+ ontestar en clase. Una parte será escrita  y la otra oral (una conversación
+  entre amigos)</strong></p>\n<p><strong>Pueden traer y usar el artículo sob
+ re la ecuación de la felicidad. <br></strong></p>\n<p> </p>\n<p><strong>Pri
+ mera</strong><strong> parte</strong>:</p>\n<p>¿Cómo defines tú la felicidad
+ ?  Explica la diferencia entre “ser feliz” y “estar feliz” en el contexto d
+ e tu experiencia o la de tus amigas/os.</p>\n<p><strong>Segunda</strong><st
+ rong> parte</strong>:</p>\n<p>¿Cómo se compara tu definición personal de la
+  felicidad con…</p>\n<p>-la del artículo que leímos en clase</p>\n<p>-la de
+  Estados Unidos (de la cultura dominante)</p>\n<p>-la del país que seleccio
+ naste?</p>\n<p>Tienes <strong>25</strong> minutos para escribir sobre este 
+ tema.  <strong>No</strong> se permiten ni diccionarios\, ni traductores\, n
+ i el diario.</p>\n<p> </p>\n<p>Lo que quiero ver:</p>\n<p>Un vocabulario am
+ plio y preciso para hablar sobre la felicidad.</p>\n<p>Uso efectivo de las 
+ preposiciones y de los pronombres relativos.</p>\n<p>Uso de artículos</p>\n
+ <p>Conocimiento del género de los sustantivos y la concordancia de los adje
+ tivos y artículos</p>\n<p>Conjugación precisa de los verbos</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:see assignment instructions\, Annotated Works Cited\, and writi
+ ng tips in Files.\n\nFinal Draft requires both paper copy and canvas submis
+ sion.
+DTEND:20171129T195900Z
+DTSTAMP:20171216T024500Z
+DTSTART:20171129T195900Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Final Draft [HIST301 US History Section 4 Period 5]
+UID:event-assignment-21132
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_103
+ 6&month=11&year=2017#assignment_21132
+X-ALT-DESC;FMTTYPE=text/html:<p>see assignment instructions\, Annotated Wor
+ ks Cited\, and writing tips in Files.</p>\n<p><span>Final Draft requires bo
+ th paper copy and canvas submission.</span></p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Research Presentations\n\nReminder: Presentations should be 10 
+ minutes long and be accompanied by some visual(s) pertinent to your topic (
+ PPT optional). Consider this as an outline:\n\n1. Historical Context & Thes
+ is\n\n2. Major evidence for your thesis and surprises along the way\n\n3. T
+ ies to other presentations if relevant\n\n4. Q&A\n\nNOTE: Presentations do 
+ not cover all of your research nor even all of your paper\, do not read to 
+ the class unless a primary source quote is essential to make your point\, a
+ nd you will be held to a time limit for the sake of your classmates' who al
+ so need time to present.\n\nClassmates: take some notes to reference for yo
+ ur synthesis assignment to come!
+DTEND:20171129T195900Z
+DTSTAMP:20171129T212100Z
+DTSTART:20171129T195900Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Research Presentation: Sarah\, Maddie\, Osher\, Vanessa [HIST301 US
+  History Section 4 Period 5]
+UID:event-assignment-21754
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_103
+ 6&month=11&year=2017#assignment_21754
+X-ALT-DESC;FMTTYPE=text/html:<p>Research Presentations</p>\n<p>Reminder: Pr
+ esentations should be 10 minutes long and be accompanied by some visual(s) 
+ pertinent to your topic (PPT <em>optional</em>). Consider this as an outlin
+ e:</p>\n<p>1. Historical Context &amp\; Thesis</p>\n<p>2. Major evidence fo
+ r your thesis and surprises along the way</p>\n<p>3. Ties to other presenta
+ tions if relevant</p>\n<p>4. Q&amp\;A</p>\n<p>NOTE: Presentations do <span 
+ style="text-decoration: underline\;">not</span> cover all of your research 
+ nor even all of your paper\, do <span style="text-decoration: underline\;">
+ not</span> read to the class unless a primary source quote is essential to 
+ make your point\, and you will be held to a time limit for the sake of your
+  classmates' who also need time to present.</p>\n<p><strong>Classmates</str
+ ong>: take some notes to reference for your synthesis assignment to come!</
+ p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Dear students\,\n\nPlease submit any notes/thoughts from your b
+ rainstorming session today in the form of a Google Doc (particularly if you
+  used this [brainstorming template](https://docs.google.com/a/nuevaschool.o
+ rg/document/d/1uZCAwq1TjvKnpxQs9o3I6S69X0BQZSr6AhAVdWA-jlo/edit?usp=sharing
+ ))\, image or other document. While you will be receiving more specific gui
+ delines for the final project assignment in a later Canvas assignment\, you
+  should think of it as being a deep dive into a basic science question/fiel
+ d/problem. This is in contrast to the more human-related issues/questions t
+ hat we will be spending most of the spring semester exploring. \n\nCheers\,
+ \n\nJeremy
+DTEND;VALUE=DATE:20171129
+DTSTAMP:20171201T170800Z
+DTSTART;VALUE=DATE:20171129
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Literature Review In-Class Brainstorm [ENV110 Environmental Earth S
+ cience Section 1 Period 4]
+UID:event-assignment-21980
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_112
+ 5&month=11&year=2017#assignment_21980
+X-ALT-DESC;FMTTYPE=text/html:<p>Dear students\,</p>\n<p>Please submit any n
+ otes/thoughts from your brainstorming session today in the form of a Google
+  Doc (particularly if you used this <a href="https://docs.google.com/a/nuev
+ aschool.org/document/d/1uZCAwq1TjvKnpxQs9o3I6S69X0BQZSr6AhAVdWA-jlo/edit?us
+ p=sharing">brainstorming template</a>)\, image or other document. While you
+  will be receiving more specific guidelines for the final project assignmen
+ t in a later Canvas assignment\, you should think of it as being a deep div
+ e into a basic science question/field/problem. This is in contrast to the m
+ ore human-related issues/questions that we will be spending most of the spr
+ ing semester exploring. </p>\n<p>Cheers\,</p>\n<p>Jeremy</p>
+END:VEVENT
+BEGIN:VEVENT
+DTEND:20171130T163500Z
+DTSTAMP:20171127T194200Z
+DTSTART:20171130T163500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Read Chapter 3 in Gatsby [ENG301 English 11 Section 2 Period 3]
+UID:event-assignment-21915
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_109
+ 5&month=11&year=2017#assignment_21915
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Research Presentations\n\nReminder: Presentations should be 10 
+ minutes long and be accompanied by some visual(s) pertinent to your topic (
+ PPT optional). Consider this as an outline:\n\n1. Historical Context & Thes
+ is\n\n2. Major evidence for your thesis and surprises along the way\n\n3. T
+ ies to other presentations if relevant\n\n4. Q&A\n\nNOTE: Presentations do 
+ not cover all of your research nor even all of your paper\, do not read to 
+ the class unless a primary source quote is essential to make your point\, a
+ nd you will be held to a time limit for the sake of your classmates' who al
+ so need time to present.\n\nClassmates: take some notes to reference for yo
+ ur synthesis assignment to come!
+DTEND:20171201T195900Z
+DTSTAMP:20171201T193500Z
+DTSTART:20171201T195900Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Research Presentations: Charlie\, Arya\, Tom\, Noah [HIST301 US His
+ tory Section 4 Period 5]
+UID:event-assignment-21968
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_103
+ 6&month=12&year=2017#assignment_21968
+X-ALT-DESC;FMTTYPE=text/html:<p>Research Presentations</p>\n<p>Reminder: Pr
+ esentations should be 10 minutes long and be accompanied by some visual(s) 
+ pertinent to your topic (PPT <em>optional</em>). Consider this as an outlin
+ e:</p>\n<p>1. Historical Context &amp\; Thesis</p>\n<p>2. Major evidence fo
+ r your thesis and surprises along the way</p>\n<p>3. Ties to other presenta
+ tions if relevant</p>\n<p>4. Q&amp\;A</p>\n<p>NOTE: Presentations do <span 
+ style="text-decoration: underline\;">not</span> cover all of your research 
+ nor even all of your paper\, do <span style="text-decoration: underline\;">
+ not</span> read to the class unless a primary source quote is essential to 
+ make your point\, and you will be held to a time limit for the sake of your
+  classmates' who also need time to present.</p>\n<p><strong>Classmates</str
+ ong>: take some notes to reference for your synthesis assignment to come!</
+ p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:- Find attached the answers for the Energy problems. Ask questi
+ ons tomorrow.\n\n- We will spend the period working on the questions you sh
+ ared for the Culmination night. We will select 19 questions and everyone wi
+ ll be in charge of preparing one slide answering (nicely) one question.\n\n
+  See you tomorrow.\n\n[02.Energy.Problem set.Answers.pdf](https://nuevascho
+ ol.instructure.com/courses/1076/files/123666/download?wrap=1)
+DTEND:20171201T222500Z
+DTSTAMP:20171130T224400Z
+DTSTART:20171201T222500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Energy + Culmination [PHYS260 Advanced Mechanics Section 1 Period 7
+ ]
+UID:event-assignment-22174
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_107
+ 6&month=12&year=2017#assignment_22174
+X-ALT-DESC;FMTTYPE=text/html:<p>- Find attached the answers for the Energy 
+ problems. Ask questions tomorrow.</p>\n<p>- We will spend the period workin
+ g on the questions you shared for the Culmination night. We will select 19 
+ questions and everyone will be in charge of preparing one slide answering (
+ nicely) one question.</p>\n<p> See you tomorrow.</p>\n<p><a class="instruct
+ ure_file_link instructure_scribd_file" title="02.Energy.Problem set.Answers
+ .pdf" href="https://nuevaschool.instructure.com/courses/1076/files/123666/d
+ ownload?wrap=1" data-api-endpoint="https://nuevaschool.instructure.com/api/
+ v1/courses/1076/files/123666" data-api-returntype="File">02.Energy.Problem 
+ set.Answers.pdf</a></p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Dear students\, \n\nPlease let me know what question/topic you 
+ will write about for your literature review and\, in no more than 2 sentenc
+ es\, why you consider it to be a valuable or relevant question/topic to stu
+ dy.\n\nCheers\,\n\nJeremy
+DTEND;VALUE=DATE:20171201
+DTSTAMP:20171212T052400Z
+DTSTART;VALUE=DATE:20171201
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Literature Review Topic Selection [ENV110 Environmental Earth Scien
+ ce Section 1 Period 4]
+UID:event-assignment-22077
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_112
+ 5&month=12&year=2017#assignment_22077
+X-ALT-DESC;FMTTYPE=text/html:<p>Dear students\, </p>\n<p>Please let me know
+  what question/topic you will write about for your literature review and\, 
+ in <em>no more than 2 sentences</em>\, why you consider it to be a valuable
+  or relevant question/topic to study.</p>\n<p>Cheers\,</p>\n<p>Jeremy</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Gatsby Teaching Assignment\n\n \n\nRationale:\n\nOne important 
+ skill in the study of literature involves leading others in an investigatio
+ n of a text. By “teaching” a section of The Great Gatsby\, you will have th
+ e opportunity first to dive deeply into plot\, character\, and literary dev
+ ices in one or two chapters. Working in groups\, you will then create an ac
+ tivity and discussion (for a total of 45 minutes) in which you encourage yo
+ ur classmates to engage with important elements in your section. You will u
+ se two modes of instruction: the first is up to you\, and the second will b
+ e leading a productive class discussion of your section.\n\nAssessment\n\nT
+ he skills assessed in this assignment include the following (each comes fro
+ m a template item):\n\n* Understanding Literature: Does your group understa
+ nd key elements (plot\, characterization\, literary devices\, historical co
+ nnections) in your assigned section? Do the activities you create encourage
+  your classmates to engage with these elements?\n\n* Logic and Craft: Does 
+ your lesson have a clear and logical structure that builds toward the gener
+ ation of ideas and opinions about the text?\n\n* Class Discussion: Do you p
+ ose rich\, open-ended\, and provocative questions that encourage thoughtful
+  comments about the text? Do you facilitate discussion in ways that help ma
+ ke meaning?\n\n* Responsibility: Does each group member contribute to the l
+ esson in some way (creating materials\, leading discussion\, explaining pro
+ cess\, etc.)?\n\nRequired Elements:\n\n* Working as a group (though at time
+ s only one member may be speaking or directing)\, lead the class through a 
+ sustained investigation of your assigned chapter(s). You should time your l
+ esson to be 45 minutes\, give or take a few minutes.\n\n* Your lesson will 
+ include two modes of instruction. The first is up to you: individual brains
+ torm or reflection\, writing\, close reading\, and small group work are all
+  possibilities. The second should be a class discussion\, with guiding ques
+ tions posed as needed.\n\n* You will turn in a short report (no longer than
+  a page) that details each group member’s contribution. Different members w
+ ill participate in the creation of the lesson in different ways\, but every
+ one should contribute an equal share of time and thought. For example\, one
+  person might have a larger role in creating the materials while another ta
+ kes more of a lead in the conversation. Each student will submit a report v
+ ia Canvas.\n\nSchedule of Teaching\n\nBlocks 2 & 3\n\nBlock 4\n\nBlocks 7 &
+  8\n\nChapter 3\n\nThursday 11/30\n\nThursday 11/30\n\nFriday 12/1\n\nChapt
+ ers 4 & 5\n\nMonday 12/4\n\nMonday 12/4\n\nTuesday 12/5\n\nChapters 6 & 7\n
+ \nTuesday 12/5\n\nWednesday 12/6\n\nThursday 12/7\n\nChapters 8 & 9\n\nThur
+ sday 12/7\n\nThursday 12/7\n\nFriday 12/8
+DTEND:20171204T191500Z
+DTSTAMP:20171212T174600Z
+DTSTART:20171204T191500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Gatsby Teaching Assignment (3 students) [ENG301 English 11 Section 
+ 2 Period 3]
+UID:event-assignment-override-2459
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_109
+ 5&month=12&year=2017#assignment_21928
+X-ALT-DESC;FMTTYPE=text/html:<p><strong>Gatsby Teaching Assignment</strong>
+ </p>\n<p> </p>\n<p><strong>Rationale:</strong></p>\n<p><span style="font-we
+ ight: 400\;">One important skill in the study of literature involves leadin
+ g others in an investigation of a text. By “teaching” a section of </span><
+ i><span style="font-weight: 400\;">The Great Gatsby</span></i><span style="
+ font-weight: 400\;">\, you will have the opportunity first to dive deeply i
+ nto plot\, character\, and literary devices in one or two chapters. Working
+  in groups\, you will then create an activity and discussion (for a total o
+ f 45 minutes) in which you encourage your classmates to engage with importa
+ nt elements in your section. You will use two modes of instruction: the fir
+ st is up to you\, and the second will be leading a productive class discuss
+ ion of your section.</span></p>\n<p><strong>Assessment</strong></p>\n<p><sp
+ an style="font-weight: 400\;">The skills assessed in this assignment includ
+ e the following (each comes from a template item):</span></p>\n<ul>\n<li st
+ yle="font-weight: 400\;">\n<strong>Understanding Literature:</strong><span 
+ style="font-weight: 400\;"> Does your group understand key elements (plot\,
+  characterization\, literary devices\, historical connections) in your assi
+ gned section? Do the activities you create encourage your classmates to eng
+ age with these elements?</span>\n</li>\n<li style="font-weight: 400\;">\n<s
+ trong>Logic and Craft:</strong><span style="font-weight: 400\;"> Does your 
+ lesson have a clear and logical structure that builds toward the generation
+  of ideas and opinions about the text?</span>\n</li>\n<li style="font-weigh
+ t: 400\;">\n<strong>Class Discussion:</strong><span style="font-weight: 400
+ \;"> Do you pose rich\, open-ended\, and provocative questions that encoura
+ ge thoughtful comments about the text? Do you facilitate discussion in ways
+  that help make meaning?</span>\n</li>\n<li style="font-weight: 400\;">\n<s
+ trong>Responsibility:</strong><span style="font-weight: 400\;"> Does each g
+ roup member contribute to the lesson in some way (creating materials\, lead
+ ing discussion\, explaining process\, etc.)?</span>\n</li>\n</ul>\n<p><stro
+ ng>Required Elements:</strong></p>\n<ul>\n<li style="font-weight: 400\;"><s
+ pan style="font-weight: 400\;">Working as a group (though at times only one
+  member may be speaking or directing)\, lead the class through a sustained 
+ investigation of your assigned chapter(s). You should time your lesson to b
+ e 45 minutes\, give or take a few minutes.</span></li>\n<li style="font-wei
+ ght: 400\;"><span style="font-weight: 400\;">Your lesson will include two m
+ odes of instruction. The first is up to you: individual brainstorm or refle
+ ction\, writing\, close reading\, and small group work are all possibilitie
+ s. The second should be a class discussion\, with guiding questions posed a
+ s needed.</span></li>\n<li style="font-weight: 400\;"><span style="font-wei
+ ght: 400\;">You will turn in a short report (no longer than a page) that de
+ tails each group member’s contribution. Different members will participate 
+ in the creation of the lesson in different ways\, but everyone should contr
+ ibute an equal share of time and thought. For example\, one person might ha
+ ve a larger role in creating the materials while another takes more of a le
+ ad in the conversation. Each student will submit a report via Canvas.</span
+ ></li>\n</ul>\n<p><span style="font-weight: 400\;">Schedule of Teaching</sp
+ an></p>\n<table>\n<tbody>\n<tr>\n<td></td>\n<td>\n<p><strong>Blocks 2 &amp\
+ ; 3</strong></p>\n</td>\n<td>\n<p><strong>Block 4</strong></p>\n</td>\n<td>
+ \n<p><strong>Blocks 7 &amp\; 8</strong></p>\n</td>\n<td></td>\n</tr>\n<tr>\
+ n<td>\n<p><strong>Chapter 3</strong></p>\n</td>\n<td>\n<p><span style="font
+ -weight: 400\;">Thursday 11/30</span></p>\n</td>\n<td>\n<p><span style="fon
+ t-weight: 400\;">Thursday 11/30</span></p>\n</td>\n<td>\n<p><span style="fo
+ nt-weight: 400\;">Friday 12/1</span></p>\n</td>\n<td></td>\n</tr>\n<tr>\n<t
+ d>\n<p><strong>Chapters 4 &amp\; 5</strong></p>\n</td>\n<td>\n<p><span styl
+ e="font-weight: 400\;">Monday 12/4</span></p>\n</td>\n<td>\n<p><span style=
+ "font-weight: 400\;">Monday 12/4</span></p>\n</td>\n<td>\n<p><span style="f
+ ont-weight: 400\;">Tuesday 12/5</span></p>\n</td>\n<td></td>\n</tr>\n<tr>\n
+ <td>\n<p><strong>Chapters 6 &amp\; 7</strong></p>\n</td>\n<td>\n<p><span st
+ yle="font-weight: 400\;">Tuesday 12/5</span></p>\n</td>\n<td>\n<p><span sty
+ le="font-weight: 400\;">Wednesday 12/6</span></p>\n</td>\n<td>\n<p><span st
+ yle="font-weight: 400\;">Thursday 12/7</span></p>\n</td>\n<td></td>\n</tr>\
+ n<tr>\n<td>\n<p><strong>Chapters 8 &amp\; 9</strong></p>\n</td>\n<td>\n<p><
+ span style="font-weight: 400\;">Thursday 12/7</span></p>\n</td>\n<td>\n<p><
+ span style="font-weight: 400\;">Thursday 12/7</span></p>\n</td>\n<td>\n<p><
+ span style="font-weight: 400\;">Friday 12/8</span></p>\n</td>\n<td></td>\n<
+ /tr>\n</tbody>\n</table>
+END:VEVENT
+BEGIN:VEVENT
+DTEND:20171204T191500Z
+DTSTAMP:20171127T194300Z
+DTSTART:20171204T191500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Read Chapters 4 and 5 in Gatsby [ENG301 English 11 Section 2 Period
+  3]
+UID:event-assignment-21916
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_109
+ 5&month=12&year=2017#assignment_21916
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Research Presentations\n\nReminder: Presentations should be 10 
+ minutes long and be accompanied by some visual(s) pertinent to your topic (
+ PPT optional). Consider this as an outline:\n\n1. Historical Context & Thes
+ is\n\n2. Major evidence for your thesis and surprises along the way\n\n3. T
+ ies to other presentations if relevant\n\n4. Q&A\n\nNOTE: Presentations do 
+ not cover all of your research nor even all of your paper\, do not read to 
+ the class unless a primary source quote is essential to make your point\, a
+ nd you will be held to a time limit for the sake of your classmates' who al
+ so need time to present.\n\nClassmates: take some notes to reference for yo
+ ur synthesis assignment to come!
+DTEND:20171204T195900Z
+DTSTAMP:20171204T223100Z
+DTSTART:20171204T195900Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Research Presentations: Robby\, Nico\, Ben\, Caleb [HIST301 US Hist
+ ory Section 4 Period 5]
+UID:event-assignment-21969
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_103
+ 6&month=12&year=2017#assignment_21969
+X-ALT-DESC;FMTTYPE=text/html:<p>Research Presentations</p>\n<p>Reminder: Pr
+ esentations should be 10 minutes long and be accompanied by some visual(s) 
+ pertinent to your topic (PPT <em>optional</em>). Consider this as an outlin
+ e:</p>\n<p>1. Historical Context &amp\; Thesis</p>\n<p>2. Major evidence fo
+ r your thesis and surprises along the way</p>\n<p>3. Ties to other presenta
+ tions if relevant</p>\n<p>4. Q&amp\;A</p>\n<p>NOTE: Presentations do <span 
+ style="text-decoration: underline\;">not</span> cover all of your research 
+ nor even all of your paper\, do <span style="text-decoration: underline\;">
+ not</span> read to the class unless a primary source quote is essential to 
+ make your point\, and you will be held to a time limit for the sake of your
+  classmates' who also need time to present.</p>\n<p><strong>Classmates</str
+ ong>: take some notes to reference for your synthesis assignment to come!</
+ p>
+END:VEVENT
+BEGIN:VEVENT
+DTEND:20171205T163500Z
+DTSTAMP:20171127T194400Z
+DTSTART:20171205T163500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Read Chapters 6 and 7 in Gatsby [ENG301 English 11 Section 2 Period
+  3]
+UID:event-assignment-21918
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_109
+ 5&month=12&year=2017#assignment_21918
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:-Nomenclature of alkanes and alkenes: naming a structure and dr
+ awing a structure from a name\n\nhttp://www.sciencegeek.net/APchemistry/APt
+ aters/alkanes.htm\n\n- structural isomers and geometrical isomers\n\n- rate
+  of a reaction  (as problem set done in class)\, factors that influence rat
+ e of a reaction\n\n- nucleophile-electrophile\, curved arrow. Know how to r
+ ank nucleophiles using pKa.\n\n- nucleophilic substitution 1 and 2: nature 
+ of halide\, solvent effect on rate of reaction\, deduce products\n\n- elect
+ rophilic addition: Markovnikov rules\, reaction mechanism\n\n- stoichiometr
+ y
+DTEND;VALUE=DATE:20171205
+DTSTAMP:20171130T185300Z
+DTSTART;VALUE=DATE:20171205
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Test Unit 2 (CHEM230 Bioorganic Chemistry Section 2 Period 8 (SM 10
+ 3)) [CHEM230 Bioorganic Chemistry Section 2 Period 8]
+UID:event-assignment-override-2421
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_102
+ 5&month=12&year=2017#assignment_21771
+X-ALT-DESC;FMTTYPE=text/html:<p>-Nomenclature of alkanes and alkenes: namin
+ g a structure and drawing a structure from a name</p>\n<p>http://www.scienc
+ egeek.net/APchemistry/APtaters/alkanes.htm</p>\n<p>- structural isomers and
+  geometrical isomers</p>\n<p>- rate of a reaction  (as problem set done in 
+ class)\, factors that influence rate of a reaction</p>\n<p>- nucleophile-el
+ ectrophile\, curved arrow. Know how to rank nucleophiles using pKa.</p>\n<p
+ >- nucleophilic substitution 1 and 2: nature of halide\, solvent effect on 
+ rate of reaction\, deduce products</p>\n<p>- electrophilic addition: Markov
+ nikov rules\, reaction mechanism</p>\n<p>- stoichiometry</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:¡Hola\, alumnos!\n\nLa tarea para miércoles 6 de diciembre es:\
+ n\n1. Pasa 30 minutos estudiando alguna de esta gramática. Comparte conmigo
+  lo que has aprendido en el diario:\n\nEl presente del subjuntivo\n\nhttp:/
+ /www.bowdoin.edu/hispanic-studies/tools/newgr/ats/44.htm\n\n[https://espano
+ l.lingolia.com/es/gramatica/tiempos-subjuntivo/presente ](https://espanol.l
+ ingolia.com/es/gramatica/tiempos-subjuntivo/presente/ejercicios)y https://e
+ spanol.lingolia.com/es/gramatica/tiempos-subjuntivo/presente/ejercicios \n\
+ nCláusulas sustantivas\n\nhttp://www.bowdoin.edu/hispanic-studies/tools/new
+ gr/ats/46.htm\n\nCláusulas adjetivas\n\nhttp://www.bowdoin.edu/hispanic-stu
+ dies/tools/newgr/ats/47.htm\n\nCláusulas adverbiales\n\nhttp://www.bowdoin.
+ edu/hispanic-studies/tools/newgr/ats/50.htm\n\nEl imperfecto del subjuntivo
+ \n\nhttp://www.bowdoin.edu/hispanic-studies/tools/newgr/ats/48.htm\n\nhttps
+ ://espanol.lingolia.com/es/gramatica/tiempos-subjuntivo/preterito-imperfect
+ o y  https://espanol.lingolia.com/es/gramatica/tiempos-subjuntivo/preterito
+ -imperfecto/ejercicios/articles/preterito-imperfecto-de-subjuntivo-ejercici
+ os-generales\n\nCuando usar el indicativo y el subjuntivo\n\nhttps://espano
+ l.lingolia.com/es/gramatica/verbos/indicativo-subjuntivo\n\ny https://espan
+ ol.lingolia.com/es/gramatica/verbos/indicativo-subjuntivo/ejercicios\n\nLas
+  comparaciones\n\nhttp://www.bowdoin.edu/hispanic-studies/tools/newgr/ats/3
+ 6.htm\n\nhttps://studyspanish.com/grammar/lessons/inequal y https://studysp
+ anish.com/grammar/test/inequal\n\nhttps://studyspanish.com/grammar/lessons/
+ equal y https://studyspanish.com/grammar/test/equal\n\n \n\n 
+DTEND:20171206T160000Z
+DTSTAMP:20171206T072500Z
+DTSTART:20171206T160000Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Tarea veinticuatro semestre uno: Practica y estudia el subjuntivo [
+ SPAN401 Spanish 4 Section 1 Period 1]
+UID:event-assignment-22263
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_113
+ 3&month=12&year=2017#assignment_22263
+X-ALT-DESC;FMTTYPE=text/html:<p>¡Hola\, alumnos!</p>\n<p>La tarea para miér
+ coles 6 de diciembre es:</p>\n<p>1. Pasa <strong>30 minutos</strong> estudi
+ ando alguna de esta gramática. Comparte conmigo lo que has aprendido <em>en
+  el diario</em>: </p>\n<p>El presente del subjuntivo</p>\n<p><a href="http:
+ //www.bowdoin.edu/hispanic-studies/tools/newgr/ats/44.htm">http://www.bowdo
+ in.edu/hispanic-studies/tools/newgr/ats/44.htm</a></p>\n<p><a href="https:/
+ /espanol.lingolia.com/es/gramatica/tiempos-subjuntivo/presente/ejercicios">
+ https://espanol.lingolia.com/es/gramatica/tiempos-subjuntivo/presente </a>y
+  <a href="https://espanol.lingolia.com/es/gramatica/tiempos-subjuntivo/pres
+ ente/ejercicios">https://espanol.lingolia.com/es/gramatica/tiempos-subjunti
+ vo/presente/ejercicios</a> </p>\n<p>Cláusulas sustantivas</p>\n<p><a href="
+ http://www.bowdoin.edu/hispanic-studies/tools/newgr/ats/46.htm">http://www.
+ bowdoin.edu/hispanic-studies/tools/newgr/ats/46.htm</a></p>\n<p>Cláusulas a
+ djetivas</p>\n<p><a href="http://www.bowdoin.edu/hispanic-studies/tools/new
+ gr/ats/47.htm">http://www.bowdoin.edu/hispanic-studies/tools/newgr/ats/47.h
+ tm</a></p>\n<p>Cláusulas adverbiales</p>\n<p><a href="http://www.bowdoin.ed
+ u/hispanic-studies/tools/newgr/ats/50.htm">http://www.bowdoin.edu/hispanic-
+ studies/tools/newgr/ats/50.htm</a></p>\n<p>El imperfecto del subjuntivo</p>
+ \n<p><a href="http://www.bowdoin.edu/hispanic-studies/tools/newgr/ats/48.ht
+ m">http://www.bowdoin.edu/hispanic-studies/tools/newgr/ats/48.htm</a></p>\n
+ <p><a href="https://espanol.lingolia.com/es/gramatica/tiempos-subjuntivo/pr
+ eterito-imperfecto">https://espanol.lingolia.com/es/gramatica/tiempos-subju
+ ntivo/preterito-imperfecto</a> y  <a href="https://espanol.lingolia.com/es/
+ gramatica/tiempos-subjuntivo/preterito-imperfecto/ejercicios/articles/prete
+ rito-imperfecto-de-subjuntivo-ejercicios-generales">https://espanol.lingoli
+ a.com/es/gramatica/tiempos-subjuntivo/preterito-imperfecto/ejercicios/artic
+ les/preterito-imperfecto-de-subjuntivo-ejercicios-generales</a></p>\n<p>Cua
+ ndo usar el indicativo y el subjuntivo</p>\n<p><a href="https://espanol.lin
+ golia.com/es/gramatica/verbos/indicativo-subjuntivo">https://espanol.lingol
+ ia.com/es/gramatica/verbos/indicativo-subjuntivo</a></p>\n<p>y <a href="htt
+ ps://espanol.lingolia.com/es/gramatica/verbos/indicativo-subjuntivo/ejercic
+ ios">https://espanol.lingolia.com/es/gramatica/verbos/indicativo-subjuntivo
+ /ejercicios</a></p>\n<p>Las comparaciones</p>\n<p><a href="http://www.bowdo
+ in.edu/hispanic-studies/tools/newgr/ats/36.htm">http://www.bowdoin.edu/hisp
+ anic-studies/tools/newgr/ats/36.htm</a></p>\n<p><a href="https://studyspani
+ sh.com/grammar/lessons/inequal">https://studyspanish.com/grammar/lessons/in
+ equal</a> y <a href="https://studyspanish.com/grammar/test/inequal">https:/
+ /studyspanish.com/grammar/test/inequal</a></p>\n<p><a href="https://studysp
+ anish.com/grammar/lessons/equal">https://studyspanish.com/grammar/lessons/e
+ qual</a> y <a href="https://studyspanish.com/grammar/test/equal">https://st
+ udyspanish.com/grammar/test/equal</a></p>\n<p> </p>\n<p> </p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Research Presentations\n\nReminder: Presentations should be 10 
+ minutes long and be accompanied by some visual(s) pertinent to your topic (
+ PPT optional). Consider this as an outline:\n\n1. Historical Context & Thes
+ is\n\n2. Major evidence for your thesis and surprises along the way\n\n3. T
+ ies to other presentations if relevant\n\n4. Q&A\n\nNOTE: Presentations do 
+ not cover all of your research nor even all of your paper\, do not read to 
+ the class unless a primary source quote is essential to make your point\, a
+ nd you will be held to a time limit for the sake of your classmates' who al
+ so need time to present.\n\nClassmates: take some notes to reference for yo
+ ur synthesis assignment to come!
+DTEND:20171206T195900Z
+DTSTAMP:20171206T212900Z
+DTSTART:20171206T195900Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Research Presentations: Anjali\, Luca\, Chris\, Shiley [HIST301 US 
+ History Section 4 Period 5]
+UID:event-assignment-21970
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_103
+ 6&month=12&year=2017#assignment_21970
+X-ALT-DESC;FMTTYPE=text/html:<p>Research Presentations</p>\n<p>Reminder: Pr
+ esentations should be 10 minutes long and be accompanied by some visual(s) 
+ pertinent to your topic (PPT <em>optional</em>). Consider this as an outlin
+ e:</p>\n<p>1. Historical Context &amp\; Thesis</p>\n<p>2. Major evidence fo
+ r your thesis and surprises along the way</p>\n<p>3. Ties to other presenta
+ tions if relevant</p>\n<p>4. Q&amp\;A</p>\n<p>NOTE: Presentations do <span 
+ style="text-decoration: underline\;">not</span> cover all of your research 
+ nor even all of your paper\, do <span style="text-decoration: underline\;">
+ not</span> read to the class unless a primary source quote is essential to 
+ make your point\, and you will be held to a time limit for the sake of your
+  classmates' who also need time to present.</p>\n<p><strong>Classmates</str
+ ong>: take some notes to reference for your synthesis assignment to come!</
+ p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:[https://www.khanacademy.org/science/organic-chemistry/stereoch
+ emistry-topic/chirality-r-s-system/v/introduction-to-chirality (Links to an
+  external site.)Links to an external site.](https://www.khanacademy.org/sci
+ ence/organic-chemistry/stereochemistry-topic/chirality-r-s-system/v/introdu
+ ction-to-chirality)\n\n \n\n[https://www.khanacademy.org/science/organic-ch
+ emistry/stereochemistry-topic/optical-activity/v/cahn-ingold-prelog-system-
+ for-naming-enantiomers (Links to an external site.)Links to an external sit
+ e.](https://www.khanacademy.org/science/organic-chemistry/stereochemistry-t
+ opic/optical-activity/v/cahn-ingold-prelog-system-for-naming-enantiomers)\n
+ \n \n\n[https://www.khanacademy.org/science/organic-chemistry/stereochemist
+ ry-topic/optical-activity/v/rs-system-new (Links to an external site.)Links
+  to an external site.](https://www.khanacademy.org/science/organic-chemistr
+ y/stereochemistry-topic/optical-activity/v/rs-system-new)\n\n 
+DTEND:20171207T000000Z
+DTSTAMP:20171204T220400Z
+DTSTART:20171207T000000Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Stereochemistry-Intro (CHEM230 Bioorganic Chemistry Section 2 Perio
+ d 8 (SM 103)) [CHEM230 Bioorganic Chemistry Section 2 Period 8]
+UID:event-assignment-override-2493
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_102
+ 5&month=12&year=2017#assignment_22308
+X-ALT-DESC;FMTTYPE=text/html:<p><a class="external" href="https://www.khana
+ cademy.org/science/organic-chemistry/stereochemistry-topic/chirality-r-s-sy
+ stem/v/introduction-to-chirality" target="_blank"><span>https://www.khanaca
+ demy.org/science/organic-chemistry/stereochemistry-topic/chirality-r-s-syst
+ em/v/introduction-to-chirality<span class="screenreader-only"> (Links to an
+  external site.)</span></span><span class="ui-icon ui-icon-extlink ui-icon-
+ inline" title="Links to an external site."><span class="screenreader-only">
+ Links to an external site.</span></span></a></p>\n<p> </p>\n<p><a class="ex
+ ternal" href="https://www.khanacademy.org/science/organic-chemistry/stereoc
+ hemistry-topic/optical-activity/v/cahn-ingold-prelog-system-for-naming-enan
+ tiomers" target="_blank"><span>https://www.khanacademy.org/science/organic-
+ chemistry/stereochemistry-topic/optical-activity/v/cahn-ingold-prelog-syste
+ m-for-naming-enantiomers<span class="screenreader-only"> (Links to an exter
+ nal site.)</span></span><span class="ui-icon ui-icon-extlink ui-icon-inline
+ " title="Links to an external site."><span class="screenreader-only">Links 
+ to an external site.</span></span></a></p>\n<p> </p>\n<p><a class="external
+ " href="https://www.khanacademy.org/science/organic-chemistry/stereochemist
+ ry-topic/optical-activity/v/rs-system-new" target="_blank"><span>https://ww
+ w.khanacademy.org/science/organic-chemistry/stereochemistry-topic/optical-a
+ ctivity/v/rs-system-new<span class="screenreader-only"> (Links to an extern
+ al site.)</span></span><span class="ui-icon ui-icon-extlink ui-icon-inline"
+  title="Links to an external site."><span class="screenreader-only">Links t
+ o an external site.</span></span></a></p>\n<p> </p>
+END:VEVENT
+BEGIN:VEVENT
+DTEND:20171207T163500Z
+DTSTAMP:20171127T194400Z
+DTSTART:20171207T163500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Read Chapters 8 and 9 in Gatsby [ENG301 English 11 Section 2 Period
+  3]
+UID:event-assignment-21919
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_109
+ 5&month=12&year=2017#assignment_21919
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:This is the final project for this semester.  You are to derive
+  Kepler's Laws of motion for planetary orbits using only Newton's Laws of m
+ otion.  Please complete the derivation as clearly and articulately as you c
+ an.  \n\n[Kepler's Laws Project v5.pdf](https://nuevaschool.instructure.com
+ /courses/1204/files/121605/download?wrap=1)\n\n \n\n[](https://nuevaschool.
+ instructure.com/courses/1204/files/97279/download?wrap=1)
+DTEND:20171207T190000Z
+DTSTAMP:20171221T001700Z
+DTSTART:20171207T190000Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Assignment #13 - Kepler's Laws Derivation (MVC - Period 2) [MATH 52
+ 0]
+UID:event-assignment-override-2429
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_120
+ 4&month=12&year=2017#assignment_17781
+X-ALT-DESC;FMTTYPE=text/html:<p>This is the final project for this semester
+ .  You are to derive Kepler's Laws of motion for planetary orbits using onl
+ y Newton's Laws of motion.  Please complete the derivation as clearly and a
+ rticulately as you can.  </p>\n<p><a class="instructure_file_link instructu
+ re_scribd_file" title="Kepler's Laws Project v5.pdf" href="https://nuevasch
+ ool.instructure.com/courses/1204/files/121605/download?wrap=1" data-api-end
+ point="https://nuevaschool.instructure.com/api/v1/courses/1204/files/121605
+ " data-api-returntype="File">Kepler's Laws Project v5.pdf</a></p>\n<p> </p>
+ \n<p><a id="" class="instructure_file_link instructure_scribd_file " title=
+ "Kepler's Laws Project-partial-v1.pdf" href="https://nuevaschool.instructur
+ e.com/courses/1204/files/97279/download?wrap=1" target="" data-api-endpoint
+ ="https://nuevaschool.instructure.com/api/v1/courses/1204/files/97279" data
+ -api-returntype="File"></a></p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:There will be three stations tomorrow:\n\n- station 1: Problem 
+ set on Circular Motion\n\n- station 2: Problem set on Conservation of Energ
+ y\n\n- station 3: Problem set on Center of Mass\n\nThen you will be all set
+  for the first test the next day ( Circular Motion + Conservation of Energy
+ )\n\n 
+DTEND:20171207T211500Z
+DTSTAMP:20171207T014300Z
+DTSTART:20171207T211500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Practice before the Test [PHYS260 Advanced Mechanics Section 1 Peri
+ od 7]
+UID:event-assignment-22412
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_107
+ 6&month=12&year=2017#assignment_22412
+X-ALT-DESC;FMTTYPE=text/html:<p>There will be three stations tomorrow:</p>\
+ n<p>- station 1: Problem set on Circular Motion</p>\n<p>- station 2: Proble
+ m set on Conservation of Energy</p>\n<p>- station 3: <span>Problem set on <
+ /span>Center of Mass</p>\n<p>Then you will be all set for the first test th
+ e next day ( <span>Circular Motion + Conservation of Energy)</span></p>\n<p
+ > </p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:in-class test on Circular Motion & Conservation of energy (roun
+ d #1)\n\n 
+DTEND:20171208T222500Z
+DTSTAMP:20171207T014500Z
+DTSTART:20171208T222500Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Test: Circular Motion & Conservation of nrj [PHYS260 Advanced Mecha
+ nics Section 1 Period 7]
+UID:event-assignment-22413
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_107
+ 6&month=12&year=2017#assignment_22413
+X-ALT-DESC;FMTTYPE=text/html:<p>in-class test on Circular Motion &amp\; Con
+ servation of energy (round #1)</p>\n<p> </p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Research Presentations *(Jenna if time\, otherwise Monday\, tha
+ nks for being flexible!)\n\nReminder: Presentations should be 10 minutes lo
+ ng and be accompanied by some visual(s) pertinent to your topic (PPT option
+ al). Consider this as an outline:\n\n1. Historical Context & Thesis\n\n2. M
+ ajor evidence for your thesis and surprises along the way\n\n3. Ties to oth
+ er presentations if relevant\n\n4. Q&A\n\nNOTE: Presentations do not cover 
+ all of your research nor even all of your paper\, do not read to the class 
+ unless a primary source quote is essential to make your point\, and you wil
+ l be held to a time limit for the sake of your classmates' who also need ti
+ me to present.\n\nClassmates: take some notes to reference for your synthes
+ is assignment to come!
+DTEND;VALUE=DATE:20171208
+DTSTAMP:20171208T191900Z
+DTSTART;VALUE=DATE:20171208
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Research Presentations: Arun\, Libby\, Kolby\, Eric\, Jenna* [HIST3
+ 01 US History Section 4 Period 5]
+UID:event-assignment-21971
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_103
+ 6&month=12&year=2017#assignment_21971
+X-ALT-DESC;FMTTYPE=text/html:<p>Research Presentations *(Jenna if time\, ot
+ herwise Monday\, thanks for being flexible!)</p>\n<p>Reminder: Presentation
+ s should be 10 minutes long and be accompanied by some visual(s) pertinent 
+ to your topic (PPT <em>optional</em>). Consider this as an outline:</p>\n<p
+ >1. Historical Context &amp\; Thesis</p>\n<p>2. Major evidence for your the
+ sis and surprises along the way</p>\n<p>3. Ties to other presentations if r
+ elevant</p>\n<p>4. Q&amp\;A</p>\n<p>NOTE: Presentations do <span>not</span>
+  cover all of your research nor even all of your paper\, do <span>not</span
+ > read to the class unless a primary source quote is essential to make your
+  point\, and you will be held to a time limit for the sake of your classmat
+ es' who also need time to present.</p>\n<p><strong>Classmates</strong>: tak
+ e some notes to reference for your synthesis assignment to come!</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:¡Hola\, alumnos!\n\nLa tarea para lunes once de diciembre es:\n
+ \n1. Revisa mis comentarios y sugerencias en tu diario\, identifica errores
+  comunes\, y reflexiona sobre cómo puedes editar tu trabajo. (10 minutos)\n
+ \n2. En tu diario\, escribe las siguientes frases en inglés y tradúcelas.  
+ Intenta hacer esto individualmente y sin usar otros recursos o referencias 
+ gramaticales. (15 minutos)\n\na. He is very cold.\n\nb. I’m sorry you are c
+ old.\n\nc. No one else is cold.\n\nd. It’s impossible that he is cold.\n\ne
+ . It’s true that he is cold.\n\nf. There isn’t anyone else that is cold.\n\
+ ng. Tell him to put a jacket on.\n\nh. Take my jacket so that you aren’t co
+ ld.\n\n3. Termina la evaluación de curso\, y compártela conmigo por Google 
+ forms.  (Es anónima.) (15 min)
+DTEND:20171211T160000Z
+DTSTAMP:20171211T060000Z
+DTSTART:20171211T160000Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Tarea veinticinco semestre uno: Traducciones del subjuntivo\; revis
+ a errores\; evaluación del curso [SPAN401 Spanish 4 Section 1 Period 1]
+UID:event-assignment-22452
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_113
+ 3&month=12&year=2017#assignment_22452
+X-ALT-DESC;FMTTYPE=text/html:<p><span style="font-weight: 400\;">¡Hola\, al
+ umnos!</span></p>\n<p><span style="font-weight: 400\;">La tarea para lunes 
+ once de diciembre es:</span></p>\n<p><span style="font-weight: 400\;">1. Re
+ visa mis comentarios y sugerencias en tu diario\, identifica errores comune
+ s\, y <strong>reflexiona</strong> sobre cómo puedes editar tu trabajo. (10 
+ minutos)<br></span></p>\n<p><span style="font-weight: 400\;">2. En tu <span
+  style="background-color: #ffff00\;"><strong>diario\,</strong></span> escri
+ be las siguientes frases en inglés y tradúcelas.  Intenta hacer esto indivi
+ dualmente y sin usar otros recursos o referencias gramaticales. (15 minutos
+ )<br></span></p>\n<p><span style="font-weight: 400\;">a. He is very cold.</
+ span></p>\n<p><span style="font-weight: 400\;">b. I’m sorry you are cold.</
+ span></p>\n<p><span style="font-weight: 400\;">c. No one else is cold.</spa
+ n></p>\n<p><span style="font-weight: 400\;">d. It’s impossible that he is c
+ old.</span></p>\n<p><span style="font-weight: 400\;">e. It’s true that he i
+ s cold.</span></p>\n<p><span style="font-weight: 400\;">f. There isn’t anyo
+ ne else that is cold. </span></p>\n<p><span style="font-weight: 400\;">g. T
+ ell him to put a jacket on.</span></p>\n<p><span style="font-weight: 400\;"
+ >h. Take my jacket so that you aren’t cold.<br><br></span></p>\n<p><span st
+ yle="font-weight: 400\;">3. Termina la evaluación de curso\, y compártela c
+ onmigo por Google forms.  (Es anónima.) (15 min)</span></p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Instructions:\n\nNow that you've become an expert in your topic
+  and heard the presentations from your classmates what new level of underst
+ anding have you reached about the 19th Century of US History?\n\nLinking yo
+ ur own project to classmate(s)\, how has the breadth or depth of the studen
+ t research expanded or deepened you knowledge and understanding of your own
+  topic? If you don’t have similar projects to link to directly\, you might 
+ think of one or two that could be linked to the same course theme as your o
+ wn\, and synthesize them thematically. \n\n1-2 paragraphs\; authenticity is
+  more valuable than length on this assignment but you do want to mention th
+ e specific presentations and specific ways they deepen your understanding.
+DTEND;VALUE=DATE:20171211
+DTSTAMP:20171216T061900Z
+DTSTART;VALUE=DATE:20171211
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Synthesis Assignment\; In class [HIST301 US History Section 4 Perio
+ d 5]
+UID:event-assignment-22490
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_103
+ 6&month=12&year=2017#assignment_22490
+X-ALT-DESC;FMTTYPE=text/html:<p>Instructions:</p>\n<p><span>Now that you've
+  become an expert in your topic and heard the presentations from your class
+ mates what new level of understanding have you reached about the 19th Centu
+ ry of US History? </span></p>\n<p><span>Linking your own project to classma
+ te(s)\, how has the breadth or depth of the student research expanded or de
+ epened you knowledge and understanding of your own topic? If you don’t have
+  similar projects to link to directly\, you might think of one or two that 
+ could be linked to the same course theme as your own\, and synthesize them 
+ thematically. </span><br><br><span>1-2 paragraphs\; authenticity is more va
+ luable than length on this assignment but you do want to mention the specif
+ ic presentations and specific ways they deepen your understanding.</span></
+ p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:in-class test on Circular Motion & Conservation of energy (roun
+ d #2 if you want to try again).\n\nOtherwise\, more Center of Mass problems
+  \;-)\n\n \n\n 
+DTEND:20171212T204000Z
+DTSTAMP:20171207T014600Z
+DTSTART:20171212T204000Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Test\, again... [PHYS260 Advanced Mechanics Section 1 Period 7]
+UID:event-assignment-22414
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_107
+ 6&month=12&year=2017#assignment_22414
+X-ALT-DESC;FMTTYPE=text/html:<p><span>in-class test on </span><span>Circula
+ r Motion &amp\; Conservation of energy (round #2 if you want to try again).
+ </span></p>\n<p><span>Otherwise\, more Center of Mass problems \;-)</span><
+ /p>\n<p> </p>\n<p> </p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Dear students\, \n\nFor your final project of the semester\, yo
+ u will be writing a ~4 - 5 page literature review (excluding figures/tables
+  and a references section) that focuses on a question/topic/problem of your
+  choosing. This could be a topic that we have not yet discussed at length i
+ n class (e.g.\, climate change\, plate tectonics\, ocean circulation) or a 
+ deep dive into one that we have already covered (e.g.\, a closer look at on
+ e step in the nitrogen cycle\, eutrophication and the formation of dead zon
+ es). Whatever topic/question you decide to write about\, it is important th
+ at you focus on the basic science aspect\, as opposed to the human impacts/
+ influence angle. We will be spending most of the spring semester investigat
+ ing the human side of EES so this literature review should be rooted in the
+  underlying\, background geology/chemistry/earth sciences. \n\nYour literat
+ ure review should contain the following components:\n\n* A succinct\, but s
+ pecific\, title\n\n* A short (no more than 3 sentences) abstract that summa
+ rizes the contents of your literature review\n\n* An introduction (no more 
+ than a few paragraphs) that lays out the necessary level of background/cont
+ ext for the reader to understand the relevance/importance of the question/t
+ opic\n\n* A methods section in which you compare and contrast the various t
+ echniques/instruments/methodologies used by different authors to conduct th
+ eir studies and collect data\n\n* A results/data analysis section in which 
+ you critically evaluate and compare the authors' various findings and descr
+ ibe any shortcomings/gaps in the current data set related to your topic/que
+ stion (this section should include some basic data analysis/statistics and 
+ at least one graph/table that you have created)\n\n* A further study/conclu
+ sion section in which you outline the main takeaways from your literature r
+ eview and describe the next steps for further work/study on this topic/ques
+ tion\n\n* And an APA-formatted references section. \n\nFor this review\, yo
+ u should principally rely on either primary sources/original research (at l
+ east 5) or secondary sources (e.g.\, review articles). Other sources that y
+ ou can use\, but to a lesser extent\, include:\n\n* Conference proceedings/
+ abstracts\n\n* Dissertations/theses\n\n* Government/non-profit organization
+  reports\n\n* Books\n\nYou will be assessed on the following outcomes\, for
+  which the highest potential levels of demonstrated mastery are indicated i
+ n parentheses:\n\n* Big Ideas (Exemplary)\n\n* Supporting Content (Exemplar
+ y)\n\n* Gather and Analyze Original Research (Exemplary)\n\n* Build and App
+ ly Models (Exemplary)\n\n* Design and Carry Out Investigations (Exemplary)\
+ n\n* Effective Communication (Exemplary)\n\n* Learning as Skill (Exemplary)
+ \n\nCheers\,\n\nJeremy
+DTEND;VALUE=DATE:20171213
+DTSTAMP:20171219T075700Z
+DTSTART;VALUE=DATE:20171213
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Final Literature Review [ENV110 Environmental Earth Science Section
+  1 Period 4]
+UID:event-assignment-22074
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_112
+ 5&month=12&year=2017#assignment_22074
+X-ALT-DESC;FMTTYPE=text/html:<p>Dear students\, </p>\n<p>For your final pro
+ ject of the semester\, you will be writing a ~4 - 5 page literature review 
+ (excluding figures/tables and a references section) that focuses on a quest
+ ion/topic/problem of your choosing. This could be a topic that we have not 
+ yet discussed at length in class (e.g.\, climate change\, plate tectonics\,
+  ocean circulation) or a deep dive into one that we have already covered (e
+ .g.\, a closer look at one step in the nitrogen cycle\, eutrophication and 
+ the formation of dead zones). Whatever topic/question you decide to write a
+ bout\, it is important that you focus on the basic science aspect\, as oppo
+ sed to the human impacts/influence angle. We will be spending most of the s
+ pring semester investigating the human side of EES so this literature revie
+ w should be rooted in the underlying\, background geology/chemistry/earth s
+ ciences. </p>\n<p>Your literature review should contain the following compo
+ nents:</p>\n<ul>\n<li>A succinct\, but <em>specific</em>\, <strong>title</s
+ trong>\n</li>\n<li>A short (no more than 3 sentences) <strong>abstract</str
+ ong> that summarizes the contents of your literature review</li>\n<li>An <s
+ trong>introduction</strong> (no more than a few paragraphs) that lays out t
+ he necessary level of background/context for the reader to understand the r
+ elevance/importance of the question/topic</li>\n<li>A <strong>methods secti
+ on</strong> in which you compare and contrast the various techniques/instru
+ ments/methodologies used by different authors to conduct their studies and 
+ collect data</li>\n<li>A <strong>results/data analysis section</strong> in 
+ which you critically evaluate and compare the authors' various findings and
+  describe any shortcomings/gaps in the current data set related to your top
+ ic/question (this section should include some basic data analysis/statistic
+ s and at least one graph/table that you have created)</li>\n<li>A <strong>f
+ urther study/conclusion section</strong> in which you outline the main take
+ aways from your literature review and describe the next steps for further w
+ ork/study on this topic/question</li>\n<li>And an APA-formatted <strong>ref
+ erences section</strong>. </li>\n</ul>\n<p>For this review\, you should pri
+ ncipally rely on either primary sources/original research (<em>at least <st
+ rong>5</strong></em>) or secondary sources (e.g.\, review articles). Other 
+ sources that you can use\, but to a lesser extent\, include:</p>\n<ul>\n<li
+ >Conference proceedings/abstracts</li>\n<li>Dissertations/theses</li>\n<li>
+ Government/non-profit organization reports</li>\n<li>Books</li>\n</ul>\n<p>
+ You will be assessed on the following outcomes\, for which the highest pote
+ ntial levels of demonstrated mastery are indicated in parentheses:</p>\n<ul
+ >\n<li>Big Ideas (Exemplary)</li>\n<li>Supporting Content (Exemplary)</li>\
+ n<li>Gather and Analyze Original Research (Exemplary)</li>\n<li>Build and A
+ pply Models (Exemplary)</li>\n<li>Design and Carry Out Investigations (Exem
+ plary)</li>\n<li>Effective Communication (Exemplary)</li>\n<li>Learning as 
+ Skill (Exemplary)</li>\n</ul>\n<p>Cheers\,</p>\n<p>Jeremy</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:¡Hola\, alumnos!\n\nLa última tarea del semestre es:\n\n1. Term
+ ina la autoevaluación del curso.  La fecha límite es hoy\, el 13 de diciemb
+ re.\n\n2. Termina de editar y reescribir tu trabajo escrito (sobre la felic
+ idad)\, basado en mis comentarios.  Entrega el trabajo a) en tu diario\, co
+ n un título muy claro\, b) por Google drive o\, c) en papel.
+DTEND:20171214T210000Z
+DTSTAMP:20171214T204400Z
+DTSTART:20171214T210000Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Tarea veintiséis: Termina la autoevaluación y el trabajo escrito (e
+ ditado) [SPAN401 Spanish 4 Section 1 Period 1]
+UID:event-assignment-22571
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_113
+ 3&month=12&year=2017#assignment_22571
+X-ALT-DESC;FMTTYPE=text/html:<p>¡Hola\, alumnos!</p>\n<p>La última tarea de
+ l semestre es:</p>\n<p><strong>1. </strong>Termina la autoevaluación del cu
+ rso.  La fecha límite es <strong>hoy</strong>\, el <strong>13 de diciembre<
+ /strong>.</p>\n<p><strong>2. </strong>Termina de editar y reescribir tu tra
+ bajo escrito (sobre la felicidad)\, basado en mis comentarios.  Entrega el 
+ trabajo a) en tu diario\, con un título muy claro\, b) por Google drive o\,
+  c) en papel.</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Nomenclature of alkanes and alkenes: naming a structure and dra
+ wing a structure from a name\n\nhttp://www.sciencegeek.net/APchemistry/APta
+ ters/alkanes.htm\n\n- structural isomers and geometrical isomers\n\n- rate 
+ of a reaction  (as problem set done in class)\, factors that influence rate
+  of a reaction\n\n- nucleophile-electrophile\, curved arrow. Know how to ra
+ nk nucleophiles using pKa.\n\n- nucleophilic substitution 1 and 2: nature o
+ f halide\, solvent effect on rate of reaction\, deduce products\n\n- electr
+ ophilic addition: Markovnikov rules\, reaction mechanism\n\n- stoichiometry
+ \n\n- intermolecular forces\; TLC\n\n- Lewis structures\; bonding covalent 
+ and ionic\; geometry\n\n- stereochemistry
+DTEND;VALUE=DATE:20171214
+DTSTAMP:20171215T183300Z
+DTSTART;VALUE=DATE:20171214
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Final Bio-Org (CHEM230 Bioorganic Chemistry Section 2 Period 8 (SM 
+ 103)) [CHEM230 Bioorganic Chemistry Section 2 Period 8]
+UID:event-assignment-override-2423
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_102
+ 5&month=12&year=2017#assignment_21773
+X-ALT-DESC;FMTTYPE=text/html:<p>Nomenclature of alkanes and alkenes: naming
+  a structure and drawing a structure from a name</p>\n<p>http://www.science
+ geek.net/APchemistry/APtaters/alkanes.htm</p>\n<p>- structural isomers and 
+ geometrical isomers</p>\n<p>- rate of a reaction  (as problem set done in c
+ lass)\, factors that influence rate of a reaction</p>\n<p>- nucleophile-ele
+ ctrophile\, curved arrow. Know how to rank nucleophiles using pKa.</p>\n<p>
+ - nucleophilic substitution 1 and 2: nature of halide\, solvent effect on r
+ ate of reaction\, deduce products</p>\n<p>- electrophilic addition: Markovn
+ ikov rules\, reaction mechanism</p>\n<p>- stoichiometry</p>\n<p>- intermole
+ cular forces\; TLC</p>\n<p>- Lewis structures\; bonding covalent and ionic\
+ ; geometry</p>\n<p>- stereochemistry</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:The Great Gatsby Essay Assignment\, Fall 2017\n\nDue: Friday\, 
+ Dec. 15th at 4 pm\n\n \n\nYour task is to write a three to four page\, doub
+ le-spaced\, evidence-based argument essay on The Great Gatsby.\n\n \n\nCons
+ ider the basic formula “Fitzgerald uses x to do y\,” where x=a literary dev
+ ice (motif\, contrast between characters\, imagery\, dialogue\, plot line\,
+  etc.) and y=a theme or effect (to indicate the poisonous effects of wealth
+  on moral character\, to contrast the ideal of the American Dream with the 
+ reality of life in the 1920s). Use this formula as a guide to develop your 
+ own argument about the novel\, or use it to explore one of the prompts belo
+ w:\n\n \n\n* Choose a scene from The Great Gatsby and make an argument abou
+ t its significance to the novel’s characterization and themes.\n\n \n\n* Wh
+ at significance does Daisy hold for Gatsby throughout the novel\, and how d
+ oes Fitzgerald use this relationship to explore theme?\n\n \n\n* What is th
+ e role of parties in the novel\, and how do they contribute to Fitzgerald’s
+  theme?\n\n* How is class represented in the novel\, and which issues does 
+ Fitzgerald explore surrounding social mobility?\n\n \n\n* Compare and contr
+ ast two symbols or settings\, such as Gatsby’s house and the Valley of Ashe
+ s or the billboard of T.J. Eckleburg and the green light. How do these func
+ tion in the novel?\n\n \n\n* How does Nick’s identity shape his narration o
+ f events?  \n\n* Explore the failure of two characters—Nick\, Gatsby\, Tom\
+ , Daisy\, Myrtle\, Mr Wilson—to achieve his or her dreams. How do these fai
+ lures convey Fitzgerald’s themes?\n\n \n\n* “I see this has been a story of
+  the West\, after all”. How does this novel explore notions surrounding the
+  American dream- geography\, success\, identity\, etc?\n\n \n\n* Choose you
+ r own adventure! Create your own prompt and run it by your teacher before y
+ ou begin.\n\nRequirements\n\n* Write a 3 to 4 page essay\, double-spaced wi
+ th 1-inch margins\n\n* Include a double-spaced header with your name\, sect
+ ion\, date\, and teacher’s name\, plus a title (centered in the middle of t
+ he page)\n\n* Cite the novel (and any other sources used) in the body of yo
+ ur essay according to MLA citation format\, and include a works cited entry
+ .\n\n* Submit by providing a Google Doc (with editing privileges for me)\, 
+ a URL\, or a Word doc.\n\n \n\nSchedule\n\nPrewriting Due\n\nSuggested Draf
+ t Due\n\nFinal Essay Due\n\nMon. 12/11\, Tues. 12/12\n\nWed\, Dec. 13\, Thu
+ . 14\n\nFriday\, Dec. 15
+DTEND:20171216T000000Z
+DTSTAMP:20171217T070200Z
+DTSTART:20171216T000000Z
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:The Great Gatsby 3-4 Page Essay [ENG301 English 11 Section 2 Period
+  3]
+UID:event-assignment-22010
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_109
+ 5&month=12&year=2017#assignment_22010
+X-ALT-DESC;FMTTYPE=text/html:<p><strong><i>The Great Gatsby</i></strong><st
+ rong> Essay Assignment\, Fall 2017</strong></p>\n<p><strong>Due: Friday\, D
+ ec. 15th at 4 pm</strong></p>\n<p> </p>\n<p><span style="font-weight: 400\;
+ ">Your task is to write a three to four page\, double-spaced\, evidence-bas
+ ed argument essay on </span><i><span style="font-weight: 400\;">The Great G
+ atsby</span></i><span style="font-weight: 400\;">. </span></p>\n<p> </p>\n<
+ p><span style="font-weight: 400\;">Consider the basic formula “Fitzgerald u
+ ses x to do y\,” where x=a literary device (motif\, contrast between charac
+ ters\, imagery\, dialogue\, plot line\, etc.) and y=a theme or effect (to i
+ ndicate the poisonous effects of wealth on moral character\, to contrast th
+ e ideal of the American Dream with the reality of life in the 1920s). Use t
+ his formula as a guide to develop your own argument about the novel\, or us
+ e it to explore one of the prompts below:</span></p>\n<p> </p>\n<ul>\n<li s
+ tyle="font-weight: 400\;">\n<span style="font-weight: 400\;">Choose a scene
+  from </span><i><span style="font-weight: 400\;">The Great Gatsby</span></i
+ ><span style="font-weight: 400\;"> and make an argument about its significa
+ nce to the novel’s characterization and themes.</span>\n</li>\n</ul>\n<p> <
+ /p>\n<ul>\n<li style="font-weight: 400\;"><span style="font-weight: 400\;">
+ What significance does Daisy hold for Gatsby throughout the novel\, and how
+  does Fitzgerald use this relationship to explore theme?</span></li>\n</ul>
+ \n<p> </p>\n<ul>\n<li style="font-weight: 400\;"><span style="font-weight: 
+ 400\;">What is the role of parties in the novel\, and how do they contribut
+ e to Fitzgerald’s theme?</span></li>\n</ul>\n<ul>\n<li style="font-weight: 
+ 400\;"><span style="font-weight: 400\;">How is class represented in the nov
+ el\, and which issues does Fitzgerald explore surrounding social mobility? 
+ </span></li>\n</ul>\n<p> </p>\n<ul>\n<li style="font-weight: 400\;"><span s
+ tyle="font-weight: 400\;">Compare and contrast two symbols or settings\, su
+ ch as Gatsby’s house and the Valley of Ashes or the billboard of T.J. Eckle
+ burg and the green light. How do these function in the novel?</span></li>\n
+ </ul>\n<p> </p>\n<ul>\n<li style="font-weight: 400\;"><span style="font-wei
+ ght: 400\;">How does Nick’s identity shape his narration of events?  </span
+ ></li>\n<li style="font-weight: 400\;"><span style="font-weight: 400\;">Exp
+ lore the failure of two characters—Nick\, Gatsby\, Tom\, Daisy\, Myrtle\, M
+ r Wilson—to achieve his or her dreams. How do these failures convey Fitzger
+ ald’s themes? </span></li>\n</ul>\n<p> </p>\n<ul>\n<li style="font-weight: 
+ 400\;"><span style="font-weight: 400\;">“I see this has been a story of the
+  West\, after all”. How does this novel explore notions surrounding the Ame
+ rican dream- geography\, success\, identity\, etc?</span></li>\n</ul>\n<p> 
+ </p>\n<ul>\n<li style="font-weight: 400\;"><span style="font-weight: 400\;"
+ >Choose your own adventure! Create your own prompt and run it by your teach
+ er before you begin. </span></li>\n</ul>\n<p><span style="font-weight: 400\
+ ;"><br></span><strong>Requirements</strong></p>\n<ul>\n<li style="font-weig
+ ht: 400\;"><span style="font-weight: 400\;">Write a 3 to 4 page essay\, dou
+ ble-spaced with 1-inch margins</span></li>\n<li style="font-weight: 400\;">
+ <span style="font-weight: 400\;">Include a double-spaced header with your n
+ ame\, section\, date\, and teacher’s name\, plus a title (centered in the m
+ iddle of the page)</span></li>\n<li style="font-weight: 400\;"><span style=
+ "font-weight: 400\;">Cite the novel (and any other sources used) in the bod
+ y of your essay according to MLA citation format\, and include a works cite
+ d entry.</span></li>\n<li style="font-weight: 400\;"><span style="font-weig
+ ht: 400\;">Submit by providing a Google Doc (with editing privileges for me
+ )\, a URL\, or a Word doc.</span></li>\n</ul>\n<p> </p>\n<p><strong>Schedul
+ e</strong></p>\n<table>\n<tbody>\n<tr>\n<td>\n<p><strong>Prewriting Due</st
+ rong></p>\n</td>\n<td>\n<p><strong>Suggested Draft Due</strong></p>\n</td>\
+ n<td>\n<p><strong>Final Essay Due</strong></p>\n</td>\n</tr>\n<tr>\n<td>\n<
+ p><span style="font-weight: 400\;">Mon. 12/11\, Tues. 12/12</span></p>\n</t
+ d>\n<td>\n<p><span style="font-weight: 400\;">Wed\, Dec. 13\, Thu. 14</span
+ ></p>\n</td>\n<td>\n<p><span style="font-weight: 400\;">Friday\, Dec. 15</s
+ pan></p>\n</td>\n</tr>\n</tbody>\n</table>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:This assignment is a place for you to submit any corrections th
+ at you have made to the Vector Sheet Level #2.
+DTEND;VALUE=DATE:20171215
+DTSTAMP:20171221T235800Z
+DTSTART;VALUE=DATE:20171215
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Corrections to Vector Sheet Level 2 [MATH 520]
+UID:event-assignment-22560
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_120
+ 4&month=12&year=2017#assignment_22560
+X-ALT-DESC;FMTTYPE=text/html:<p>This assignment is a place for you to submi
+ t any corrections that you have made to the Vector Sheet Level #2.</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Dear students\,\n\nPlease complete your self-evaluation for the
+  course via your Nueva homepage. These are the four questions that I would 
+ like you to answer:\n\n* Please describe a "high point" from this semester.
+ \n\n* How (if at all) has this course changed the way you see or interact w
+ ith the world?\n\n* How (if at all) has this course changed your understand
+ ing of environmental earth science and your ability to engage with ongoing 
+ research in the field?\n\n* In what specific ways can you improve as a stud
+ ent of science? What do you plan to do differently next semester?\n\nJeremy
+DTEND;VALUE=DATE:20171215
+DTSTAMP:20171212T191000Z
+DTSTART;VALUE=DATE:20171215
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:End-of-Semester Self-Evaluation [ENV110 Environmental Earth Science
+  Section 1 Period 4]
+UID:event-assignment-22551
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_112
+ 5&month=12&year=2017#assignment_22551
+X-ALT-DESC;FMTTYPE=text/html:<p>Dear students\,</p>\n<p>Please complete you
+ r self-evaluation for the course via your Nueva homepage. These are the fou
+ r questions that I would like you to answer:</p>\n<ul>\n<li>Please describe
+  a "high point" from this semester.</li>\n<li><span>How (if at all) has thi
+ s course changed the way you see or interact with the world?</span></li>\n<
+ li>How (if at all) has this course changed your understanding of environmen
+ tal earth science and your ability to engage with ongoing research in the f
+ ield?</li>\n<li>In what specific ways can you improve as a student of scien
+ ce? What do you plan to do differently next semester?</li>\n</ul>\n<div>Jer
+ emy</div>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:On the experiment you selected:\n\n \n\n-analyze the key points
+  of the procedure-  chemistry taking place during the work-up (see protocol
+ )\, new pieces of glassware used\, purpose for using these pieces of glassw
+ are.\n\n- Run a GC on starting material and product (controls) and your sam
+ ple. Explain the retention time for each based on structure.\n\n[https://ww
+ w.khanacademy.org/test-prep/mcat/chemical-processes/separations-purificatio
+ ns/v/gas-chromatography (Links to an external site.)Links to an external si
+ te.](https://www.khanacademy.org/test-prep/mcat/chemical-processes/separati
+ ons-purifications/v/gas-chromatography)\n\n- Run sodium iodide or silver ni
+ trate test - observations and chemical reactions behind tests
+DTEND;VALUE=DATE:20171216
+DTSTAMP:20171221T205100Z
+DTSTART;VALUE=DATE:20171216
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Lab Report- SN1 or SN2 (CHEM230 Bioorganic Chemistry Section 2 Peri
+ od 8 (SM 103)) [CHEM230 Bioorganic Chemistry Section 2 Period 8]
+UID:event-assignment-override-2466
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_102
+ 5&month=12&year=2017#assignment_21942
+X-ALT-DESC;FMTTYPE=text/html:<p>On the experiment you selected:</p>\n<p> </
+ p>\n<p>-analyze the key points of the procedure-  chemistry taking place du
+ ring the work-up (see protocol)\, new pieces of glassware used\, purpose fo
+ r using these pieces of glassware.</p>\n<p>- Run a GC on starting material 
+ and product (controls) and your sample. Explain the retention time for each
+  based on structure.</p>\n<p><a class="external" href="https://www.khanacad
+ emy.org/test-prep/mcat/chemical-processes/separations-purifications/v/gas-c
+ hromatography" target="_blank"><span>https://www.khanacademy.org/test-prep/
+ mcat/chemical-processes/separations-purifications/v/gas-chromatography<span
+  class="screenreader-only"> (Links to an external site.)</span></span><span
+  class="ui-icon ui-icon-extlink ui-icon-inline" title="Links to an external
+  site."><span class="screenreader-only">Links to an external site.</span></
+ span></a></p>\n<p>- Run sodium iodide or silver nitrate test - observations
+  and chemical reactions behind tests</p>
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Hello\,\n\nI will grade the tests tonight and tomorrow. I will 
+ also post a retake by the 9th hitting the same objectives which will be due
+  on Dec 17th. (Late work is fine).\n\nA take-home means the same exam condi
+ tions as if you were taking the test at school. 
+DTEND;VALUE=DATE:20171217
+DTSTAMP:20171221T180700Z
+DTSTART;VALUE=DATE:20171217
+CLASS:PUBLIC
+SEQUENCE:0
+SUMMARY:Retake Take home-unit 2 optional (CHEM230 Bioorganic Chemistry Sect
+ ion 2 Period 8 (SM 103)) [CHEM230 Bioorganic Chemistry Section 2 Period 8]
+UID:event-assignment-override-2514
+URL:http://nuevaschool.instructure.com/calendar?include_contexts=course_102
+ 5&month=12&year=2017#assignment_22433
+X-ALT-DESC;FMTTYPE=text/html:<p>Hello\,</p>\n<p>I will grade the tests toni
+ ght and tomorrow. I will also post a retake by the<span> </span>9th<span> <
+ /span>hitting the same objectives which will be due on Dec 17th. (Late work
+  is fine).</p>\n<p>A take-home means the same exam conditions as if you wer
+ e taking the test at school. </p>
+END:VEVENT
+END:VCALENDAR
