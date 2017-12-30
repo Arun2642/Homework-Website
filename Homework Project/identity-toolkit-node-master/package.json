@@ -1,32 +1,28 @@
 {
-  "name": "identity-toolkit-nodejs-sample",
+  "name": "homemwork-project",
   "version": "0.0.1",
-  "author": "Google Inc.",
-  "description": "Google Identity Toolkit sample app for Node.js",
+  "author": "Arun Johnson",
+  "description": "Homework server",
   "contributors": [
     {
-      "name": "Jin Liu"
+      "name": "Arun Johnson",
+      "name": "Tony Johnson",
+      "name": "Leo Ikle-Maizlish"
     }
   ],
   "main": "./example-app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/googlesamples/identity-toolkit-node.git"
+    "url": "https://github.com/Arun2642/Homework-Website"
   },
-  "keywords": [
-    "google",
-    "gitkit",
-    "identity",
-    "toolkit",
-    "sample",
-    "application",
-    "nodejs"
-  ],
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
-    "gitkitclient": "0.0.4"
+    "gitkitclient": "0.0.4",
+    "mongoose": "~3.6.13"
   },
-  "license": "Apache 2"
+  "license": "Apache 2", "scripts":{
+"start":"node example-app.js"}
+
 }

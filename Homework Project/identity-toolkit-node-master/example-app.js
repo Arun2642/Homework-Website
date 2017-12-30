@@ -18,9 +18,12 @@
  * An Express web app using Google Identity Toolkit service to login users.
  */
 
-var express = require('express'), app = module.exports = express();
+var express = require('express');
+var app = module.exports = express();
+
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -33,10 +36,9 @@ var GitkitClient = require('gitkitclient');
 var gitkitClient = new GitkitClient(JSON.parse(fs.readFileSync('./gitkit-server-config.json')));
 
 // allows one to access other files
-app.use(express.static('public'));
-
-app.use('/public', express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('Public'));
+app.use('/public', express.static(__dirname + '/Public'));
+app.use(express.static(__dirname + '/Public'));
 
 
 // index page
@@ -58,9 +60,6 @@ app.post('/sendemail', renderSendEmailPage);
 //Testing a post request
 app.post('/receive', receive);
 
-
-
-
 /*
 The below codes uses mongoose to create a database, and define schemas with which to
 input data into the database. 
@@ -68,8 +67,8 @@ input data into the database.
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/homework_database');
 
-var Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
  
 var StudentSchema = new Schema({
     userId:ObjectId,
@@ -82,12 +81,106 @@ var StudentSchema = new Schema({
 });
 
 var Student = mongoose.model('Student', StudentSchema);
-//var Arun = new Student({courses:["SPAN401", "CHEM230"], connectedSpreadsheet: false, spreadsheetUrl : "", assignments: []})
-//console.log(Arun.courses[0])
 
-Arun.save(function (err, Arun) {
-    if (err) return console.error(err);
-  });
+// ROUTES FOR OUR API
+// =============================================================================
+var router = express.Router();              // get an instance of the express Router
+
+// middleware to use for all requests
+router.use(function (req, res, next) {
+    // do logging
+    console.log('Something is happening.');
+    next(); // make sure we go to the next routes and don't stop here
+});
+
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.get('/', function (req, res) {
+    res.json({message: 'hooray! welcome to our api!'});
+});
+
+// more routes for our API will happen here
+
+// on routes that end in /students
+// ----------------------------------------------------
+router.route('/students')
+
+         // create a student (accessed at POST http://localhost:8080/api/students)
+        .post(function (req, res) {
+
+            var student = new Student();     // create a new instance of the Student model
+            student.name = req.body.name;    // set the students name (comes from the request)
+            student.email = req.body.email;
+
+            // save the student and check for errors
+            student.save(function (err) {
+                if (err)
+                    res.send(err);
+
+                res.json({message: 'Student created!', studentId: student._id});
+            });
+
+        })
+
+        // get all the students (accessed at GET http://localhost:8080/api/students)
+        .get(function (req, res) {
+            Student.find(function (err, students) {
+                if (err)
+                    res.send(err);
+
+                res.json(students);
+            });
+        });
+
+router.route('/students/:student_id')
+
+        // get the student with that id (accessed at GET http://localhost:8080/api/students/:student_id)
+        .get(function (req, res) {
+            Student.findById(req.params.student_id, function (err, student) {
+                if (err)
+                    res.send(err);
+                res.json(student);
+            });
+        })
+
+        // update the student with this id (accessed at PUT http://localhost:8080/api/bears/:student_id)
+        .put(function (req, res) {
+
+            // use our bear model to find the bear we want
+            Student.findById(req.params.student_id, function (err, student) {
+
+                if (err)
+                    res.send(err);
+
+                if (req.body.spreadsheetURL)
+                    student.name = req.body.spreadsheetURL;  // update the students info
+
+                // save the bear
+                student.save(function (err) {
+                    if (err)
+                        res.send(err);
+
+                    res.json({message: 'Student updated!'});
+                });
+
+            });
+        })
+
+        // delete the bear with this id (accessed at DELETE http://localhost:8080/api/bears/:bear_id)
+        .delete(function (req, res) {
+            Student.remove({
+                _id: req.params.student_id
+            }, function (err, student) {
+                if (err)
+                    res.send(err);
+
+                res.json({message: 'Successfully deleted'});
+            });
+        });
+
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+app.use('/api', router);
+
 
 function renderGitkitWidgetPage(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -96,7 +189,7 @@ function renderGitkitWidgetPage(req, res) {
     res.end(html);
 }
 
-
+//TODO: Stop using this, use the API above
 function receive(req, res) {
     if (req.cookies.gtoken) {
         gitkitClient.verifyGitkitToken(req.cookies.gtoken, function (err, resp) {
@@ -109,10 +202,10 @@ function receive(req, res) {
                             console.log("Unable to add URL to student database because: " + err);
                         }
                         student.spreadsheetURL = req.body.url;
-                        console.log("adding url: " + req.body.url)
-                        student.save(function(err){if(err){console.log("Unable to save url added to student databse because: " + err)}});
+                        console.log("adding url: " + req.body.url);
+                        student.save(function(err){if(err){console.log("Unable to save url added to student databse because: " + err);}});
                     }
-                )
+                );
             }
         });
     } else {
@@ -139,10 +232,10 @@ function renderIndexPage(req, res) {
 function renderHomePage(req, res) {
     var specificStudent;
     if (req.cookies.gtoken) {
-        console.log("First statement true")
+        console.log("First statement true");
         gitkitClient.verifyGitkitToken(req.cookies.gtoken, function (err, resp) {
             if (err) {
-                console.log("An error occurred" + err)
+                console.log("An error occurred" + err);
                 printLoginInfo(res, 'Invalid token: ' + err);
             } else {
                 Student.findOne({"googleId" : resp.email}, function(err,student){
@@ -151,43 +244,43 @@ function renderHomePage(req, res) {
                     }
                 
                     if (student) {    
-                        console.log("Welcome back!")
-                        console.log("Welcome back!")
-                        console.log("Welcome back!")
-                        console.log("Welcome back!")
-                        url = student.spreadsheetURL
-                        specificStudent = student
+                        console.log("Welcome back!");
+                        console.log("Welcome back!");
+                        console.log("Welcome back!");
+                        console.log("Welcome back!");
+                        url = student.spreadsheetURL;
+                        specificStudent = student;
                     }
                     else{
-                        var newStudent = new Student({googleId:resp.email,courses:[],connectedSpredsheet:false, spreadsheetUrl : "", ICSURL : "", assignments: []})
+                        var newStudent = new Student({googleId:resp.email,courses:[],connectedSpredsheet:false, spreadsheetURL : "", ICSURL : "", assignments: []});
                         newStudent.save(function(err){
                             if(err){
-                                console.log("Could not save to database because: " + err)
+                                console.log("Could not save to database because: " + err);
                             }
                             else{
-                                console.log("New student saved to database")
+                                console.log("New student saved to database");
                             }
                         });
-                        specificStudent = newStudent
+                        specificStudent = newStudent;
                         url = student.spreadsheetURL;
-                        console.log("Welcome! Created new student collection")
-                        console.log("Welcome! Created new student collection")
-                        console.log("Welcome! Created new student collection")
-                        console.log("Welcome! Created new student collection")
+                        console.log("Welcome! Created new student collection");
+                        console.log("Welcome! Created new student collection");
+                        console.log("Welcome! Created new student collection");
+                        console.log("Welcome! Created new student collection");
                     }
                     
                    res.writeHead(200, {'Content-Type': 'text/html'});
                    var html = new Buffer(fs.readFileSync('./Home.html'))
-                        .toString()
+                        .toString();
                    var html = replaceAll(html,'%%student%%', JSON.stringify(student));
                    res.end(html);
                 });
             }
         });
     } else {
-        console.log("First statement returned false")
+        console.log("First statement returned false");
         var html = new Buffer(fs.readFileSync('./Home.html'))
-                .toString()
+                .toString();
         res.end(html);
     }
     
@@ -224,7 +317,7 @@ function renderSendEmailPage(req, res) {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
         res.end(resp.responseBody);
-    })
+    });
 }
 
 function replaceAll(str, find, replace) {
@@ -241,6 +334,5 @@ function printLoginInfo(res, loginInfo) {
 
 var port = 8000;
 app.listen(port);
-app.listen(8080);
 console.log('Server running at http://127.0.0.1:%d/', port);
 
