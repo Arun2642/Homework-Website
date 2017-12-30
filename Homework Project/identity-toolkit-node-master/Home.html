@@ -259,7 +259,33 @@ function renderDirrectInput(){
   }
   
   var classSelector = "<div class='12u$'><div class='select-wrapper'><select name='demo-category' id='demo-category'><option value=''>- Class/Catagory -</option>"+ classOptions +"</select></div>"
-  var descriptionAndSubmitButton = `<div class='row uniform'><div class='9u 12u$(small)'><input type='text' name='query' id='query' value='' placeholder='Describe the task/assignment (optional)' /></div><div class='3u$ 12u$(small)'><button id="manualButton" onclick='toggle("manualButton")'>Start</button></div></div>`
+  var descriptionAndSubmitButton = `<div class='row uniform'>
+                                      <div class='12u$'><div class='select-wrapper'><input type='text' name='query' id='query' value='' placeholder='Describe the task/assignment (optional)' /></div></div>
+                                      <br>
+                                      <div class="12u$">
+                                        <ul class="actions fit">
+                                          <li><button class="button special fit" onclick="toggle('manualButton')">Start</button></li>
+                                          <li><button class="button special fit" onclick="cancel">Cancel</button></li>
+                                          <li><button class="button special fit" onclick="finish">Finish</button></li>
+                                        </ul>
+                                      </div>
+                                    </div>`
+  var addAClass = `<h2>Add a new class/catagory:</h2>
+                            <div class='3u 6u 12u$(small)'>
+                              <input type='text' name='query' id='newClass' value='' placeholder='Enter class code (e.g. HIST301)'/>
+                            </div>
+                            <div class='3u$ 6u$ 12u$(small)'>
+                              <button id="newClassButton" onclick='newClass(document.getElementById("newClass").value)'>Add</button>
+                            </div>
+                    `
+  var loadICSFile = `<h2>Provide an ICS Feed (From Canvas):</h2>
+                          <div class='3u 6u 12u$(small)'>
+                            <input type='text' name='query' id='givenICSURL' value='' placeholder='Enter ICS feed URL (from canvas calendar)'/>
+                          </div>
+                          <div class='3u$ 6u$ 12u$(small)'>
+                            <button id="loadICSButton" onclick='ReadICS(document.getElementById("givenICSURL").value)'>Load</button>
+                          </div>
+                    `
   var dirrectInputFramework = `
             <div class='row'>
 							<section class='6u 12u$(medium)'>
@@ -298,8 +324,47 @@ function renderDirrectInput(){
                 <p></p>
                 <button class='button button-large' onclick=''>Cancel</button>
               </section>
-            </div>
+              </div>
+              <hr class="major" />
+              <div class='row uniform'>
+							<section class='6u 12u$(medium)'>
+                <h2>Add a new class/task:</h2>
+                <form method="post" action="#">
+										<div class="row uniform">
+											<div class="8u 12u$(small)">
+												<input type="text" name="query" id="newClass" value="" placeholder="Enter class code (e.g. HIST301)" />
+											</div>
+											<div class="3u$ 12u$(small)">
+												<input type="submit" value="Add" class="small" />
+											</div>
+										</div>
+									</form>
+							</section>
+							<section class='6u 12u$(medium)'>
+                <h2>Load an ICS File:</h2>
+                <form method="post" action="#">
+										<div class="row uniform">
+											<div class="8u 12u$(small)">
+												<input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
+											</div>
+											<div class="3u$ 12u$(small)">
+												<input type="submit" value="Load" class="small" />
+											</div>
+										</div>
+									</form>
+							</section>
+              </div>`
+var notInUse = `
+              <div class='row'>
+                <section class='6u 12u$(small)>
+                   ` + addAClass + `
+                </section>
+                <section class='6u$ 12u$(small)>
+                   ` + loadICSFile + `
+                </section>
+              </div>
             <div id="timer"></div>`
+  
   document.getElementById("urlForm").innerHTML = dirrectInputFramework;
   document.getElementById("introMessage").innerHTML = "";
   selectability();
