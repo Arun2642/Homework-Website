@@ -78,10 +78,19 @@ var StudentSchema = new Schema({
     connectedSpreadsheet:Boolean,
     spreadsheetURL:String,
     ICSURL:String,
-    assignments:Array
+});
+
+var AssignmentSchema = new Schema({
+    studentId:ObjectId,
+    course:String,
+    finished:Boolean,
+    title:String,
+    description:String,
+    times:Array
 });
 
 var Student = mongoose.model('Student', StudentSchema);
+var Assignment = mongoose.model('Assignment', AssignmentSchema);
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -143,10 +152,10 @@ router.route('/students/:student_id')
             });
         })
 
-        // update the student with this id (accessed at PUT http://localhost:8080/api/bears/:student_id)
+        // update the student with this id (accessed at PUT http://localhost:8080/api/students/:student_id)
         .put(function (req, res) {
 
-            // use our bear model to find the bear we want
+            // use our student model to find the student we want
             Student.findById(req.params.student_id, function (err, student) {
 
                 if (err)
@@ -155,7 +164,7 @@ router.route('/students/:student_id')
                 if (req.body.spreadsheetURL)
                     student.name = req.body.spreadsheetURL;  // update the students info
 
-                // save the bear
+                // save the student
                 student.save(function (err) {
                     if (err)
                         res.send(err);
@@ -166,7 +175,7 @@ router.route('/students/:student_id')
             });
         })
 
-        // delete the bear with this id (accessed at DELETE http://localhost:8080/api/bears/:bear_id)
+        // delete the student with this id (accessed at DELETE http://localhost:8080/api/students/:student_id)
         .delete(function (req, res) {
             Student.remove({
                 _id: req.params.student_id
@@ -178,6 +187,88 @@ router.route('/students/:student_id')
             });
         });
 
+// on routes that end in /assignments
+// ----------------------------------------------------
+router.route('/assignments')
+
+         // create a assignment (accessed at POST http://localhost:8080/api/assignments)
+        .post(function (req, res) {
+
+            var assignment = new Assignment(); 
+            assignment.studentId = req.body.studentId; 
+            assignment.course = req.body.course;
+            assignment.title = req.body.title;
+            assignment.description = req.body.description;
+            assignment.finished = true;
+
+            // save the assignment and check for errors
+            assignment.save(function (err) {
+                if (err)
+                    res.send(err);
+
+                res.json({message: 'Assignment created!', assignmentId: assignment._id});
+            });
+
+        })
+
+        // get all the assignments (accessed at GET http://localhost:8080/api/assignments)
+        .get(function (req, res) {
+            Assignment.find(function (err, assignments) {
+                if (err)
+                    res.send(err);
+
+                res.json(assignments);
+            });
+        });
+        
+        
+router.route('/assignments/:assignment_id')
+
+        // get the assignment with that id (accessed at GET http://localhost:8080/api/assignments/:assignment_id)
+        .get(function (req, res) {
+            Student.findById(req.params.assignmen_id, function (err, assignment) {
+                if (err)
+                    res.send(err);
+                res.json(assignment);
+            });
+        })
+
+        // update the assignment with this id (accessed at PUT http://localhost:8080/api/assignment/:assignment_id)
+        .put(function (req, res) {
+
+            // use our assignment model to find the assignment we want
+            Student.findById(req.params.assignment_id, function (err, assignment) {
+
+                if (err)
+                    res.send(err);
+
+                if (req.body.finished)
+                   assignment.finished = req.body.finished;
+
+                // save the assignment
+                assignment.save(function (err) {
+                    if (err)
+                        res.send(err);
+
+                    res.json({message: 'Assignment updated!'});
+                });
+
+            });
+        })
+
+        // delete the assignment with this id (accessed at DELETE http://localhost:8080/api/assignment/:assignment_id)
+        .delete(function (req, res) {
+            Assignment.remove({
+                _id: req.params.assignment_id
+            }, function (err, assignment) {
+                if (err)
+                    res.send(err);
+
+                res.json({message: 'Successfully deleted'});
+            });
+        });
+        
+ 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);

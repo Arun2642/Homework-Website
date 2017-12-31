@@ -1,5 +1,5 @@
 {
-  "name": "homemwork-project",
+  "name": "homework-project",
   "version": "0.0.1",
   "author": "Arun Johnson",
   "description": "Homework server",
@@ -22,7 +22,8 @@
     "gitkitclient": "0.0.4",
     "mongoose": "~3.6.13"
   },
-  "license": "Apache 2", "scripts":{
-"start":"node example-app.js"}
-
+  "license": "Apache 2", 
+  "scripts":{
+    "start":"node example-app.js"
+  }
 }
