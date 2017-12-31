@@ -47,6 +47,7 @@ app.get('/', renderIndexPage);
 // returning to index page
 app.get('/index.html', renderIndexPage);
 app.get('/Home.html', renderHomePage);
+app.get('/Test.html', renderTestPage);
 app.get('/Play.html', renderPlayPage);
 
 
@@ -71,8 +72,8 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
  
 var StudentSchema = new Schema({
-    userId:ObjectId,
     googleId:String,
+    name:String,
     courses:Array,
     connectedSpreadsheet:Boolean,
     spreadsheetURL:String,
@@ -244,15 +245,21 @@ function renderHomePage(req, res) {
                     }
                 
                     if (student) {    
+                        console.log("Welcome back! "+JSON.stringify(resp));
                         console.log("Welcome back!");
                         console.log("Welcome back!");
                         console.log("Welcome back!");
-                        console.log("Welcome back!");
-                        url = student.spreadsheetURL;
                         specificStudent = student;
                     }
                     else{
-                        var newStudent = new Student({googleId:resp.email,courses:[],connectedSpredsheet:false, spreadsheetURL : "", ICSURL : "", assignments: []});
+                        var newStudent = new Student(
+                                {googleId:resp.email,
+                                 name:resp.display_name,
+                                 courses:[],
+                                 connectedSpredsheet:false, 
+                                 spreadsheetURL : "", 
+                                 ICSURL : "", 
+                                 assignments: []});
                         newStudent.save(function(err){
                             if(err){
                                 console.log("Could not save to database because: " + err);
@@ -262,7 +269,6 @@ function renderHomePage(req, res) {
                             }
                         });
                         specificStudent = newStudent;
-                        url = student.spreadsheetURL;
                         console.log("Welcome! Created new student collection");
                         console.log("Welcome! Created new student collection");
                         console.log("Welcome! Created new student collection");
@@ -272,7 +278,7 @@ function renderHomePage(req, res) {
                    res.writeHead(200, {'Content-Type': 'text/html'});
                    var html = new Buffer(fs.readFileSync('./Home.html'))
                         .toString();
-                   var html = replaceAll(html,'%%student%%', JSON.stringify(student));
+                   var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
                    res.end(html);
                 });
             }
@@ -283,11 +289,67 @@ function renderHomePage(req, res) {
                 .toString();
         res.end(html);
     }
+}
     
-    /* var html = new Buffer(fs.readFileSync('./Home.html'))
-    .toString()
-    res.end(html);
-    console.log('PRINTING A STATEMENT'); */
+function renderTestPage(req, res) {
+    var specificStudent;
+    if (req.cookies.gtoken) {
+        console.log("First statement true");
+        gitkitClient.verifyGitkitToken(req.cookies.gtoken, function (err, resp) {
+            if (err) {
+                console.log("An error occurred" + err);
+                printLoginInfo(res, 'Invalid token: ' + err);
+            } else {
+                Student.findOne({"googleId" : resp.email}, function(err,student){
+                    if (err) {
+                        console.log("A database error occured");
+                    }
+                
+                    if (student) {    
+                        console.log("Welcome back! "+JSON.stringify(resp));
+                        console.log("Welcome back!");
+                        console.log("Welcome back!");
+                        console.log("Welcome back!");
+                        specificStudent = student;
+                    }
+                    else{
+                        var newStudent = new Student(
+                                {googleId:resp.email,
+                                 name:resp.display_name,
+                                 courses:[],
+                                 connectedSpredsheet:false, 
+                                 spreadsheetURL : "", 
+                                 ICSURL : "", 
+                                 assignments: []});
+                        newStudent.save(function(err){
+                            if(err){
+                                console.log("Could not save to database because: " + err);
+                            }
+                            else{
+                                console.log("New student saved to database");
+                            }
+                        });
+                        specificStudent = newStudent;
+                        console.log("Welcome! Created new student collection");
+                        console.log("Welcome! Created new student collection");
+                        console.log("Welcome! Created new student collection");
+                        console.log("Welcome! Created new student collection");
+                    }
+                    
+                   res.writeHead(200, {'Content-Type': 'text/html'});
+                   var html = new Buffer(fs.readFileSync('./Test.html'))
+                        .toString();
+                   var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
+                   res.end(html);
+                });
+            }
+        });
+    } else {
+        console.log("First statement returned false");
+        var html = new Buffer(fs.readFileSync('./Test.html'))
+                .toString();
+        res.end(html);
+    }
 }
 
 function renderPlayPage(req, res) {

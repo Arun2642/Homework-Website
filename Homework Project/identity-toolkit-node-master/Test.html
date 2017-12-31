@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page for testing</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <div id="name"></div>
+        <div id="url"></div>
+    <script>
+        def editURL(button) {
+            
+        }
+        var currentStudent = %%student%%;
+        document.getElementById('name').innerHTML = "Welcome "+currentStudent.name+" ("+currentStudent.googleId+")!";
+        if (currentStudent.spreadsheetURL) {
+            document.getElementById('url').innerHTML = "Your spreadsheet URL is "+currentStudent.spreadsheetURL;            
+        } else {
+            document.getElementById('url').innerHTML = 'No spreadsheet URL set <a href="#" onclick="editURL(); return false;">Edit</a>';
+        }
+    </script>
+    </body>
+</html>
