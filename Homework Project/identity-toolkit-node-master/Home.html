@@ -7,7 +7,7 @@
 <html>
 	<head>
     <style>
-    nav ul{height:200px;width:250px;}
+    nav ul{height:200px;}
     nav ul{overflow:hidden;overflow-y:scroll;}
     .selected{background:lightgreen;}
     </style>
@@ -15,7 +15,7 @@
 			  src="https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 			  crossorigin="anonymous"></script>
-		<title>Generic - Projection by TEMPLATED</title>
+		<title>Homework Homepage</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -46,15 +46,145 @@
 		<!-- Three -->
 			<section id="three" class="wrapper">
 				<div class="inner">
-					<div id="buttons" class="align-center">
+					<div id="buttons" class="align-center" style="">
 						<button class="button button-large" onclick="renderURLInput()">Import Spreadsheet</button>
 						<button class="button button-large" onclick="renderDirrectInput()">Input Dirrectly</button>
           </div>
           <div id="timer" class="align-center"></div>
           <div id="newAssignmentForm"></div>
-          <header id ="instructions"class="align-center"></header>
+          <header id ="instructionsInd" class="align-center" style="display:none">
+              <h2 id='inst_1'>Please enter the URL</h2>
+              <p  id='inst_2'>Paste the sharing url for the spreadsheet you wish to import into the box below: </p>
+          </header>
+          <header id ="instructionsDir"class="align-center" style="display:none">
+              <h2 id='inst_1'>Log homework/tasks:</h2> 
+              <p id='inst_2'> Use either the todo list or the manual input to log your homework time: </p>
+          </header>
           <div id="addMoreDataButton" class="align-center"></div>
-          <div id="urlForm"></div>
+          <div id="urlFormDir" style="display:none">
+              <div class='row'>
+                  <section class='6u 12u$(medium)'>
+                    <h2>Add Assignments Manually:</h2>
+                      <div class='12u$'>
+                        <div class='select-wrapper'>
+                          <select name='demo-category' id='classOptions'>
+                            <option value=''>- Class/Catagory -</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class='row uniform'>
+                        <div class='12u$'><div class='select-wrapper'><input type='text' name='query' id='query' value='' placeholder='Describe the task/assignment (optional)' /></div></div>
+                          <br>
+                          <div class="12u$">
+                            <ul class="actions fit">
+                              <li><button class="button special fit" onclick="toggle('manualButton')">Start</button></li>
+                              <li><button class="button special fit" onclick="cancel">Cancel</button></li>
+                              <li><button class="button special fit" onclick="finish">Finish</button></li>
+                            </ul>
+                          </div>
+                        </div>
+                  </section>
+                  <section class='3u 6u(medium) 12u$(small)'>
+                    <h3>Select from Todo List:</h3>
+                    <nav "width: 250px">
+                      <div class="selectable">
+                        <ul>
+                          <li>Link 1</li>
+                          <li>Link 2</li>
+                          <li>Link 3</li>
+                          <li>Link 4</li>
+                          <li>Link 5</li>
+                          <li>Link 6</li> 
+                          <li>Link 7</li> 
+                          <li>Link 8</li>
+                          <li>Link 9</li>
+                          <li>Link 10</li>
+                          <li>Link 11</li>
+                          <li>Link 13</li>
+                          <li>Link 13</li>
+              
+                        </ul>
+                      </div>
+                    </nav>
+                  </section>
+                  <section class='3u$ 6u$(medium) 12u$(small)'>
+                    <h3>Click to begin timing:</h3>
+                    <button class='button button-large' onclick=''>Start</button>
+                    <br>
+                    <p></p>
+                    <button class='button button-large' onclick=''>Finish</button>
+                    <br>
+                    <p></p>
+                    <button class='button button-large' onclick=''>Cancel</button>
+                  </section>
+                  </div>
+                  <div class='row uniform'>
+                  <section class='6u 12u$(medium)'>
+                    <h2>Add a new class/task:</h2>
+                    <form method="post" action="#">
+                        <div class="row uniform">
+                          <div class="8u 12u$(small)">
+                            <input type="text" name="query" id="newClass" value="" placeholder="Enter class code (e.g. HIST301)" />
+                          </div>
+                          <div class="3u$ 12u$(small)">
+                            <input type="submit" value="Add" class="small" />
+                          </div>
+                        </div>
+                      </form>
+                  </section>
+                  <section class='6u 12u$(medium)'>
+                    <h2>Load an ICS File:</h2>
+                    <form method="post" action="#">
+                        <div class="row uniform">
+                          <div class="8u 12u$(small)">
+                            <input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
+                          </div>
+                          <div class="3u$ 12u$(small)">
+                            <input type="submit" value="Load" class="small" />
+                          </div>
+                        </div>
+                      </form>
+                  </section>
+                  </div>
+                  <hr class="major" />                  
+                  <div class='row uniform'>
+                      <div class="12u$">
+                        <h2>Previous Assignments:</h2>
+                        <nav "width: 1000px">
+                            <div class="selectable">
+                              <ul>
+                                <li>Link 1</li>
+                                <li>Link 2</li>
+                                <li>Link 3</li>
+                                <li>Link 4</li>
+                                <li>Link 5</li>
+                                <li>Link 6</li> 
+                                <li>Link 7</li> 
+                                <li>Link 8</li>
+                                <li>Link 9</li>
+                                <li>Link 10</li>
+                                <li>Link 11</li>
+                                <li>Link 13</li>
+                                <li>Link 13</li>
+                    
+                              </ul>
+                            </div>
+                          </nav>
+                        </div>
+                  </div>
+          </div>
+          <div id="urlFormInd" style="display:none">
+              <form method='post' action='receive' id='spreadsheetURL'>
+                <textarea name='url' rows='10' cols='60'>" + currentStudent.spreadsheetURL + "</textarea>
+                <input type='hidden' name='id' id='id' value='" + currentStudent._id + "'></input>
+                <br>
+                <button class='button button-small'>Save</button>
+              </form>
+              <button class='button button-small' onclick='fetchCSV()'>Make Graphs!</button>
+          </div>
+
+          </div>
+          
 					<!-- <div class="image round left">
 						<img src="images/pic01.jpg" alt="Pic 01" />
 					</div>
@@ -229,19 +359,18 @@ function timer(command){
 
 function renderURLInput(){
 	console.log("Changing")
-	document.getElementById("buttons").innerHTML = "";
-	var newInstructions = "<h2 id='inst_1'>Please enter the URL</h2> <p  id='inst_2'>Paste the sharing url for the spreadsheet you wish to import into the box below: </p>"
-	document.getElementById("instructions").innerHTML = newInstructions;
-	var newForm = "<form method='post' action='receive' id='spreadsheetURL'><textarea name='url' rows='10' cols='60'>" + currentStudent.spreadsheetURL + "</textarea><input type='hidden' name='id' id='id' value='" + currentStudent._id + "'></input><br><button class='button button-small'>Save</button></form><button class='button button-small' onclick='fetchCSV()'>Make Graphs!</button>"
-  document.getElementById("urlForm").innerHTML = newForm;
-  document.getElementById("introMessage").innerHTML = "";
+  document.getElementById("buttons").style.display = "none";
+	document.getElementById("instructionsInd").style.display = "";
+  document.getElementById("urlFormInd").style.display = "";
+  document.getElementById("introMessage").style.display = "none";
 }
 function renderDirrectInput(){
   console.log("Changing")
-  document.getElementById("buttons").innerHTML = "";
-  var newInstructions = "<h2 id='inst_1'>Log homework/tasks:</h2> <p  id='inst_2'> Use either the todo list or the manual input to log your homework time: </p>"
-  document.getElementById("instructions").innerHTML = newInstructions;
-  var classOptions = ""
+  document.getElementById("buttons").style.display = "none";
+  document.getElementById("instructionsDir").style.display = "";
+  document.getElementById("urlFormDir").style.display = "";
+  document.getElementById("introMessage").style.display = "none";
+  var classOptions = "<option value=''>- Class/Catagory -</option>"
   //previousInputs are not stored for now, thus, always false:
   var previousInput = false
   if (previousInput){
@@ -255,118 +384,9 @@ function renderDirrectInput(){
     }
   }
   else{
-    classOptions = "<option value='1'>Input class names below</option>"
+    classOptions = "<option value=''>- Class/Catagory -</option><option value='1'>Input class names below</option>"
   }
-  
-  var classSelector = "<div class='12u$'><div class='select-wrapper'><select name='demo-category' id='demo-category'><option value=''>- Class/Catagory -</option>"+ classOptions +"</select></div>"
-  var descriptionAndSubmitButton = `<div class='row uniform'>
-                                      <div class='12u$'><div class='select-wrapper'><input type='text' name='query' id='query' value='' placeholder='Describe the task/assignment (optional)' /></div></div>
-                                      <br>
-                                      <div class="12u$">
-                                        <ul class="actions fit">
-                                          <li><button class="button special fit" onclick="toggle('manualButton')">Start</button></li>
-                                          <li><button class="button special fit" onclick="cancel">Cancel</button></li>
-                                          <li><button class="button special fit" onclick="finish">Finish</button></li>
-                                        </ul>
-                                      </div>
-                                    </div>`
-  var addAClass = `<h2>Add a new class/catagory:</h2>
-                            <div class='3u 6u 12u$(small)'>
-                              <input type='text' name='query' id='newClass' value='' placeholder='Enter class code (e.g. HIST301)'/>
-                            </div>
-                            <div class='3u$ 6u$ 12u$(small)'>
-                              <button id="newClassButton" onclick='newClass(document.getElementById("newClass").value)'>Add</button>
-                            </div>
-                    `
-  var loadICSFile = `<h2>Provide an ICS Feed (From Canvas):</h2>
-                          <div class='3u 6u 12u$(small)'>
-                            <input type='text' name='query' id='givenICSURL' value='' placeholder='Enter ICS feed URL (from canvas calendar)'/>
-                          </div>
-                          <div class='3u$ 6u$ 12u$(small)'>
-                            <button id="loadICSButton" onclick='ReadICS(document.getElementById("givenICSURL").value)'>Load</button>
-                          </div>
-                    `
-  var dirrectInputFramework = `
-            <div class='row'>
-							<section class='6u 12u$(medium)'>
-                <h2>Add Assignments Manually:</h2>` + classSelector + descriptionAndSubmitButton + `
-							</section>
-							<section class='3u 6u(medium) 12u$(small)'>
-								<h3>Select from Todo List:</h3>
-								<nav>
-                  <div class="selectable">
-                    <ul>
-                      <li>Link 1</li>
-                      <li>Link 2</li>
-                      <li>Link 3</li>
-                      <li>Link 4</li>
-                      <li>Link 5</li>
-                      <li>Link 6</li> 
-                      <li>Link 7</li> 
-                      <li>Link 8</li>
-                      <li>Link 9</li>
-                      <li>Link 10</li>
-                      <li>Link 11</li>
-                      <li>Link 13</li>
-                      <li>Link 13</li>
-          
-                    </ul>
-                  </div>
-                </nav>
-							</section>
-							<section class='3u$ 6u$(medium) 12u$(small)'>
-								<h3>Click to begin timing:</h3>
-                <button class='button button-large' onclick=''>Start</button>
-                <br>
-                <p></p>
-                <button class='button button-large' onclick=''>Finish</button>
-                <br>
-                <p></p>
-                <button class='button button-large' onclick=''>Cancel</button>
-              </section>
-              </div>
-              <hr class="major" />
-              <div class='row uniform'>
-							<section class='6u 12u$(medium)'>
-                <h2>Add a new class/task:</h2>
-                <form method="post" action="#">
-										<div class="row uniform">
-											<div class="8u 12u$(small)">
-												<input type="text" name="query" id="newClass" value="" placeholder="Enter class code (e.g. HIST301)" />
-											</div>
-											<div class="3u$ 12u$(small)">
-												<input type="submit" value="Add" class="small" />
-											</div>
-										</div>
-									</form>
-							</section>
-							<section class='6u 12u$(medium)'>
-                <h2>Load an ICS File:</h2>
-                <form method="post" action="#">
-										<div class="row uniform">
-											<div class="8u 12u$(small)">
-												<input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
-											</div>
-											<div class="3u$ 12u$(small)">
-												<input type="submit" value="Load" class="small" />
-											</div>
-										</div>
-									</form>
-							</section>
-              </div>`
-var notInUse = `
-              <div class='row'>
-                <section class='6u 12u$(small)>
-                   ` + addAClass + `
-                </section>
-                <section class='6u$ 12u$(small)>
-                   ` + loadICSFile + `
-                </section>
-              </div>
-            <div id="timer"></div>`
-  
-  document.getElementById("urlForm").innerHTML = dirrectInputFramework;
-  document.getElementById("introMessage").innerHTML = "";
+  document.getElementById("classOptions").innerHTML = classOptions;
   selectability();
 }
 
