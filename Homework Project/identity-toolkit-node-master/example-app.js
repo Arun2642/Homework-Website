@@ -360,7 +360,7 @@ function renderHomePage(req, res) {
                             console.log("A database error occured");
                         }
                         res.writeHead(200, {'Content-Type': 'text/html'});
-                        var html = new Buffer(fs.readFileSync('./Test.html')).toString();
+                        var html = new Buffer(fs.readFileSync('./Home.html')).toString();
                         var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
                         var html = replaceAll(html,'%%assignments%%', JSON.stringify(studentAssignments));
                         res.end(html);
