@@ -9,17 +9,20 @@
         <div>TODO write content</div>
         <div id="name"></div>
         <div id="url"></div>
-    <script>
+        <div id="assignments"></div>
+        <script>
         function editURL(button) {
             
         }
         var currentStudent = %%student%%;
+        var assignments = %%assignments%%;
         document.getElementById('name').innerHTML = "Welcome "+currentStudent.name+" ("+currentStudent.googleId+")!";
         if (currentStudent.spreadsheetURL) {
             document.getElementById('url').innerHTML = "Your spreadsheet URL is "+currentStudent.spreadsheetURL;            
         } else {
             document.getElementById('url').innerHTML = 'No spreadsheet URL set <a href="#" onclick="editURL(); return false;">Edit</a>';
         }
+        document.getElementById('assignments').innerHTML = "Assignments "+assignments.length;
     </script>
     </body>
 </html>

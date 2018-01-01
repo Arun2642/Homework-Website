@@ -92,7 +92,7 @@ function readCoursesFromURL(studentId, url) {
           } else if (line === 'END:VEVENT') {
               //Ready to add entry to assignments
               var summary = dict['SUMMARY'];
-              var m = /([^\[]+)\[([A-Z]+[0-9]+) ([^\]]+)\]/g.exec(summary);
+              var m = /([^\[]+)\[([A-Z]+ ?[0-9]+) ?([^\]]*)\]/g.exec(summary);
               if (m) {
                   discoveredCourses.push(m[2]);
                   Assignment.update({"_id":dict["UID"]}, {

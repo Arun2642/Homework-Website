@@ -64,12 +64,18 @@ var StudentSchema = new Schema({
 });
 
 var AssignmentSchema = new Schema({
+    _id:String,
     studentId:ObjectId,
     course:String,
     finished:Boolean,
     title:String,
     description:String,
-    times:Array
+    times:Array,
+    url:String,
+    group:String,
+    dtstart:String,
+    dtend:String,
+    dtstamp:String
 });
 
 var Student = mongoose.model('Student', StudentSchema);
@@ -349,11 +355,16 @@ function renderHomePage(req, res) {
                         console.log("Welcome! Created new student collection");
                     }
                     
-                   res.writeHead(200, {'Content-Type': 'text/html'});
-                   var html = new Buffer(fs.readFileSync('./Home.html'))
-                        .toString();
-                   var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
-                   res.end(html);
+                    Assignment.find({"studentId": specificStudent._id},function(err,studentAssignments) {
+                        if (err) {
+                            console.log("A database error occured");
+                        }
+                        res.writeHead(200, {'Content-Type': 'text/html'});
+                        var html = new Buffer(fs.readFileSync('./Test.html')).toString();
+                        var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
+                        var html = replaceAll(html,'%%assignments%%', JSON.stringify(studentAssignments));
+                        res.end(html);
+                    });
                 });
             }
         });
@@ -408,12 +419,17 @@ function renderTestPage(req, res) {
                         console.log("Welcome! Created new student collection");
                         console.log("Welcome! Created new student collection");
                     }
-                    
-                   res.writeHead(200, {'Content-Type': 'text/html'});
-                   var html = new Buffer(fs.readFileSync('./Test.html'))
-                        .toString();
-                   var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
-                   res.end(html);
+                   
+                    Assignment.find({"studentId": specificStudent._id},function(err,studentAssignments) {
+                        if (err) {
+                            console.log("A database error occured");
+                        }
+                        res.writeHead(200, {'Content-Type': 'text/html'});
+                        var html = new Buffer(fs.readFileSync('./Test.html')).toString();
+                        var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
+                        var html = replaceAll(html,'%%assignments%%', JSON.stringify(studentAssignments));
+                        res.end(html);
+                    });
                 });
             }
         });
@@ -453,6 +469,67 @@ function renderSendEmailPage(req, res) {
         res.setHeader('Content-Type', 'text/html');
         res.end(resp.responseBody);
     });
+}
+
+var request = require('request');
+
+function readCoursesFromURL(studentId, url) { 
+    request(url, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+       var discoveredCourses = [];
+       body = body.replace(/(\r\n|\n|\r) /gm,"");
+       //body = body.replace(/\\/g,"");
+       var lines = body.split(/\r\n|\n|\r/gm);
+       var dict = {};
+       for (var line of lines) {
+          if (line === 'BEGIN:VEVENT') {
+              dict = {};
+          } else if (line === 'END:VEVENT') {
+              //Ready to add entry to assignments
+              var summary = dict['SUMMARY'];
+              var m = /([^\[]+)\[([A-Z]+ ?[0-9]+) ?([^\]]*)\]/g.exec(summary);
+              if (m) {
+                  discoveredCourses.push(m[2]);
+                  Assignment.update({"_id":dict["UID"]}, {
+                     "_id":dict["UID"],
+                     "studentId":studentId,
+                     "course":m[2],
+                     "finished":false,
+                     "title":m[1],
+                     "group":m[3],
+                     "description":dict['DESCRIPTION'],
+                     "url":dict["URL"],
+                     "dtstart":dict["DTSTART"],
+                     "dtend":dict["DTEND"],
+                     "dtstamp":dict["DTSTAMP"]}, { upsert : true }, function(err){
+                    if(err){
+                       console.log("Could not save assignment to database because: " + err);
+                    } else{
+                       console.log("New assignment saved to database");
+                    }
+                 });                  
+              }
+          } else {
+              var m = /([A-Z]+)(?:;VALUE=[A-Z]+)?:(.*)/g.exec(line);
+              if (m) {
+                 dict[m[1]] = m[2];
+             }
+          }
+       }       
+       Student.update(
+          {_id: studentId},
+          { $addToSet: {courses:{$each:discoveredCourses}}}, function(err,res) {
+             if (err) {
+                 console.log(err);
+            } else {
+                console.log(res);
+            }
+          }
+        );
+    } else {
+        console.log("Error:" + error);
+    }
+  });
 }
 
 function replaceAll(str, find, replace) {
