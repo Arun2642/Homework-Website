@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/homework_database');
+mongoose.connect('mongodb://localhost/homework_database').then(
+  () => { console.log("ready");courseAdder("tonyj321@gmail.com"); },
+  err => {  throw err; }
+);
 
 /* var fs = require('fs'),
     readline = require('readline');
@@ -14,7 +17,7 @@ rd.on('line', function(line) {
     matchArray = line.match(summaryFind);
     console.log(matchArray);
 });
- */
+
 var matchArray = [];
 var fs = require('fs');
 var ICS = new Buffer(fs.readFileSync('./TheFile.ics')).toString();
@@ -30,11 +33,13 @@ while (match != null){
     
 }
 
+
 console.log("Done, here is the output")
 console.log(matchArray);
 /* for (var i=0; i<matchArray.length; i++){
     console.log(matchArray[i])
 } */
+
 //var mongoose = require('mongoose');/
 //mongoose.connect('mongodb://localhost/homework_database');
 
@@ -46,16 +51,22 @@ var StudentSchema = new Schema({
     googleId:String,
     courses:Array,
     connectedSpreadsheet:Boolean,
-    spreadsheetURL:String,
+    spreadsheetURL:String
 });
 
 var AssignmentSchema = new Schema({
+    _id:String,
     studentId:ObjectId,
     course:String,
     finished:Boolean,
     title:String,
     description:String,
-    times:Array
+    times:Array,
+    url:String,
+    group:String,
+    dtstart:String,
+    dtend:String,
+    dtstamp:String
 });
 
 var Student = mongoose.model('Student', StudentSchema);
@@ -65,31 +76,83 @@ var Assignment = mongoose.model('Assignment', AssignmentSchema);
 /* Arun.save(function (err, Arun) {
     if (err) return console.error(err);
   }); */
-var email = "arun2642@gmail.com"
+var request = require('request');
+
+function readCoursesFromURL(studentId, url) { 
+    request(url, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+       var discoveredCourses = [];
+       body = body.replace(/(\r\n|\n|\r) /gm,"");
+       //body = body.replace(/\\/g,"");
+       var lines = body.split(/\r\n|\n|\r/gm);
+       var dict = {};
+       for (var line of lines) {
+          if (line === 'BEGIN:VEVENT') {
+              dict = {};
+          } else if (line === 'END:VEVENT') {
+              //Ready to add entry to assignments
+              var summary = dict['SUMMARY'];
+              var m = /([^\[]+)\[([A-Z]+[0-9]+) ([^\]]+)\]/g.exec(summary);
+              if (m) {
+                  discoveredCourses.push(m[2]);
+                  Assignment.update({"_id":dict["UID"]}, {
+                     "_id":dict["UID"],
+                     "studentId":studentId,
+                     "course":m[2],
+                     "finished":false,
+                     "title":m[1],
+                     "group":m[3],
+                     "description":dict['DESCRIPTION'],
+                     "url":dict["URL"],
+                     "dtstart":dict["DTSTART"],
+                     "dtend":dict["DTEND"],
+                     "dtstamp":dict["DTSTAMP"]}, { upsert : true }, function(err){
+                    if(err){
+                       console.log("Could not save assignment to database because: " + err);
+                    } else{
+                       console.log("New assignment saved to database");
+                    }
+                 });                  
+              }
+          } else {
+              var m = /([A-Z]+)(?:;VALUE=[A-Z]+)?:(.*)/g.exec(line);
+              if (m) {
+                 dict[m[1]] = m[2];
+             }
+          }
+       }       
+       Student.update(
+          {_id: studentId},
+          { $addToSet: {courses:{$each:discoveredCourses}}}, function(err,res) {
+             if (err) {
+                 console.log(err);
+            } else {
+                console.log(res);
+            }
+          }
+        );
+    } else {
+        console.log("Error:" + error);
+    }
+  });
+}
+
 
 function courseAdder(email) {
-    Student.findOne({"googleId" : email}, function(err,student){
-        let discoveredCourses = [];
+    console.log("looking for student:"+email);
+    Student.findOne({googleId: email}, function(err,student) {
+        console.log("Function called "+student);
         if (err) {
             console.log("A database error occured (When trying to search for student with e-mail: " + email);
-        }
-        if (!student){
-            console.log("ERROR! This student doesn't exist...")
-        }
-        else{
-            for (var i=0; i<matchArray.length; i++){
-                discoveredCourses.push(matchArray[i][1])
-                console.log(discoveredCourses);
-            }
-            Student.update(
-                {_id:student._id},
-                //{courses:[]},
-                { $addToSet: {courses:{$each:discoveredCourses}}},
-                function(err,res){if(err){console.log(err)}else{console.log(res)}}
-            )
+        } else if (student === null){
+            console.log("ERROR! This student doesn't exist..."+email);
+        } else {
+           console.log("Reading courses");
+           readCoursesFromURL(student._id, "https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics");
         }
     });
 }
+
 
 function addAssignment(studentId, course, finished, title, description, times){
     var newAssignment = new Assignment({
@@ -102,14 +165,15 @@ function addAssignment(studentId, course, finished, title, description, times){
     });
     newAssignment.save(function(err){
         if(err){
-            console.log("Could not save assignment to database because: " + err)
+            console.log("Could not save assignment to database because: " + err);
         }
         else{
-            console.log("New assignment saved to database")
+            console.log("New assignment saved to database");
         }
     });
 };
 
+/*
 console.log("Adding assignment");
 Student.findOne({"googleId" : email}, function(err,student){
     if (err) {
@@ -132,6 +196,7 @@ function updateAssignment(studentId, course, title, finished, times){
         function(err,res){if(err){console.log(err)}else{console.log(res)}}
     );
 }
+*/
 
 /* Student.findOne({"googleId" : email}, function(err,student){
     if (err) {
@@ -158,5 +223,8 @@ function updateAssignment(studentId, course, title, finished, times){
     }
 }); */
 
-//console.log("Add assignment");
+
+
+
+
 //addAssignment("test","test","test",false);
