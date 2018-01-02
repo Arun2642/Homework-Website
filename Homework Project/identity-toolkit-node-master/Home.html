@@ -20,21 +20,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
-	<body class="subpage" onload="selectability()">
+	<body class="subpage" onload="loadPage()">
 
     <!-- Header -->
 			<header id="header">
 				<div class="inner">
-					<a href="index.html" class="logo"><strong>Projection</strong> by TEMPLATED</a>
+					<a href="index.html" class="logo"><strong>Homework Homepage</strong></a>
 					<nav id="nav">
-						<a href="index.html">Home</a>
-						<a href="generic.html">Generic</a>
+						<a href="index.html">Start</a>
+						<a href="home.html">Homepage</a>
 						<a href="elements.html">Elements</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
       </header>
       <div class="align-right">
-          <span class="icon fa-cog" style="font-size:48px;"></span>	
+          <span class="icon fa-cog" style="font-size:48px; padding:40px;" onmouseover=""></span>	
         </div>
       <header class="align-center" id="introMessage">
           <br>
@@ -77,45 +77,30 @@
                           <br>
                           <div class="12u$">
                             <ul class="actions fit">
-                              <li><button class="button special fit" onclick="toggle('manualButton')">Start</button></li>
-                              <li><button class="button special fit" onclick="cancel">Cancel</button></li>
-                              <li><button class="button special fit" onclick="finish">Finish</button></li>
+                              <li><button class="button special fit" onclick="toggle('manualButton')" id="manualButton">Start</button></li>
+                              <li><button class="button special fit" onclick="cancel" id="manualFinishButton">Cancel</button></li>
+                              <li><button class="button special fit" onclick="finish" id="manualCancelButton">Finish</button></li>
                             </ul>
                           </div>
                         </div>
                   </section>
                   <section class='3u 6u(medium) 12u$(small)'>
                     <h3>Select from Todo List:</h3>
-                    <nav "width: 250px">
-                      <div class="selectable">
-                        <ul>
-                          <li>Link 1</li>
-                          <li>Link 2</li>
-                          <li>Link 3</li>
-                          <li>Link 4</li>
-                          <li>Link 5</li>
-                          <li>Link 6</li> 
-                          <li>Link 7</li> 
-                          <li>Link 8</li>
-                          <li>Link 9</li>
-                          <li>Link 10</li>
-                          <li>Link 11</li>
-                          <li>Link 13</li>
-                          <li>Link 13</li>
-              
-                        </ul>
-                      </div>
+                    <nav>
+                        <select id="todoList" size="20" style="height: 200px;">
+                          
+                        </select>
                     </nav>
                   </section>
                   <section class='3u$ 6u$(medium) 12u$(small)'>
                     <h3>Click to begin timing:</h3>
-                    <button class='button button-large' onclick=''>Start</button>
+                    <button class='button button-large' onclick='toggle("autoButton")' id="autoButton">Start</button>
                     <br>
                     <p></p>
-                    <button class='button button-large' onclick=''>Finish</button>
+                    <button class='button button-large' onclick='' id="autoFinishButton">Finish</button>
                     <br>
                     <p></p>
-                    <button class='button button-large' onclick=''>Cancel</button>
+                    <button class='button button-large' onclick='' id="autoCancelButton" >Cancel</button>
                   </section>
                   </div>
                   <div class='row uniform'>
@@ -151,31 +136,22 @@
                       <div class="12u$">
                         <h2>Previous Assignments:</h2>
                         <nav "width: 1000px">
-                            <div class="selectable">
-                              <ul>
-                                <li>Link 1</li>
-                                <li>Link 2</li>
-                                <li>Link 3</li>
-                                <li>Link 4</li>
-                                <li>Link 5</li>
-                                <li>Link 6</li> 
-                                <li>Link 7</li> 
-                                <li>Link 8</li>
-                                <li>Link 9</li>
-                                <li>Link 10</li>
-                                <li>Link 11</li>
-                                <li>Link 13</li>
-                                <li>Link 13</li>
-                    
-                              </ul>
-                            </div>
+                            <select id="pastAssignments" size="20" style="height:300px; width:1200px;">
+                            </select>
                           </nav>
                         </div>
                   </div>
+                  <hr class="major" />
+                  <div id='graphSpace1'></div>
+                  <div id='graphSpace2'></div>
+                  <div id='graphSpace3'></div>
+                  <div id='graphSpace4'></div>
+                  <div id='graphSpace5'></div>
+                  <div id='graphSpace6'></div>
           </div>
           <div id="urlFormInd" style="display:none">
               <form method='post' action='receive' id='spreadsheetURL'>
-                <textarea name='url' rows='10' cols='60'>" + currentStudent.spreadsheetURL + "</textarea>
+                <textarea name='url' rows='10' cols='60' id="urlInputForm"></textarea>
                 <input type='hidden' name='id' id='id' value='" + currentStudent._id + "'></input>
                 <br>
                 <button class='button button-small'>Save</button>
@@ -227,7 +203,7 @@
 					</form>
 
 					<div class="copyright">
-						&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+						&copy; Arun S. Johnson 2017. CSS and HTML templates from <a href="https://templated.co">Templated</a>. Thanks to Leo Ikle-Maizlich for providing inspiration for the project and part of the back-end code.
 					</div>
 
 				</div>
@@ -249,6 +225,56 @@ var running = false;
 var started = false;
 var duration = 0;
 var currentStudent = %%student%%;
+var assignments = %%assignments%%;
+
+function loadPage(){
+  selectability();
+  if (!currentStudent.connectedSpreadsheet && currentStudent.courses.length == 0 && assignments.length == 0){
+    console.log("This student has either not yet visited, or not yet interacted with the page")
+  }
+  else{
+    if (currentStudent.connectedSpreadsheet){
+      renderURLInput();
+    }
+    else{
+      renderDirrectInput();
+    }
+  }
+  renderAssignmentLists();
+  disableLockedFeatures();
+  makeAllTheGraphs();
+}
+
+function disableLockedFeatures(){
+  if (currentStudent.courses.length == 0){
+    document.getElementsByClassName("button button-large").classNames = "button disabled"
+    document.getElementsByClassName("button special fit").classNames = "button disabled"
+    console.log("You should make it so that clicking these disabled buttons will give an alert explaining the need to input a class code or ICS url first")
+  }
+  else{
+    document.getElementsByClassName("autoButton").className = "button button-large"
+    document.getElementsByClassName("autoFinishButton").className = "button button-large"
+    document.getElementsByClassName("autoCancelButton").className = "button button-large"
+    document.getElementById("manualButton").className = "button special fit"
+    document.getElementById("manualFinishButton").className = "button special fit"
+    document.getElementById("manualCancelButton").className = "button special fit"
+  }
+}
+
+function renderAssignmentLists(){
+  var pastAssignments = [];
+  var futureAssignments = [];
+  for (var i = 0; i<assignments.length;i++){
+    if (assignments[i].finished){
+      pastAssignments.push([assignments[i]._id,assignments[i].course,assignments[i].title,assignments[i].description]);
+    }
+    else{
+      futureAssignments.push([assignments[i]._id,assignments[i].course,assignments[i].title,assignments[i].description]);
+    }
+  }
+  generateTodoList(futureAssignments);
+  generatePastAssignments(pastAssignments);
+}
 
 function selectability(){
   document.querySelector('ul').addEventListener('click', function(e){
@@ -354,6 +380,9 @@ function timer(command){
     var totalDuration = duration;
     duration = 0;
   }
+  if (command == 'cancel'){
+    console.log("You need to finish the timer function")
+  }
 }
 
 
@@ -363,6 +392,7 @@ function renderURLInput(){
 	document.getElementById("instructionsInd").style.display = "";
   document.getElementById("urlFormInd").style.display = "";
   document.getElementById("introMessage").style.display = "none";
+  document.getElementById("urlInputForm").innerHTML = currentStudent.spreadsheetURL
 }
 function renderDirrectInput(){
   console.log("Changing")
@@ -370,21 +400,16 @@ function renderDirrectInput(){
   document.getElementById("instructionsDir").style.display = "";
   document.getElementById("urlFormDir").style.display = "";
   document.getElementById("introMessage").style.display = "none";
-  var classOptions = "<option value=''>- Class/Catagory -</option>"
+  var classOptions = "";
   //previousInputs are not stored for now, thus, always false:
-  var previousInput = false
-  if (previousInput){
-    if (studentList[0].courseList.length == 0){
-    alert("You need to input your class names first")
-    }
-    else{
-      for (var i = 0; i<studentList[0].courseList.length; i++){
-      classOptions += "<option value='1'>" + studentList[0].courseList[i].courseCode + "</option>"
-      }
-    }
+
+  if(currentStudent.courses.length == 0){
+    classOptions = "<option value=''>- Class/Catagory -</option><option value='1'>Input class names below</option>"
   }
   else{
-    classOptions = "<option value=''>- Class/Catagory -</option><option value='1'>Input class names below</option>"
+    for (var i = 0; i<currentStudent.courses.length; i++){
+        classOptions += "<option value='1'>" + currentStudent.courses[i] + "</option>"
+      }
   }
   document.getElementById("classOptions").innerHTML = classOptions;
   selectability();
@@ -403,8 +428,22 @@ function toggle(id){
   }
 }
 
-function generateTodoList(){
+function generateTodoList(futureAssignments){
+  var todoList = "";
+  for(var i=0; i<futureAssignments.length; i++){
+    todoList += "<option onmouseover=" + "'" + futureAssignments[i][3] + "'" + " value='" + futureAssignments[i][0] + "'>" + futureAssignments[i][1] + " | " + futureAssignments[i][2] + "</option>";
+  }
+  document.getElementById("todoList").innerHTML = todoList
+}
 
+function generatePastAssignments(pastAssignments){
+  console.log("generating past assignments, there are: " + pastAssignments.length + " to write")
+  var pastList = "";
+  for(var i=0; i<pastAssignments.length; i++){
+    pastList += "<option onmouseover=" + "'" + pastAssignments[i][3] + "'" + " value='" + pastAssignments[i][0] + "'>" + pastAssignments[i][1] + " | " + pastAssignments[i][2] + "</option>";
+  }
+  console.log("injecting: " + pastList)
+  document.getElementById("pastAssignments").innerHTML = pastList
 }
 
 function fetchICS(){
@@ -1184,6 +1223,96 @@ layout = {barmode: 'stack'};
 }); */
 }
 
+function makeAllTheGraphs(){
+  
+  //Pie chart:
+  var pieDictionary = {}
+  for (var i=0; i<currentStudent.courses.length; i++){
+    pieDictionary[currentStudent.courses[i]] = 1; //should be 0 except for testing !!Warning!!
+  }
+  for (var j=0; j<assignments.length; j++){
+    var timeSum = 0 
+    for (var k=0; k<assignments[j].times.length; k++){
+      timeSum += ((assignments[j].times[k][1] - assignments[j].times[k][0])/1000)
+    }
+    pieDictionary[assignments[i].course] += timeSum
+  }
+  
+  console.log("Values for the pie chart are: " + getValueArrayFromDictionary(pieDictionary));
+  console.log("Labels for the pie chart are: " + Object.keys(pieDictionary));
+
+  var data_pie = [{
+    labels: Object.keys(pieDictionary),
+    values: getValueArrayFromDictionary(pieDictionary),
+    type: 'pie'
+  }];
+
+  var layout_pie = {
+    height: 400,
+    width: 500
+  };
+
+  Plotly.newPlot('graphSpace1', data_pie, layout_pie);
+  //Day of the week histogram:
+  var histogramDictionary = {"Monday" : 1, "Tuesday" : 2, "Wednesday" : 3, "Thursday" : 4, "Friday" : 5, "Saturday" : 6, "Sunday" : 7} // !!Warning!! should all be 0 except for testing
+  for (var i=0; i<assignments.length; i++){
+    for (var j=0; j<assignments[i].times.length; j++){
+      var timeSpent = ((assignments[i].times[j][1] - assignments[i].times[j][0])/1000)
+      histogramDictionary[getDayOfWeekFromTimestamp(assignments[i].times[j][0])] = timeSpent
+    } 
+  }
+  console.log()
+  var data_histogram = [{
+    x: Object.keys(histogramDictionary),
+    y: getValueArrayFromDictionary(histogramDictionary),
+    type: 'bar'
+  }];
+
+  var layout_histogram = {
+    height: 400,
+    width: 500
+  };
+
+  console.log("Value for the histogram are: " + getValueArrayFromDictionary(histogramDictionary));
+  console.log("Labels for histogram are: " + Object.keys(histogramDictionary));
+
+  Plotly.newPlot('graphSpace2', data_histogram, layout_histogram);
+
+  //Cumulative homework from each class (absolute values):
+
+  //Cumulative homework from each class (as percent of total):
+
+  //Homework per day line chart:
+
+  //Homework by time of day
+
+  //Homework calendar heatmap:
+}
+
+function getDayOfWeekFromTimestamp(timestamp){
+  var a = new Date(timestamp*1000);
+  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var dayOfWeek = days[a.getDay()]
+  return dayOfWeek
+}
+
+function getValueArrayFromDictionary(dictionary){
+  var keys = Object.keys(dictionary)
+  var values = []
+  for (var i = 0; i < keys.length; i++) {
+    values[i] = dictionary[keys[i]];
+    // use val
+  }
+  return values
+}
+
+function graphMaker(graphType, multipleDataSets, xData, yData, orientation, height, width){
+  var graphData = [{
+    values: xData,
+    labels: yData,
+    type: graphType
+  }];
+}
     
 function pieGraph(){
     var data_pie = [{

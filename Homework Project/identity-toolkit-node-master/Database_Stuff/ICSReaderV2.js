@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/homework_database').then(
-  () => { console.log("ready");courseAdder("tonyj321@gmail.com"); },
+  () => { console.log("ready");courseAdder("arun2642@gmail.com"); },
   err => {  throw err; }
 );
 
