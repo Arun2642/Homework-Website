@@ -152,6 +152,8 @@ router.route('/students/:student_id')
 
                 if (req.body.spreadsheetURL)
                     student.name = req.body.spreadsheetURL;  // update the students info
+                if (req.body.ICSURL)
+                    student.ICSURL = req.body.ICSURL;  // update the students info
 
                 // save the student
                 student.save(function (err) {
@@ -210,12 +212,33 @@ router.route('/assignments')
             });
         });
         
+router.route('/assignments/:assignment_id/times')
+         // Add times
+        .post(function (req, res) {
+
+            Assignment.findById(req.params.assignment_id, function (err, assignment) {
+                if (err)
+                    res.send(err);
+                //if (assignment.times === null) { assignment.times = []; }
+                assignment.times.push([req.body.start,req.body.stop]);
+                if (req.body.finished) {
+                    assignment.finished = req.body.finished;
+                }
+                // save the assignment and check for errors
+                assignment.save(function (err) {
+                  if (err)
+                    res.send(err);
+                
+                  res.json({message: 'Assignment created!', assignmentId: assignment._id});
+                }); 
+            });
+        }); 
         
 router.route('/assignments/:assignment_id')
 
         // get the assignment with that id (accessed at GET http://localhost:8080/api/assignments/:assignment_id)
         .get(function (req, res) {
-            Student.findById(req.params.assignmen_id, function (err, assignment) {
+            Assignment.findById(req.params.assignment_id, function (err, assignment) {
                 if (err)
                     res.send(err);
                 res.json(assignment);
@@ -308,9 +331,15 @@ function renderIndexPage(req, res) {
     }
 }
 
-
-
 function renderHomePage(req, res) {
+    renderHome(req,res,"./Home.html");
+}
+
+function renderTestPage(req, res) {
+    renderHome(req,res,"./Test.html");
+}
+
+function renderHome(req,res,page) {
     var specificStudent;
     if (req.cookies.gtoken) {
         console.log("First statement true");
@@ -354,13 +383,18 @@ function renderHomePage(req, res) {
                         console.log("Welcome! Created new student collection");
                         console.log("Welcome! Created new student collection");
                     }
+                    // If the ICSURL is set then update the assignments
+                    if (specificStudent.ICSURL) {
+                       readCoursesFromURL(specificStudent._id,specificStudent.ICSURL);
+                       //TODO: Wait until promise completes
+                    }
                     
                     Assignment.find({"studentId": specificStudent._id},function(err,studentAssignments) {
                         if (err) {
                             console.log("A database error occured");
                         }
                         res.writeHead(200, {'Content-Type': 'text/html'});
-                        var html = new Buffer(fs.readFileSync('./Home.html')).toString();
+                        var html = new Buffer(fs.readFileSync(page)).toString();
                         var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
                         var html = replaceAll(html,'%%assignments%%', JSON.stringify(studentAssignments));
                         res.end(html);
@@ -370,77 +404,12 @@ function renderHomePage(req, res) {
         });
     } else {
         console.log("First statement returned false");
-        var html = new Buffer(fs.readFileSync('./Home.html'))
+        var html = new Buffer(fs.readFileSync(page))
                 .toString();
         res.end(html);
     }
 }
     
-function renderTestPage(req, res) {
-    var specificStudent;
-    if (req.cookies.gtoken) {
-        console.log("First statement true");
-        gitkitClient.verifyGitkitToken(req.cookies.gtoken, function (err, resp) {
-            if (err) {
-                console.log("An error occurred" + err);
-                printLoginInfo(res, 'Invalid token: ' + err);
-            } else {
-                Student.findOne({"googleId" : resp.email}, function(err,student){
-                    if (err) {
-                        console.log("A database error occured");
-                    }
-                
-                    if (student) {    
-                        console.log("Welcome back! "+JSON.stringify(resp));
-                        console.log("Welcome back!");
-                        console.log("Welcome back!");
-                        console.log("Welcome back!");
-                        specificStudent = student;
-                    }
-                    else{
-                        var newStudent = new Student(
-                                {googleId:resp.email,
-                                 name:resp.display_name,
-                                 courses:[],
-                                 connectedSpredsheet:false, 
-                                 spreadsheetURL : "", 
-                                 ICSURL : ""});
-                        newStudent.save(function(err){
-                            if(err){
-                                console.log("Could not save to database because: " + err);
-                            }
-                            else{
-                                console.log("New student saved to database");
-                            }
-                        });
-                        specificStudent = newStudent;
-                        console.log("Welcome! Created new student collection");
-                        console.log("Welcome! Created new student collection");
-                        console.log("Welcome! Created new student collection");
-                        console.log("Welcome! Created new student collection");
-                    }
-                   
-                    Assignment.find({"studentId": specificStudent._id},function(err,studentAssignments) {
-                        if (err) {
-                            console.log("A database error occured");
-                        }
-                        res.writeHead(200, {'Content-Type': 'text/html'});
-                        var html = new Buffer(fs.readFileSync('./Test.html')).toString();
-                        var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
-                        var html = replaceAll(html,'%%assignments%%', JSON.stringify(studentAssignments));
-                        res.end(html);
-                    });
-                });
-            }
-        });
-    } else {
-        console.log("First statement returned false");
-        var html = new Buffer(fs.readFileSync('./Test.html'))
-                .toString();
-        res.end(html);
-    }
-}
-
 function renderPlayPage(req, res) {
     if (req.cookies.gtoken) {
         gitkitClient.verifyGitkitToken(req.cookies.gtoken, function (err, resp) {
@@ -473,63 +442,67 @@ function renderSendEmailPage(req, res) {
 
 var request = require('request');
 
-function readCoursesFromURL(studentId, url) { 
-    request(url, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-       var discoveredCourses = [];
-       body = body.replace(/(\r\n|\n|\r) /gm,"");
-       //body = body.replace(/\\/g,"");
-       var lines = body.split(/\r\n|\n|\r/gm);
-       var dict = {};
-       for (var line of lines) {
-          if (line === 'BEGIN:VEVENT') {
-              dict = {};
-          } else if (line === 'END:VEVENT') {
-              //Ready to add entry to assignments
-              var summary = dict['SUMMARY'];
-              var m = /([^\[]+)\[([A-Z]+ ?[0-9]+) ?([^\]]*)\]/g.exec(summary);
-              if (m) {
-                  discoveredCourses.push(m[2]);
-                  Assignment.update({"_id":dict["UID"]}, {
-                     "_id":dict["UID"],
-                     "studentId":studentId,
-                     "course":m[2],
-                     "finished":false,
-                     "title":m[1],
-                     "group":m[3],
-                     "description":dict['DESCRIPTION'],
-                     "url":dict["URL"],
-                     "dtstart":dict["DTSTART"],
-                     "dtend":dict["DTEND"],
-                     "dtstamp":dict["DTSTAMP"]}, { upsert : true }, function(err){
-                    if(err){
-                       console.log("Could not save assignment to database because: " + err);
-                    } else{
-                       console.log("New assignment saved to database");
+function readCoursesFromURL(studentId, url) {
+    var promise = new Promise(function (resolve, reject)
+    {
+        request(url, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var discoveredCourses = [];
+                body = body.replace(/(\r\n|\n|\r) /gm, "");
+                //body = body.replace(/\\/g,"");
+                var lines = body.split(/\r\n|\n|\r/gm);
+                var dict = {};
+                for (var line of lines) {
+                    if (line === 'BEGIN:VEVENT') {
+                        dict = {};
+                    } else if (line === 'END:VEVENT') {
+                        //Ready to add entry to assignments
+                        var summary = dict['SUMMARY'];
+                        var m = /([^\[]+)\[([A-Z]+ ?[0-9]+) ?([^\]]*)\]/g.exec(summary);
+                        if (m) {
+                            discoveredCourses.push(m[2]);
+                            Assignment.update({"_id": dict["UID"]}, {
+                                "_id": dict["UID"],
+                                "studentId": studentId,
+                                "course": m[2],
+                                "finished": false,
+                                "title": m[1],
+                                "group": m[3],
+                                "description": dict['DESCRIPTION'],
+                                "url": dict["URL"],
+                                "dtstart": dict["DTSTART"],
+                                "dtend": dict["DTEND"],
+                                "dtstamp": dict["DTSTAMP"]}, {upsert: true}, function (err) {
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    console.log("New assignment saved to database");
+                                }
+                            });
+                        }
+                    } else {
+                        var m = /([A-Z]+)(?:;VALUE=[A-Z]+)?:(.*)/g.exec(line);
+                        if (m) {
+                            dict[m[1]] = m[2];
+                        }
                     }
-                 });                  
-              }
-          } else {
-              var m = /([A-Z]+)(?:;VALUE=[A-Z]+)?:(.*)/g.exec(line);
-              if (m) {
-                 dict[m[1]] = m[2];
-             }
-          }
-       }       
-       Student.update(
-          {_id: studentId},
-          { $addToSet: {courses:{$each:discoveredCourses}}}, function(err,res) {
-             if (err) {
-                 console.log(err);
+                }
+                Student.update(
+                        {_id: studentId},
+                        {$addToSet: {courses: {$each: discoveredCourses}}}, function (err, res) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve("Success");
+                    }
+                }
+                );
             } else {
-                console.log(res);
+                reject(error);
             }
-          }
-        );
-    } else {
-        console.log("Error:" + error);
-    }
-  });
+        });
+    });
+    return promise;
 }
 
 function replaceAll(str, find, replace) {

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <title>Page for testing</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,20 +10,42 @@
         <div>TODO write content</div>
         <div id="name"></div>
         <div id="url"></div>
+        <div id="ics"></div>
         <div id="assignments"></div>
         <script>
-        function editURL(button) {
-            
-        }
-        var currentStudent = %%student%%;
-        var assignments = %%assignments%%;
-        document.getElementById('name').innerHTML = "Welcome "+currentStudent.name+" ("+currentStudent.googleId+")!";
-        if (currentStudent.spreadsheetURL) {
-            document.getElementById('url').innerHTML = "Your spreadsheet URL is "+currentStudent.spreadsheetURL;            
-        } else {
-            document.getElementById('url').innerHTML = 'No spreadsheet URL set <a href="#" onclick="editURL(); return false;">Edit</a>';
-        }
-        document.getElementById('assignments').innerHTML = "Assignments "+assignments.length;
-    </script>
+            var currentStudent = %%student%%;
+            var assignments = %%assignments%%;
+            function editURL() {
+                $.ajax({
+                    url: "api/students/"+currentStudent._id, 
+                    type: 'PUT',
+                    data: {ICSURL: 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics'},
+                    success: function(result){console.log("success");}
+                });
+            }
+            function addTimes() {
+                console.log("updateing "+ assignments[0]._id);
+                var now = Date.now();
+                $.ajax({
+                    url: "api/assignments/"+assignments[0]._id+"/times",
+                    type: 'POST',
+                    data: {'start': now, 'stop': now-1000},
+                    success: function(result){console.log("success");}
+                });
+            }
+
+            $("#name").html("Welcome " + currentStudent.name + " (" + currentStudent.googleId + ")!");
+            if (currentStudent.spreadsheetURL) {
+              $("#url").html("Your spreadsheet URL is " + currentStudent.spreadsheetURL);
+            } else {
+              $('#url').html('No spreadsheet URL set <a href="#" onclick="editURL(); return false;">Edit</a>');
+            }
+            if (currentStudent.ICSURL) {
+               $('#ics').html("Your ICS URL is " + currentStudent.ICSURL);
+            } else {
+               $('#ics').html('No ICS URL set <a href="#" onclick="editURL(); return false;">Edit</a>');
+            }
+            $('#assignments').html("Assignments " + assignments.length+' <a href="#" onclick="addTimes(); return false;">Add times</a>');
+        </script>
     </body>
 </html>
