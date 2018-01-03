@@ -1279,14 +1279,96 @@ function makeAllTheGraphs(){
   Plotly.newPlot('graphSpace2', data_histogram, layout_histogram);
 
   //Cumulative homework from each class (absolute values):
+  var cumulativeDictionary = {};
+  for (var i=0; i<currentStudent.courses.length; i++){
+    cumulativeDictionary[currentStudent.courses[i]] = {y:[], x:[], name:currentStudent.courses[i], mode:"lines", type:"scatter"};
+  }
+  var numberOfDays;
+  if (assignments[assignments.length-1].times.length != 0){
+    numberOfDays = (((((assignments[assignments.length-1].times[0][1] - assignments[0].times[0][0])/1000)/60)/60)/24);
+  }
+  else{
+    numberOfDays = 0;
+  }
+  for (var d=0; d<numberOfDays; d++){
+    for (var c=0; c<currentStudent.courses.length;c++){
+      cumulativeDictionary[currentStudent.courses[c]][y].push(cumulativeDictionary[currentStudent.courses[c-1]][y]);
+      cumulativeDictionary[currentStudent.courses[c]][x].push(getDateFromTimestamp(assignments[0].times[0][0] + (1000*60*60*24*d)));
+    }
+    for (var a=0; a<assignments.length; a++){
+      for (var n=0; n<assignments[a].times.length; n++){
+        if (getDateFromTimestamp(assignments[a].times[n][0]) == cumulativeDictionary[assignments[a].course][x][d]){
+          cumulativeDictionary[assignments[a].course][y][d] = ((assignments[a].times[n][1] - assignments[a].times[n][0])/1000)
+        }
+      }
+    }
+  }
+
+  var data_cumulative = [];
+  for (var s=0; s<currentStudent.courses.length; s++){
+    data_cumulative[s] = cumulativeDictionary[s]
+  }
+
+  var layout_cumulative = {
+    height: 400,
+    width: 500
+  };
+
+
+  Plotly.newPlot('graphSpace3', data_cumulative, layout_cumulative);
 
   //Cumulative homework from each class (as percent of total):
+
+  var thisIsNotDoneYet = `AAAAHHHHH! That previous function took way too much effort to make. I'll finish this one last. But... if you are seeing this message.... you really do need to finish this function before the website can be released....`
+  console.log(thisIsNotDoneYet);
 
   //Homework per day line chart:
 
   //Homework by time of day
+  var hourNames = ["1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", 
+"8 PM", "9 PM", "10 PM", "11 PM", "12 AM"]
+  hourDictionary = {"1 AM": 0, "2 AM": 0, "3 AM": 0, "4 AM": 0, "5 AM": 0, "6 AM": 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, "12 PM": 0, "1 PM": 0, "2 PM": 0, "3 PM": 0, "4 PM": 0, "5 PM": 0, "6 PM": 0, "7 PM": 0, 
+"8 PM": 0, "9 PM": 0, "10 PM": 0, "11 PM": 0, "12 AM": 0}
+  for (var i=0; i<assignments.length; i++){
+    for (var t=0; t<assignments[i].times.length; t++){
+      for (var n=assignments[i].times[n][0].getHours(); n<assignments[i].times[n][1].getHours(); n++){
+        if (n==assignments[i].times[n][0].getHours()){
+          hourDictionary[hourNames[n]] += (60 - ((assignments[i].times[n][0] % 3600000)/60000))
+        }
+        else if (n==assignments[i].times[n][1].getHours()){
+          hourDictionary[hourNames[n]] += ((assignments[i].times[n][0] % 3600000)/60000)
+        }
+        else{
+          hourDictionary[hourNames[n]] += 60
+        }
+      }
+    }
+  }
+
+  var data_hour = [{
+    x: Object.keys(hourDictionary),
+    y: getValueArrayFromDictionary(hourDictionary),
+    type: 'bar'
+  }];
+
+  var layout_hour = {
+    height: 400,
+    width: 500
+  };
+
+  console.log("Value for the histogram are: " + getValueArrayFromDictionary(histogramDictionary));
+  console.log("Labels for histogram are: " + Object.keys(histogramDictionary));
+
+  Plotly.newPlot('graphSpace4', data_hour, layout_hour);
 
   //Homework calendar heatmap:
+}
+
+function getHourFromTimestamps(timestamp){
+  var hourNames = ["1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", 
+"8 PM", "9 PM", "10 PM", "11 PM", "12 AM"]
+  var theHour = hourNames[timestamp.getHours()];
+  return theHour
 }
 
 function getDayOfWeekFromTimestamp(timestamp){
@@ -1294,6 +1376,13 @@ function getDayOfWeekFromTimestamp(timestamp){
   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var dayOfWeek = days[a.getDay()]
   return dayOfWeek
+}
+
+function getDateFromTimestamp(timestamp){
+  var monthsOfTheYear = ["Janurary", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  var day = timestamp.getDate();
+  var month = monthsOfTheYear[timestamp.getMonth()]
+  var date = month + " " + day
 }
 
 function getValueArrayFromDictionary(dictionary){
