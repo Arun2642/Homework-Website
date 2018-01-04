@@ -14,8 +14,8 @@
         <script
 			  src="https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-			  crossorigin="anonymous"></script>
-		<title>Homework Homepage</title>
+        crossorigin="anonymous"></script>
+    <title>Homework Homepage</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -119,13 +119,13 @@
                   </section>
                   <section class='6u 12u$(medium)'>
                     <h2>Load an ICS File:</h2>
-                    <form method="post" action="#">
+                    <form id="ics-url-form" method="post" action="#">
                         <div class="row uniform">
                           <div class="8u 12u$(small)">
                             <input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
                           </div>
                           <div class="3u$ 12u$(small)">
-                            <input type="submit" value="Load" class="small" />
+                            <input type="button" value="Load" class="small" name="ICSURL" onclick="sendICS()"/>
                           </div>
                         </div>
                       </form>
@@ -226,6 +226,30 @@ var started = false;
 var duration = 0;
 var currentStudent = %%student%%;
 var assignments = %%assignments%%;
+
+function sendICS(){
+   console.log("trying to send")
+   var givenData = {};
+   var ICSURL = document.getElementById("givenICSURL").value;
+   givenData.ICSURL = ICSURL;
+   console.log(givenData)
+
+   $.ajax({
+     type: 'PUT',
+     datatype: 'jsonp',
+     data: JSON.stringify(givenData),
+     contentType: 'application/json',
+     url: "http://127.0.0.1:8000/api/students/"+currentStudent._id, //node.js server is running
+     success: function(data) {
+       alert("success");
+
+     },
+     error: function(xhr,status,error){
+       console.log("xhr: " + xhr + " status: " + status)
+       console.log("The url is: " + "http://127.0.0.1:8000/api/students/"+currentStudent._id)
+     }
+   });
+}
 
 function loadPage(){
   selectability();
