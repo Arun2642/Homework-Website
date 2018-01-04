@@ -4,9 +4,14 @@
   "author": "Arun Johnson",
   "description": "Homework server",
   "contributors": [
-    { "name": "Arun Johnson"} ,
-    {"name": "Tony Johnson"},
-    { "name": "Leo Ikle-Maizlish"}
+    {
+      "name": "Arun Johnson"
+    },
+    {
+      "name": "Tony Johnson"
+    },
+    {
+      "name": "Leo Ikle-Maizlish"
     }
   ],
   "main": "./example-app.js",
@@ -18,8 +23,8 @@
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
-    "gitkitclient": "0.0.4",
-    "mongoose": "~4.0.0"
+    "gitkitclient": "0.0.7",
+    "mongoose": "~5.0.0-rc2"
   },
   "license": "Apache 2",
   "scripts": {
