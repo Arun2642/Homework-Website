@@ -236,10 +236,8 @@ function sendICS(){
 
    $.ajax({
      type: 'PUT',
-     datatype: 'jsonp',
-     data: JSON.stringify(givenData),
-     contentType: 'application/json',
-     url: "http://127.0.0.1:8000/api/students/"+currentStudent._id, //node.js server is running
+     data: givenData,
+     url: "/api/students/"+currentStudent._id, //node.js server is running
      success: function(data) {
        alert("success");
 
