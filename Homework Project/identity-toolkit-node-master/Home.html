@@ -313,7 +313,87 @@ function selectability(){
 
 var timerInterval;
 
-function timer(command){
+function timer(command, duration){
+  if (command == 'start'){
+    startTime = new Date().getTime()
+    var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+    var seconds = (Math.floor(duration % (1000 * 60)) / 1000).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+    // Display the result in the element with id="demo"
+    document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
+    + minutes + ':' + seconds + '</b></h></font>';
+    timerInterval = setInterval(function() {
+
+      // Get todays date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now an the count down date
+      var elapsed = duration + (now-startTime);
+
+      // Time calculations for days, hours, minutes and seconds
+      var hours = Math.floor((elapsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = (Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+      var seconds = (Math.floor((elapsed % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+
+      // Display the result in the element with id="demo"
+      document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
+      + minutes + ':' + seconds + '</b></h></font>';  
+    }, 1000);
+  }
+  if (command == 'stop'){
+    stopTime = new Date().getTime();
+    endDuration = (stopTime-startTime) + duration
+    console.log("duration was:" + endDuration)
+    clearInterval(timerInterval);
+    var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = (Math.floor((endDuration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+    var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+    document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
+      + minutes + ':' + seconds + '</b></h></font>';
+    return [startTime, stopTime]
+  }
+}
+
+//This function should deal with any button clicks from the left side (the manual entry option) by 1) changing the inner html of the start/stop/resume button to match it's current state, 2) start and stop the timer, and 3) send new information about assignments to the database, and get information the timer needs from the database
+function manualTimerClick(buttonID, command, assignmentID, assignmentInfo){
+  //the following 3 if statements deal with chaning the innerHTML of the button, it should be complete
+  if (document.getElementById(buttonID).innerHTML == 'start'){
+    document.getElementById(buttonID).innerHTML = 'stop';
+  }
+  if (document.getElementById(buttonID).innerHTML == 'stop'){
+    document.getElementById(buttonID).innerHTML = 'resume';
+  }
+  if (document.getElementById(buttonID).innerHTML == 'resume'){
+    document.getElementById(buttonId).innerHTML = 'stop';
+  }
+  //this should start the timer if the command issued is 'start', and should add a new assignment to the database
+  if (command == 'start'){
+    timer('start', 0);
+    newAssignment(assignmentID, assignmentInfo)
+  }
+  if (command == 'stop'){
+    //this statement should stop the timer, and put the start and stop times returned from the timer function into the database
+  }
+  if (command == 'finish'){
+    //this should stop the timer and put the start and stop times in the database, then set the assignment to finished in the database
+  }
+  if (command == 'cancel'){
+    //this should stop the timer, and not change the database
+  }
+}
+// we also need a new automaticTimerClick function to deal with button clicks from the buttons associated with the todo list. It should act the same as the previous function except, instead of making and modifying a new assignment, it should make changes to the assignment selected in the todo list
+
+function newAssignment(assignmentID, assignmentInfo){
+// this should make a new assignment, and, if it does not have an aassignment id (if 0 is passed) it should create a new id
+  $.ajax({
+                    url: "api/students/"+currentStudent._id, 
+                    type: 'PUT',
+                    data: {ICSURL: 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics'},
+                    success: function(result){console.log("success");}
+                });
+}
+
+/*function timer(command, assignmentID){
   if (command == "toggle"){
     if (running){
       command = 'stop';
@@ -384,6 +464,7 @@ function timer(command){
   }
   if (command == 'stop'){
     stopTime = new Date().getTime();
+    addTimes(startTime, stopTime, assignmentID)
     duration = stopTime-startTime
     console.log("duration was:" + duration)
     running = false;
@@ -405,8 +486,18 @@ function timer(command){
   if (command == 'cancel'){
     console.log("You need to finish the timer function")
   }
-}
+} */
 
+
+function addTimes(start, stop, assignmentID) {
+  console.log("updateing "+ assignmentID);
+  $.ajax({
+    url: "api/assignments/"+assignmentID+"/times",
+    type: 'POST',
+    data: {'start': start, 'stop': stop},
+    success: function(result){console.log("success");}
+  });
+}
 
 function renderURLInput(){
 	console.log("Changing")
