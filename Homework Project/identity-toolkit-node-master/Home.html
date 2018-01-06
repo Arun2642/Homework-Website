@@ -78,7 +78,7 @@
                           <br>
                           <div class="12u$">
                             <ul class="actions fit">
-                              <li><button class="button special fit" onclick="toggle('manualButton')" id="manualButton">Start</button></li>
+                              <li><button class="button special fit" onclick="manualTimerClick(button, )" id="manualButton">Start</button></li>
                               <li><button class="button special fit" onclick="cancel" id="manualFinishButton">Cancel</button></li>
                               <li><button class="button special fit" onclick="finish" id="manualCancelButton">Finish</button></li>
                             </ul>
@@ -344,6 +344,7 @@ function timer(command, duration){
       // Display the result in the element with id="demo"
       document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
       + minutes + ':' + seconds + '</b></h></font>';  
+      return duration
     }, 1000);
   }
   if (command == 'stop'){
@@ -356,12 +357,13 @@ function timer(command, duration){
     var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
     document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
       + minutes + ':' + seconds + '</b></h></font>';
-    return [startTime, stopTime]
+    return [startTime, stopTime, duration]
   }
 }
 
 //This function should deal with any button clicks from the left side (the manual entry option) by 1) changing the inner html of the start/stop/resume button to match it's current state, 2) start and stop the timer, and 3) send new information about assignments to the database, and get information the timer needs from the database
-function manualTimerClick(buttonID, command, assignmentID, assignmentInfo){
+function manualTimerClick(buttonID, command, assignmentInfo, assignmentID){
+
   //the following 3 if statements deal with chaning the innerHTML of the button, it should be complete
   if (document.getElementById(buttonID).innerHTML == 'start'){
     document.getElementById(buttonID).innerHTML = 'stop';
@@ -378,16 +380,50 @@ function manualTimerClick(buttonID, command, assignmentID, assignmentInfo){
     newAssignment(assignmentID, assignmentInfo)
   }
   if (command == 'stop'){
-    //this statement should stop the timer, and put the start and stop times returned from the timer function into the database
+    var timesToAdd = timer('stop', timeSpentOn(assignmentID));
+    addTimes(timesToAdd[0], timesToAdd[1], assignmentID);
+  }
+  if (command == 'resume'){
+    timer('start', timeSpentOn(assignmentID));
   }
   if (command == 'finish'){
-    //this should stop the timer and put the start and stop times in the database, then set the assignment to finished in the database
+    var timesToAdd = timer('stop', timeSpentOn(assignmentID));
+    addTimesAndFinish(timesToAdd[0], timesToAdd[1], assignmentID);
   }
   if (command == 'cancel'){
-    //this should stop the timer, and not change the database
+    timer('stop', timeSpentOn(assignmentID));
   }
 }
 // we also need a new automaticTimerClick function to deal with button clicks from the buttons associated with the todo list. It should act the same as the previous function except, instead of making and modifying a new assignment, it should make changes to the assignment selected in the todo list
+
+
+function timeSpentOn(assignmentID){ //given an assignment id, returns the total time logged for the assignment in MILISECONDS
+  for (var i = 0; i<assignments.length; i++){
+    if (assignments[i]._id == assignmentID){
+      var timeSpent = 0;
+      for (var n = 0; n<assignments[i].times.length; i++){
+        timeSpent += (assignments[i].times[i][1] - assignments[i].times[i][1])
+      }
+      console.log("Found assignment. Time spent was: " + timespent)
+      return timeSpent
+    }
+  }
+  console.log("No assignment with matching ID found")
+  return 0
+}
+
+function theIdOf(assignmentInfo){
+  for (var a=0; a<assignments.length; a++){
+    if (assignments[i].studentId == currentStudent._id){
+      if (assignments[i].course == assignmentInfo[0]){
+        if (assignments[i].title == assignmentInfo[1]){
+          return assignments[i]._id
+        }
+      }
+    }
+  }
+  return(0)
+}
 
 function newAssignment(assignmentID, assignmentInfo){
 // this should make a new assignment, and, if it does not have an aassignment id (if 0 is passed) it should create a new id
@@ -501,6 +537,16 @@ function addTimes(start, stop, assignmentID) {
     url: "api/assignments/"+assignmentID+"/times",
     type: 'POST',
     data: {'start': start, 'stop': stop},
+    success: function(result){console.log("success");}
+  });
+}
+
+function addTimesAndFinish(start, stop, assignmentID) {
+  console.log("updateing "+ assignmentID);
+  $.ajax({
+    url: "api/assignments/"+assignmentID+"/times",
+    type: 'POST',
+    data: {'start': start, 'stop': stop, 'finished' : true},
     success: function(result){console.log("success");}
   });
 }
