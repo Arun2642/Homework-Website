@@ -65,7 +65,48 @@
           <div id="urlFormDir" style="display:none">
               <div class='row'>
                   <section class='6u 12u$(medium)'>
-                    <h2>Add Assignments Manually:</h2>
+                    <h3>Select from Todo List:</h3>
+                    <nav>
+                        <select id="todoList" size="20" style="height: 200px;">
+                          
+                        </select>
+                    </nav>
+                    <div class="12u$">
+                        <br>
+                        <ul class="actions fit">
+                          <li><button class="button special fit" onclick="manualTimerClick(button, )" id="manualButton">Start</button></li>
+                          <li><button class="button special fit" onclick="cancel" id="manualFinishButton">Cancel</button></li>
+                          <li><button class="button special fit" onclick="finish" id="manualCancelButton">Finish</button></li>
+                        </ul>
+                  </section>
+                  <section class='6u$ 12u$(medium)'>
+                      <h2>Load classes and assignments from canvas:</h2>
+                      <form id="ics-url-form" method="post" action="#">
+                        <div class="row uniform">
+                            <div class="9u 12u$(small)">
+                            <input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
+                          </div>
+                          <div class="3u$ 12u$(small)">
+                            <input type="button" value="Load" class="small" name="ICSURL" onclick="sendICS()"/>
+                          </div>
+                        </div>
+                      </form>
+
+                      <br>
+                      <h2>Add a class manually:</h2>
+                      <form method="post" action="#">
+                          <div class="row uniform">
+                            <div class="9u 12u$(small)">
+                              <input type="text" name="query" id="newClass" value="" placeholder="Enter class code (e.g. HIST301)" />
+                            </div>
+                            <div class="3u$ 12u$(small)">
+                              <input type="button" value="Add" class="small" onclick="addAClass(document.getElementById('newClass').value)" />
+                            </div>
+                          </div>
+                        </form>
+
+                      <br>
+                      <h2>Add Assignments Manually:</h2>
                       <div class='12u$'>
                         <div class='select-wrapper'>
                           <select name='demo-category' id='classOptions'>
@@ -74,62 +115,22 @@
                         </div>
                       </div>
                       <div class='row uniform'>
-                        <div class='12u$'><div class='select-wrapper'><input type='text' name='query' id='query' value='' placeholder='Describe the task/assignment (optional)' /></div></div>
-                          <br>
-                          <div class="12u$">
-                            <ul class="actions fit">
-                              <li><button class="button special fit" onclick="manualTimerClick(button, )" id="manualButton">Start</button></li>
-                              <li><button class="button special fit" onclick="cancel" id="manualFinishButton">Cancel</button></li>
-                              <li><button class="button special fit" onclick="finish" id="manualCancelButton">Finish</button></li>
-                            </ul>
+                        <div class='9u 12u$(small)'>
+                          <div class='select-wrapper'>
+                            <input type='text' name='query' id='assignmentTitle' value='' placeholder='Describe the task/assignment (optional)' />
                           </div>
                         </div>
-                  </section>
-                  <section class='3u 6u(medium) 12u$(small)'>
-                    <h3>Select from Todo List:</h3>
-                    <nav>
-                        <select id="todoList" size="20" style="height: 200px;">
-                          
-                        </select>
-                    </nav>
-                  </section>
-                  <section class='3u$ 6u$(medium) 12u$(small)'>
-                    <h3>Click to begin timing:</h3>
-                    <button class='button button-large' onclick='toggle("autoButton")' id="autoButton">Start</button>
-                    <br>
-                    <p></p>
-                    <button class='button button-large' onclick='' id="autoFinishButton">Finish</button>
-                    <br>
-                    <p></p>
-                    <button class='button button-large' onclick='' id="autoCancelButton" >Cancel</button>
+                        <div class="3u$ 12u$(small)">
+                            <input type="button" value="Add" class="small" onclick="addAnAssignment(document.getElementById(classOptions).value, document.getElementById(assignmentTitle))"/>
+                          </div>
+                      </div>
+                      
                   </section>
                   </div>
                   <div class='row uniform'>
                   <section class='6u 12u$(medium)'>
-                    <h2>Add a new class/task:</h2>
-                    <form method="post" action="#">
-                        <div class="row uniform">
-                          <div class="8u 12u$(small)">
-                            <input type="text" name="query" id="newClass" value="" placeholder="Enter class code (e.g. HIST301)" />
-                          </div>
-                          <div class="3u$ 12u$(small)">
-                            <input type="submit" value="Add" class="small" />
-                          </div>
-                        </div>
-                      </form>
                   </section>
                   <section class='6u 12u$(medium)'>
-                    <h2>Load an ICS File:</h2>
-                    <form id="ics-url-form" method="post" action="#">
-                        <div class="row uniform">
-                          <div class="8u 12u$(small)">
-                            <input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
-                          </div>
-                          <div class="3u$ 12u$(small)">
-                            <input type="button" value="Load" class="small" name="ICSURL" onclick="sendICS()"/>
-                          </div>
-                        </div>
-                      </form>
                   </section>
                   </div>
                   <hr class="major" />                  
@@ -228,6 +229,34 @@ var duration = 0;
 var currentStudent = %%student%%;
 var assignments = %%assignments%%;
 
+function addAnAssignment(classCode, title){
+  var newIdCode = 
+  $.ajax({
+    url: "api/assignments/",
+    type: 'POST',
+    data: {'studentId': currentStudent._id, 'course': classCode, 'title': title, 'finished': false},
+    success: function(result){
+      console.log("success");
+      assignments = data.assignments;
+      loadPage();
+    }
+  });
+}
+
+function addAClass(className){
+  currentStudent.courses.push(className)
+  $.ajax({
+    url: "api/students/"+currentStudent._id, 
+    type: 'PUT',
+    data: {courses: currentStudent.courses},
+    success: function(result){
+      console.log("success");
+      currentStudent = data.student;
+      loadPage();
+    }
+  });
+}
+
 function sendICS(){
    console.log("trying to send")
    var givenData = {};
@@ -241,7 +270,7 @@ function sendICS(){
      url: "/api/students/"+currentStudent._id, //node.js server is running
      success: function(data) {
        currentStudent = data.student;
-       assignments =-data.assignments;
+       assignments = data.assignments;
        renderAssignmentLists();
        if (document.getElementById("givenICSURL")) document.getElementById("givenICSURL").value=currentStudent.ICSURL;
        disableLockedFeatures();
@@ -267,7 +296,7 @@ function loadPage(){
     }
   }
   renderAssignmentLists();
-  if (document.getElementById("givenICSURL")) document.getElementById("givenICSURL").value=currentStudent.ICSURL;
+  if (document.getElementById("givenICSURL")){document.getElementById("givenICSURL").value=currentStudent.ICSURL};
   disableLockedFeatures();
   makeAllTheGraphs();
 
@@ -531,6 +560,20 @@ function newAssignment(assignmentID, assignmentInfo){
 } */
 
 
+////////////////////////////////////////////////////////////////
+///////////                SHORTCUTS            ////////////////
+////////////////////////////////////////////////////////////////
+
+if (!Array.prototype.last){
+    Array.prototype.last = function(){
+        return this[this.length - 1];
+    };
+};
+
+////////////////////////////////////////////////////////////////
+///////////                Actual code:           //////////////
+////////////////////////////////////////////////////////////////
+
 function addTimes(start, stop, assignmentID) {
   console.log("updateing "+ assignmentID);
   $.ajax({
@@ -573,7 +616,7 @@ function renderDirrectInput(){
   }
   else{
     for (var i = 0; i<currentStudent.courses.length; i++){
-        classOptions += "<option value='1'>" + currentStudent.courses[i] + "</option>"
+        classOptions += "<option value='"+ currentStudent.courses[i] +"'>" + currentStudent.courses[i] + "</option>"
       }
   }
   document.getElementById("classOptions").innerHTML = classOptions;
@@ -1449,8 +1492,8 @@ function makeAllTheGraphs(){
     cumulativeDictionary[currentStudent.courses[i]] = {y:[], x:[], name:currentStudent.courses[i], mode:"lines", type:"scatter"};
   }
   var numberOfDays;
-  if (assignments[assignments.length-1].times.length != 0){
-    numberOfDays = (((((assignments[assignments.length-1].times[0][1] - assignments[0].times[0][0])/1000)/60)/60)/24);
+  if (assignments.length != 0){
+    numberOfDays = (((((Date.now() - assignments[0].times[0][0])/1000)/60)/60)/24);
   }
   else{
     numberOfDays = 0;

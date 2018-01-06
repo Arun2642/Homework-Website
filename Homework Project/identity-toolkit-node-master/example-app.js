@@ -168,7 +168,7 @@ router.route('/students/:student_id')
                     if (err)
                         res.send(err);
 
-                    res.json({message: 'Student updated!'});
+                    res.json({message: 'Student updated!', 'student': student, 'assignment': assignment});
                 });
 
             });
