@@ -64,18 +64,26 @@ var StudentSchema = new Schema({
 });
 
 var AssignmentSchema = new Schema({
-    _id:String,
-    studentId:ObjectId,
-    course:String,
-    finished:Boolean,
-    title:String,
-    description:String,
-    times:Array,
-    url:String,
-    group:String,
-    dtstart:String,
-    dtend:String,
-    dtstamp:String
+    studentId: ObjectId,
+    assignment: String,
+    course: String,
+    finished: Boolean,
+    title: String,
+    description: String,
+    times: Array,
+    url: String,
+    group: String,
+    dtstart: String,
+    dtend: String,
+    dtstamp: String
+});
+AssignmentSchema.index({studentId: 1, assignment: 1}, {unique: true});
+AssignmentSchema.virtual("timeSpent").get(function() {
+    timeSpent = 0;
+    for (var time of this.times) {
+        timeSpent += time.stop-time.start;
+    }
+    return timeSpent;
 });
 
 var Student = mongoose.model('Student', StudentSchema);
@@ -367,8 +375,7 @@ function renderHome(req,res,page) {
                                  courses:[],
                                  connectedSpredsheet:false, 
                                  spreadsheetURL : "", 
-                                 ICSURL : "", 
-                                 assignments: []});
+                                 ICSURL : ""});
                         newStudent.save(function(err){
                             if(err){
                                 console.log("Could not save to database because: " + err);
@@ -385,20 +392,22 @@ function renderHome(req,res,page) {
                     }
                     // If the ICSURL is set then update the assignments
                     if (specificStudent.ICSURL) {
-                       readCoursesFromURL(specificStudent._id,specificStudent.ICSURL);
-                       //TODO: Wait until promise completes
+                       var promise = readCoursesFromURL(specificStudent._id,specificStudent.ICSURL);
+                    } else {
+                        promise = Promise.resolve();
                     }
                     
-                    Assignment.find({"studentId": specificStudent._id},function(err,studentAssignments) {
-                        if (err) {
-                            console.log("A database error occured");
-                        }
-                        res.writeHead(200, {'Content-Type': 'text/html'});
-                        var html = new Buffer(fs.readFileSync(page)).toString();
-                        var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
-                        var html = replaceAll(html,'%%assignments%%', JSON.stringify(studentAssignments));
-                        res.end(html);
-                    });
+                    promise.then(
+                        Assignment.find({"studentId": specificStudent._id},function(err,studentAssignments) {
+                            if (err) {
+                                console.log("A database error occured");
+                            }
+                            res.writeHead(200, {'Content-Type': 'text/html'});
+                            var html = new Buffer(fs.readFileSync(page)).toString();
+                            var html = replaceAll(html,'%%student%%', JSON.stringify(specificStudent));
+                            var html = replaceAll(html,'%%assignments%%', JSON.stringify(studentAssignments));
+                            res.end(html);
+                        }));
                 });
             }
         });
@@ -461,9 +470,9 @@ function readCoursesFromURL(studentId, url) {
                         var m = /([^\[]+)\[([A-Z]+ ?[0-9]+) ?([^\]]*)\]/g.exec(summary);
                         if (m) {
                             discoveredCourses.push(m[2]);
-                            Assignment.update({"_id": dict["UID"]}, {
-                                "_id": dict["UID"],
+                            Assignment.update({"studentId": studentId, "assignment": dict["UID"]}, {
                                 "studentId": studentId,
+                                "assignment": dict["UID"],
                                 "course": m[2],
                                 "finished": false,
                                 "title": m[1],

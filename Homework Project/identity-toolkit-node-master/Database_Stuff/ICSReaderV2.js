@@ -1,24 +1,15 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/homework_database').then(
-<<<<<<< HEAD
-  () => { console.log("ready");courseAdder("arun2642@gmail.com"); },
-  err => {  throw err; }
-);
-=======
-    () => {
-       console.log("ready");
-       courseAdder("tonyj321@gmail.com").then(
-       () => {
-           mongoose.disconnect();
-       },
-       err => {
-        throw err;
-       });
-     }),
-     err => {
-        throw err;
-     };
->>>>>>> 285d86ae16a8c5bd774907a9c11a42fbd8a0a26b
+mongoose.connect('mongodb://localhost/homework_database')
+.then(
+  () => {
+    console.log("ready");
+    return courseAdder("tonyj321@gmail.com");
+  })
+.then(
+  () => {
+     mongoose.disconnect();
+  })
+.catch(err => console.log(err));
 
 /* var fs = require('fs'),
  readline = require('readline');
@@ -71,8 +62,8 @@ var StudentSchema = new Schema({
 });
 
 var AssignmentSchema = new Schema({
-    _id: String,
     studentId: ObjectId,
+    assignment: String,
     course: String,
     finished: Boolean,
     title: String,
@@ -83,6 +74,14 @@ var AssignmentSchema = new Schema({
     dtstart: String,
     dtend: String,
     dtstamp: String
+});
+AssignmentSchema.index({studentId: 1, assignment: 1}, {unique: true});
+AssignmentSchema.virtual("timeSpent").get(function() {
+    timeSpent = 0;
+    for (var time of this.times) {
+        timeSpent += time.stop-time.start;
+    }
+    return timeSpent;
 });
 
 var Student = mongoose.model('Student', StudentSchema);
@@ -113,9 +112,9 @@ function readCoursesFromURL(studentId, url) {
                         var m = /([^\[]+)\[([A-Z]+ ?[0-9]+) ?([^\]]*)\]/g.exec(summary);
                         if (m) {
                             discoveredCourses.push(m[2]);
-                            Assignment.update({"_id": dict["UID"]}, {
-                                "_id": dict["UID"],
+                            Assignment.update({"studentId": studentId, "assignment": dict["UID"]}, {
                                 "studentId": studentId,
+                                "assignment": dict["UID"],
                                 "course": m[2],
                                 "finished": false,
                                 "title": m[1],
@@ -158,24 +157,28 @@ function readCoursesFromURL(studentId, url) {
 }
 
 function courseAdder(email) {
-    var promise = new Promise(function(resolve,reject)
+    var promise = new Promise(function (resolve, reject)
     {
         console.log("looking for student:" + email);
         Student.findOne({googleId: email}).then
-        (
-           (student) => {
-               if (student === null) {
-                  reject(new Error("ERROR! This student doesn't exist..." + email));
-               } else {
-                  readCoursesFromURL(student._id, "https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics").then(
-                    ()=>{resolve("success");},
-                    err=>{reject(err);});
-               }
-           },
-           (err) => {
-               reject(err);
-           }    
-        );
+                (
+                        (student) => {
+                    if (student === null) {
+                        reject(new Error("ERROR! This student doesn't exist..." + email));
+                    } else {
+                        readCoursesFromURL(student._id, "https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics").then(
+                                () => {
+                            resolve("success");
+                        },
+                                err => {
+                                    reject(err);
+                                });
+                    }
+                },
+                        (err) => {
+                    reject(err);
+                }
+                );
     });
     return promise;
 }

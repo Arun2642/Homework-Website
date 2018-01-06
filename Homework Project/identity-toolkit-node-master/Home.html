@@ -32,6 +32,7 @@
 						<a href="elements.html">Elements</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+                                </div>
       </header>
       <div class="align-right">
           <span class="icon fa-cog" style="font-size:48px; padding:40px;" onmouseover=""></span>	
@@ -239,8 +240,11 @@ function sendICS(){
      data: givenData,
      url: "/api/students/"+currentStudent._id, //node.js server is running
      success: function(data) {
-       alert("success");
-
+       currentStudent = data.student;
+       assignments =-data.assignments;
+       renderAssignmentLists();
+       if (document.getElementById("givenICSURL")) document.getElementById("givenICSURL").value=currentStudent.ICSURL;
+       disableLockedFeatures();
      },
      error: function(xhr,status,error){
        console.log("xhr: " + xhr + " status: " + status)
@@ -263,8 +267,10 @@ function loadPage(){
     }
   }
   renderAssignmentLists();
+  if (document.getElementById("givenICSURL")) document.getElementById("givenICSURL").value=currentStudent.ICSURL;
   disableLockedFeatures();
   makeAllTheGraphs();
+
 }
 
 function disableLockedFeatures(){
