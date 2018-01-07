@@ -29,7 +29,7 @@
 					<nav id="nav">
 						<a href="index.html">Start</a>
 						<a href="home.html">Homepage</a>
-						<a href="elements.html">Elements</a>
+						<a href="moreInfo.html">FAQ</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
                                 </div>
@@ -67,16 +67,16 @@
                   <section class='6u 12u$(medium)'>
                     <h3>Select from Todo List:</h3>
                     <nav>
-                        <select id="todoList" size="20" style="height: 200px;">
+                        <select id="todoList" size="20" style="height: 200px;" onclick="updateButtonNames(this.value)">
                           
                         </select>
                     </nav>
                     <div class="12u$">
                         <br>
                         <ul class="actions fit">
-                          <li><button class="button special fit" onclick="manualTimerClick(button, )" id="manualButton">Start</button></li>
-                          <li><button class="button special fit" onclick="cancel" id="manualFinishButton">Cancel</button></li>
-                          <li><button class="button special fit" onclick="finish" id="manualCancelButton">Finish</button></li>
+                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="StartButton">Start</button></li>
+                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="FinishButton">Cancel</button></li>
+                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="CancelButton">Finish</button></li>
                         </ul>
                   </section>
                   <section class='6u$ 12u$(medium)'>
@@ -146,7 +146,7 @@
                   <hr class="major" />
                   <div id='graphSpace1'></div>
                   <div id='graphSpace2'></div>
-                  <div id='graphSpace3'></div>
+                  <div id='graphSpace3'>This isn't substituting...</div>
                   <div id='graphSpace4'></div>
                   <div id='graphSpace5'></div>
                   <div id='graphSpace6'></div>
@@ -229,6 +229,26 @@ var duration = 0;
 var currentStudent = %%student%%;
 var assignments = %%assignments%%;
 
+function updateButtonNames(assignmentID){
+  if (timeSpentOn(assignmentID) > 0){
+    document.getElementById("StartButton").innerHTML = "Resume"
+  }
+  else{
+    document.getElementById("StartButton").innerHTML = "Start"
+  }
+}
+
+function updateAssignments(){
+  $.ajax({
+      url: "api/assignments/",
+      type: 'GET',
+      success: function(result){
+        console.log("success");
+        assignments = result;
+      }
+  });
+}
+
 function addAnAssignment(classCode, title){
   $.ajax({
     url: "api/assignments/",
@@ -303,17 +323,14 @@ function loadPage(){
 
 function disableLockedFeatures(){
   if (currentStudent.courses.length == 0){
-    document.getElementsByClassName("button button-large").classNames = "button disabled"
-    document.getElementsByClassName("button special fit").classNames = "button disabled"
-    console.log("You should make it so that clicking these disabled buttons will give an alert explaining the need to input a class code or ICS url first")
+    document.getElementsByClassName("button button-large").classNames = "button disabled";
+    document.getElementsByClassName("button special fit").classNames = "button disabled";
+    console.log("You should make it so that clicking these disabled buttons will give an alert explaining the need to input a class code or ICS url first");
   }
   else{
-    document.getElementsByClassName("autoButton").className = "button button-large"
-    document.getElementsByClassName("autoFinishButton").className = "button button-large"
-    document.getElementsByClassName("autoCancelButton").className = "button button-large"
-    document.getElementById("manualButton").className = "button special fit"
-    document.getElementById("manualFinishButton").className = "button special fit"
-    document.getElementById("manualCancelButton").className = "button special fit"
+    document.getElementsByClassName("autoButton").className = "button button-large";
+    document.getElementsByClassName("autoFinishButton").className = "button button-large";
+    document.getElementsByClassName("autoCancelButton").className = "button button-large";
   }
 }
 
@@ -390,36 +407,42 @@ function timer(command, duration){
 }
 
 //This function should deal with any button clicks from the left side (the manual entry option) by 1) changing the inner html of the start/stop/resume button to match it's current state, 2) start and stop the timer, and 3) send new information about assignments to the database, and get information the timer needs from the database
-function manualTimerClick(buttonID, command, assignmentInfo, assignmentID){
-
-  //the following 3 if statements deal with chaning the innerHTML of the button, it should be complete
-  if (document.getElementById(buttonID).innerHTML == 'start'){
-    document.getElementById(buttonID).innerHTML = 'stop';
+function timerClick(button, assignmentID){
+  if (!assignmentID){
+    return
   }
-  if (document.getElementById(buttonID).innerHTML == 'stop'){
-    document.getElementById(buttonID).innerHTML = 'resume';
-  }
-  if (document.getElementById(buttonID).innerHTML == 'resume'){
-    document.getElementById(buttonId).innerHTML = 'stop';
-  }
+  console.log("Someone clicked a timer button")
+  console.log("The button id was: " + button.id + " and the button value was " + button.innerHTML + ". The assignment id was: " + assignmentID)
   //this should start the timer if the command issued is 'start', and should add a new assignment to the database
-  if (command == 'start'){
-    timer('start', 0);
-    newAssignment(assignmentID, assignmentInfo)
+  if (button.innerHTML == 'Start'){
+    timer('start', timeSpentOn(assignmentID));
   }
-  if (command == 'stop'){
+  if (button.innerHTML == 'Stop'){
     var timesToAdd = timer('stop', timeSpentOn(assignmentID));
     addTimes(timesToAdd[0], timesToAdd[1], assignmentID);
   }
-  if (command == 'resume'){
+  if (button.innerHTML == 'Resume'){
     timer('start', timeSpentOn(assignmentID));
   }
-  if (command == 'finish'){
+  if (button.innerHTML == 'Finish'){
     var timesToAdd = timer('stop', timeSpentOn(assignmentID));
     addTimesAndFinish(timesToAdd[0], timesToAdd[1], assignmentID);
   }
-  if (command == 'cancel'){
+  if (button.innerHTML == 'Cancel'){
     timer('stop', timeSpentOn(assignmentID));
+  }
+  //the following 3 if statements deal with chaning the innerHTML of the button, it should be complete
+  if (button.innerHTML == 'Start'){
+    button.innerHTML = 'Stop';
+    console.log("The command was <<start>>");
+  }
+  else if (button.innerHTML == 'Stop'){
+    button.innerHTML = 'Resume';
+    console.log("The command was <<stop>>");
+  }
+  else if(button.innerHTML == 'Resume'){
+    button.innerHTML = 'Stop';
+    console.log("The command was <<resume>>");
   }
 }
 // we also need a new automaticTimerClick function to deal with button clicks from the buttons associated with the todo list. It should act the same as the previous function except, instead of making and modifying a new assignment, it should make changes to the assignment selected in the todo list
@@ -429,10 +452,13 @@ function timeSpentOn(assignmentID){ //given an assignment id, returns the total 
   for (var i = 0; i<assignments.length; i++){
     if (assignments[i]._id == assignmentID){
       var timeSpent = 0;
-      for (var n = 0; n<assignments[i].times.length; i++){
-        timeSpent += (assignments[i].times[i][1] - assignments[i].times[i][1])
+      if (!assignments[i].times[0]){
+        return 0
       }
-      console.log("Found assignment. Time spent was: " + timespent)
+      for (var n = 0; n<assignments[i].times.length; n++){
+        timeSpent += (assignments[i].times[n][1] - assignments[i].times[n][0])
+      }
+      console.log("Found assignment. Time spent was: " + timeSpent)
       return timeSpent
     }
   }
@@ -579,7 +605,10 @@ function addTimes(start, stop, assignmentID) {
     url: "api/assignments/"+assignmentID+"/times",
     type: 'POST',
     data: {'start': start, 'stop': stop},
-    success: function(result){console.log("success");}
+    success: function(result){
+      console.log("SuCcEsS");
+      updateAssignments()
+    }
   });
 }
 
@@ -638,7 +667,7 @@ function toggle(id){
 function generateTodoList(futureAssignments){
   var todoList = "";
   for(var i=0; i<futureAssignments.length; i++){
-    todoList += "<option onmouseover=" + "'" + futureAssignments[i][3] + "'" + " value='" + futureAssignments[i][0] + "'>" + futureAssignments[i][1] + " | " + futureAssignments[i][2] + "</option>";
+    todoList += "<option onmouseover='' value='" + futureAssignments[i][0] + "'>" + futureAssignments[i][1] + " | " + futureAssignments[i][2] + "</option>";
   }
   document.getElementById("todoList").innerHTML = todoList
 }
@@ -647,7 +676,7 @@ function generatePastAssignments(pastAssignments){
   console.log("generating past assignments, there are: " + pastAssignments.length + " to write")
   var pastList = "";
   for(var i=0; i<pastAssignments.length; i++){
-    pastList += "<option onmouseover=" + "'" + pastAssignments[i][3] + "'" + " value='" + pastAssignments[i][0] + "'>" + pastAssignments[i][1] + " | " + pastAssignments[i][2] + "</option>";
+    pastList += "<option onmouseover='' value='" + pastAssignments[i][0] + "'>" + pastAssignments[i][1] + " | " + pastAssignments[i][2] + "</option>";
   }
   console.log("injecting: " + pastList)
   document.getElementById("pastAssignments").innerHTML = pastList
@@ -981,6 +1010,7 @@ courseList.getCourse=function(name,suppressErrors){
   if(!suppressErrors){console.log("Lookup for course ''"+name+"'' failed!");}
   return null;
 }
+
 
 function printCourseBreakdown(){
   var courseBreakdownTableBuffer=[];
@@ -1442,7 +1472,7 @@ function makeAllTheGraphs(){
     for (var k=0; k<assignments[j].times.length; k++){
       timeSum += ((assignments[j].times[k][1] - assignments[j].times[k][0])/1000)
     }
-    pieDictionary[assignments[i].course] += timeSum
+    pieDictionary[assignments[j].course] += timeSum
   }
   
   console.log("Values for the pie chart are: " + getValueArrayFromDictionary(pieDictionary));
@@ -1492,28 +1522,43 @@ function makeAllTheGraphs(){
   }
   var numberOfDays;
   if (assignments.length != 0){
-    numberOfDays = (((((Date.now() - assignments[0].times[0][0])/1000)/60)/60)/24);
+    for (var q=0; q<assignments.length; q++){
+      if (assignments[q].times.length != 0){
+        numberOfDays = (((((Date.now() - assignments[q].times[0][0])/1000)/60)/60)/24);
+      }
+    }
   }
   else{
     numberOfDays = 0;
   }
   for (var d=0; d<numberOfDays; d++){
-    for (var c=0; c<currentStudent.courses.length;c++){
-      cumulativeDictionary[currentStudent.courses[c]][y].push(cumulativeDictionary[currentStudent.courses[c-1]][y]);
-      cumulativeDictionary[currentStudent.courses[c]][x].push(getDateFromTimestamp(assignments[0].times[0][0] + (1000*60*60*24*d)));
-    }
-    for (var a=0; a<assignments.length; a++){
-      for (var n=0; n<assignments[a].times.length; n++){
-        if (getDateFromTimestamp(assignments[a].times[n][0]) == cumulativeDictionary[assignments[a].course][x][d]){
-          cumulativeDictionary[assignments[a].course][y][d] = ((assignments[a].times[n][1] - assignments[a].times[n][0])/1000)
-        }
+    if (d == 0){
+      for (var c=0; c<currentStudent.courses.length;c++){
+        cumulativeDictionary[currentStudent.courses[c]].y.push(0);
+        var assignmentTime = new Date(assignments[0].times[0][0] + (1000*60*60*24*d));
+        cumulativeDictionary[currentStudent.courses[c]].x.push(getDateFromTimestamp(assignmentTime));
       }
+    }
+    else{
+      for (var c=0; c<currentStudent.courses.length;c++){
+        cumulativeDictionary[currentStudent.courses[c]].y.push(cumulativeDictionary[currentStudent.courses[c]][y][d]);
+        var assignmentTime = new Date(assignments[0].times[0][0] + (1000*60*60*24*d));
+        cumulativeDictionary[currentStudent.courses[c]].x.push(getDateFromTimestamp(assignmentTime));
+      }
+      for (var a=0; a<assignments.length; a++){
+        for (var n=0; n<assignments[a].times.length; n++){
+          var assignmentTime = new Date(assignments[a].times[n][0])
+          if (getDateFromTimestamp(assignmentTime) == cumulativeDictionary[assignments[a].course][x][d]){
+            cumulativeDictionary[assignments[a].course][y][d] = ((assignments[a].times[n][1] - assignments[a].times[n][0])/1000)
+          }
+        } 
+      } 
     }
   }
 
   var data_cumulative = [];
   for (var s=0; s<currentStudent.courses.length; s++){
-    data_cumulative[s] = cumulativeDictionary[s]
+    data_cumulative[s] = cumulativeDictionary[currentStudent.courses[s]]
   }
 
   var layout_cumulative = {
@@ -1534,20 +1579,15 @@ function makeAllTheGraphs(){
   //Homework by time of day
   var hourNames = ["1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", 
 "8 PM", "9 PM", "10 PM", "11 PM", "12 AM"]
-  hourDictionary = {"1 AM": 0, "2 AM": 0, "3 AM": 0, "4 AM": 0, "5 AM": 0, "6 AM": 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, "12 PM": 0, "1 PM": 0, "2 PM": 0, "3 PM": 0, "4 PM": 0, "5 PM": 0, "6 PM": 0, "7 PM": 0, 
+  var hourDictionary = {"1 AM": 0, "2 AM": 0, "3 AM": 0, "4 AM": 0, "5 AM": 0, "6 AM": 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, "12 PM": 0, "1 PM": 0, "2 PM": 0, "3 PM": 0, "4 PM": 0, "5 PM": 0, "6 PM": 0, "7 PM": 0, 
 "8 PM": 0, "9 PM": 0, "10 PM": 0, "11 PM": 0, "12 AM": 0}
   for (var i=0; i<assignments.length; i++){
     for (var t=0; t<assignments[i].times.length; t++){
-      for (var n=assignments[i].times[n][0].getHours(); n<assignments[i].times[n][1].getHours(); n++){
-        if (n==assignments[i].times[n][0].getHours()){
-          hourDictionary[hourNames[n]] += (60 - ((assignments[i].times[n][0] % 3600000)/60000))
-        }
-        else if (n==assignments[i].times[n][1].getHours()){
-          hourDictionary[hourNames[n]] += ((assignments[i].times[n][0] % 3600000)/60000)
-        }
-        else{
-          hourDictionary[hourNames[n]] += 60
-        }
+      var td0 = new Date(assignments[i].times[t][0])
+      var td1 = new Date(assignments[i].times[t][1])
+      var profile = getHourProfile(td0, td1);
+      for (var n=0; n<24; n++){
+        hourDictionary[hourNames[n]] += profile[n]
       }
     }
   }
@@ -1569,6 +1609,28 @@ function makeAllTheGraphs(){
   Plotly.newPlot('graphSpace4', data_hour, layout_hour);
 
   //Homework calendar heatmap:
+}
+
+function getHourProfile(startTime, stopTime){ //takes start and stop times as Date objects
+  var profile = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  var msInitial = startTime.getTime();
+  var msFinal = stopTime.getTime();
+  var hourInitial = msInitial/(1000*60*60);
+  var hourFinal = msFinal/(1000*60*60);
+  var startingHour = startTime.getHours();
+  for (var i = 0; i<(Math.ceil(hourFinal)-Math.floor(hourInitial)); i++){
+    if (i==0){
+      profile[startingHour] += 60 - (60*(hourInitial % 1));
+    }
+    else if (i==(Math.ceil(hourFinal)-Math.floor(hourInitial))-1){
+      profile[(startingHour + (Math.ceil(hourFinal)-Math.floor(hourInitial))-1) % 24] += 60*(hourFinal % 1);
+    }
+    else{
+      profile[(startingHour + i) % 24] += 60
+    }
+  }
+  return profile
+  //Return an array in the form [0,0,0,0,13,60,60,60,34,0,0,0] of minutes of time spent per hour for the given interval
 }
 
 function getHourFromTimestamps(timestamp){

@@ -32,6 +32,7 @@ app.get('/index.html', renderIndexPage);
 app.get('/Home.html', renderHomePage);
 app.get('/Test.html', renderTestPage);
 app.get('/Play.html', renderPlayPage);
+app.get('/moreInfo.html', renderFAQPage);
 
 
 // widget page hosting Gitkit javascript
@@ -70,7 +71,7 @@ var AssignmentSchema = new Schema({
     finished: Boolean,
     title: String,
     description: String,
-    times: Array,
+    times: [[Number]],
     url: String,
     group: String,
     dtstart: String,
@@ -81,7 +82,7 @@ AssignmentSchema.index({studentId: 1, assignment: 1}, {unique: true});
 AssignmentSchema.virtual("timeSpent").get(function() {
     timeSpent = 0;
     for (var time of this.times) {
-        timeSpent += time.stop-time.start;
+        timeSpent += time[1]-time[0];
     }
     return timeSpent;
 });
@@ -234,20 +235,28 @@ router.route('/assignments/:assignment_id/times')
         .post(function (req, res) {
 
             Assignment.findById(req.params.assignment_id, function (err, assignment) {
-                if (err)
+                if (err){
                     res.send(err);
-                //if (assignment.times === null) { assignment.times = []; }
-                assignment.times.push([req.body.start,req.body.stop]);
-                if (req.body.finished) {
-                    assignment.finished = req.body.finished;
+                    console.log(err);
                 }
-                // save the assignment and check for errors
-                assignment.save(function (err) {
-                  if (err)
-                    res.send(err);
-                
-                  res.json({message: 'Assignment created!', assignmentId: assignment._id});
-                }); 
+                else{
+                    //if (assignment.times === null) { assignment.times = []; }
+                    assignment.times.push([req.body.start,req.body.stop]);
+                    if (req.body.finished) {
+                        assignment.finished = req.body.finished;
+                    }
+                    // save the assignment and check for errors
+                    console.log("Trying to save assignment: " + JSON.stringify(assignment));
+                    assignment.save(function (err) {
+                        if (err){
+                            res.send(err);
+                            console.log(err);
+                        }
+                        else{
+                            res.json({message: 'Assignment created!', assignmentId: assignment._id});
+                        }
+                    }); 
+                }
             });
         }); 
         
@@ -256,9 +265,13 @@ router.route('/assignments/:assignment_id')
         // get the assignment with that id (accessed at GET http://localhost:8080/api/assignments/:assignment_id)
         .get(function (req, res) {
             Assignment.findById(req.params.assignment_id, function (err, assignment) {
-                if (err)
+                if (err){
                     res.send(err);
-                res.json(assignment);
+                    console.log(err);
+                }
+                else{
+                    res.json(assignment);
+                }
             });
         })
 
@@ -268,19 +281,24 @@ router.route('/assignments/:assignment_id')
             // use our assignment model to find the assignment we want
             Student.findById(req.params.assignment_id, function (err, assignment) {
 
-                if (err)
+                if (err){
                     res.send(err);
-
-                if (req.body.finished)
-                   assignment.finished = req.body.finished;
-
-                // save the assignment
-                assignment.save(function (err) {
-                    if (err)
-                        res.send(err);
-
-                    res.json({message: 'Assignment updated!'});
-                });
+                    console.log(err);
+                }
+                else{
+                    if (req.body.finished)
+                    assignment.finished = req.body.finished;
+ 
+                    // save the assignment
+                    assignment.save(function (err) {
+                     if (err){
+                         res.send(err);
+                     }
+                     else{
+                        res.json({message: 'Assignment updated!'});
+                     }
+                    });
+                }
 
             });
         })
@@ -350,6 +368,10 @@ function renderIndexPage(req, res) {
 
 function renderHomePage(req, res) {
     renderHome(req,res,"./Home.html");
+}
+
+function renderFAQPage(req, res){
+    renderHome(req,res,"./moreInfo.html")
 }
 
 function renderTestPage(req, res) {
