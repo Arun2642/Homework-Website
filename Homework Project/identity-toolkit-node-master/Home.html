@@ -146,7 +146,7 @@
                   <hr class="major" />
                   <div id='graphSpace1'></div>
                   <div id='graphSpace2'></div>
-                  <div id='graphSpace3'>This isn't substituting...</div>
+                  <div id='graphSpace3'></div>
                   <div id='graphSpace4'></div>
                   <div id='graphSpace5'></div>
                   <div id='graphSpace6'></div>
@@ -1491,11 +1491,11 @@ function makeAllTheGraphs(){
 
   Plotly.newPlot('graphSpace1', data_pie, layout_pie);
   //Day of the week histogram:
-  var histogramDictionary = {"Monday" : 1, "Tuesday" : 2, "Wednesday" : 3, "Thursday" : 4, "Friday" : 5, "Saturday" : 6, "Sunday" : 7} // !!Warning!! should all be 0 except for testing
+  var histogramDictionary = {"Monday" : 0, "Tuesday" : 0, "Wednesday" : 0, "Thursday" : 0, "Friday" : 0, "Saturday" : 0, "Sunday" : 0} // !!Warning!! should all be 0 except for testing
   for (var i=0; i<assignments.length; i++){
     for (var j=0; j<assignments[i].times.length; j++){
       var timeSpent = ((assignments[i].times[j][1] - assignments[i].times[j][0])/1000)
-      histogramDictionary[getDayOfWeekFromTimestamp(assignments[i].times[j][0])] = timeSpent
+      histogramDictionary[getDayOfWeekFromTimestamp(assignments[i].times[j][0])] += timeSpent
     } 
   }
   console.log()
@@ -1641,7 +1641,7 @@ function getHourFromTimestamps(timestamp){
 }
 
 function getDayOfWeekFromTimestamp(timestamp){
-  var a = new Date(timestamp*1000);
+  var a = new Date(timestamp);
   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var dayOfWeek = days[a.getDay()]
   return dayOfWeek
