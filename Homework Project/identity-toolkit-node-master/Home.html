@@ -121,7 +121,7 @@
                           </div>
                         </div>
                         <div class="3u$ 12u$(small)">
-                            <input type="button" value="Add" class="small" onclick="addAnAssignment(document.getElementById(classOptions).value, document.getElementById(assignmentTitle))"/>
+                            <input type="button" value="Add" class="small" onclick="addAnAssignment(document.getElementById('classOptions').value, document.getElementById('assignmentTitle').value)"/>
                           </div>
                       </div>
                       
@@ -230,28 +230,27 @@ var currentStudent = %%student%%;
 var assignments = %%assignments%%;
 
 function addAnAssignment(classCode, title){
-  var newIdCode = 
   $.ajax({
     url: "api/assignments/",
     type: 'POST',
     data: {'studentId': currentStudent._id, 'course': classCode, 'title': title, 'finished': false},
     success: function(result){
       console.log("success");
-      assignments = data.assignments;
+      assignments.push(result.assignment);
       loadPage();
     }
   });
 }
 
 function addAClass(className){
-  currentStudent.courses.push(className)
+  currentStudent.courses.push(className);
   $.ajax({
     url: "api/students/"+currentStudent._id, 
     type: 'PUT',
-    data: {courses: currentStudent.courses},
+    data: {"courses": currentStudent.courses},
     success: function(result){
       console.log("success");
-      currentStudent = data.student;
+      currentStudent = result.student;
       loadPage();
     }
   });

@@ -158,17 +158,23 @@ router.route('/students/:student_id')
                 if (err)
                     res.send(err);
 
+                console.log("courses="+JSON.stringify(req.body));
+                console.log("courses="+JSON.stringify(req.body["courses[]"]));
                 if (req.body.spreadsheetURL)
-                    student.name = req.body.spreadsheetURL;  // update the students info
-                if (req.body.ICSURL)
-                    student.ICSURL = req.body.ICSURL;  // update the students info
+                    student.name = req.body.spreadsheetURL; 
+                if (req.body["courses[]"])
+                    student.courses = req.body["courses[]"]; 
+                if (req.body.ICSURL) {
+                    student.ICSURL = req.body.ICSURL;
+                    readCoursesFromURL(student,student.ICSURL);
+                }
 
                 // save the student
                 student.save(function (err) {
                     if (err)
                         res.send(err);
 
-                    res.json({message: 'Student updated!', 'student': student, 'assignment': assignment});
+                    res.json({message: 'Student updated!', 'student': student});
                 });
 
             });
@@ -196,16 +202,19 @@ router.route('/assignments')
             var assignment = new Assignment(); 
             assignment.studentId = req.body.studentId; 
             assignment.course = req.body.course;
+            assignment.assignment = new mongoose.Types.ObjectId().toString();
             assignment.title = req.body.title;
             assignment.description = req.body.description;
-            assignment.finished = true;
+            assignment.finished = false;
 
             // save the assignment and check for errors
             assignment.save(function (err) {
-                if (err)
-                    res.send(err);
-
-                res.json({message: 'Assignment created!', assignmentId: assignment._id});
+                if (err) {
+                   console.log(err);
+                   res.send(err);
+                } else { 
+                   res.json({'message': 'Assignment created!', assignment: assignment});
+                }
             });
 
         })
