@@ -193,6 +193,17 @@ router.route('/students/:student_id')
             });
         });
 
+router.route('/students/:student_id/assignments')
+
+        .get(function (req, res) {
+            Assignment.find({studentId:req.params.student_id},function (err, assignments) {
+                if (err)
+                    res.send(err);
+
+                res.json(assignments);
+            });
+        });
+
 // on routes that end in /assignments
 // ----------------------------------------------------
 router.route('/assignments')
