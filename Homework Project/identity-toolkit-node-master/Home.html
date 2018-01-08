@@ -35,7 +35,7 @@
                                 </div>
       </header>
       <div class="align-right">
-          <span class="icon fa-cog" style="font-size:48px; padding:40px;" onmouseover=""></span>	
+          <span class="icon fa-cog" style="font-size:48px; padding-top:40px; padding-right:40px" onmouseover=""></span>	
         </div>
       <header class="align-center" id="introMessage">
           <br>
@@ -67,7 +67,7 @@
                   <section class='6u 12u$(medium)'>
                     <h3>Select from Todo List:</h3>
                     <nav>
-                        <select id="todoList" size="20" style="height: 200px;" onclick="updateButtonNames(this.value)">
+                        <select id="todoList" size="20" style="height: 380px;" onclick="updateButtonNames(this.value)">
                           
                         </select>
                     </nav>
@@ -230,6 +230,10 @@ var currentStudent = %%student%%;
 var assignments = %%assignments%%;
 
 function updateButtonNames(assignmentID){
+  if (running){
+    alert("Please stop timer before selecting a new assignment")
+    return
+  }
   if (timeSpentOn(assignmentID) > 0){
     document.getElementById("StartButton").innerHTML = "Resume"
   }
@@ -245,6 +249,7 @@ function updateAssignments(){
       success: function(result){
         console.log("success");
         assignments = result;
+        renderAssignmentLists();
       }
   });
 }
@@ -289,8 +294,7 @@ function sendICS(){
      url: "/api/students/"+currentStudent._id, //node.js server is running
      success: function(data) {
        currentStudent = data.student;
-       assignments = data.assignments;
-       renderAssignmentLists();
+       updateAssignments();
        if (document.getElementById("givenICSURL")) document.getElementById("givenICSURL").value=currentStudent.ICSURL;
        disableLockedFeatures();
      },
@@ -366,6 +370,7 @@ var timerInterval;
 
 function timer(command, duration){
   if (command == 'start'){
+    document.getElementById("todoList").disabled = true
     startTime = new Date().getTime()
     var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
@@ -389,20 +394,34 @@ function timer(command, duration){
       // Display the result in the element with id="demo"
       document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
       + minutes + ':' + seconds + '</b></h></font>';  
+      running = true
       return duration
     }, 1000);
   }
   if (command == 'stop'){
+    document.getElementById("todoList").disabled = false;
     stopTime = new Date().getTime();
     endDuration = (stopTime-startTime) + duration
-    console.log("duration was:" + endDuration)
+    console.log("duration was: " + endDuration)
     clearInterval(timerInterval);
     var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = (Math.floor((endDuration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
     var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
     document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
       + minutes + ':' + seconds + '</b></h></font>';
+    running = false;
     return [startTime, stopTime, duration]
+  }
+  if (command == 'cancel'){
+    document.getElementById("todoList").disabled = false;
+    console.log("duration, prior to cancel, was: " + duration);
+    clearInterval(timerInterval);
+    var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = (Math.floor((endDuration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+    var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+    document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
+      + minutes + ':' + seconds + '</b></h></font>';
+    running = false;
   }
 }
 
@@ -425,11 +444,20 @@ function timerClick(button, assignmentID){
     timer('start', timeSpentOn(assignmentID));
   }
   if (button.innerHTML == 'Finish'){
-    var timesToAdd = timer('stop', timeSpentOn(assignmentID));
-    addTimesAndFinish(timesToAdd[0], timesToAdd[1], assignmentID);
+    if (running){
+      document.getElementById("StartButton").innerHTML = "Start"
+      var timesToAdd = timer('cancel', timeSpentOn(assignmentID));
+      addTimesAndFinish(timesToAdd[0], timesToAdd[1], assignmentID);
+    }
+    else{
+      justFinish(assignmentID);
+    }
+    console.log("Finishing the assignment with id: " + assignmentID)
+    updateAssignments();
   }
   if (button.innerHTML == 'Cancel'){
-    timer('stop', timeSpentOn(assignmentID));
+    timer('cancel', timeSpentOn(assignmentID));
+    document.getElementById("StartButton").innerHTML = "Resume";
   }
   //the following 3 if statements deal with chaning the innerHTML of the button, it should be complete
   if (button.innerHTML == 'Start'){
@@ -618,6 +646,15 @@ function addTimesAndFinish(start, stop, assignmentID) {
     url: "api/assignments/"+assignmentID+"/times",
     type: 'POST',
     data: {'start': start, 'stop': stop, 'finished' : true},
+    success: function(result){console.log("success");}
+  });
+}
+
+function justFinish(assignmentID){
+  $.ajax({
+    url: "api/assignments/"+assignmentID+"/times",
+    type: 'POST',
+    data: {'finished' : true},
     success: function(result){console.log("success");}
   });
 }
