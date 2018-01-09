@@ -140,6 +140,7 @@
                         <nav "width: 1000px">
                             <select id="pastAssignments" size="20" style="height:300px; width:1200px;">
                             </select>
+                            <button id="unfinishButton" onclick="justFinish(false, document.getElementById('pastAssignments'))">Re-add to todo list</button>
                           </nav>
                         </div>
                   </div>
@@ -244,7 +245,7 @@ function updateButtonNames(assignmentID){
 
 function updateAssignments(){
   $.ajax({
-      url: "api/assignments/",
+      url: "api/students/" + currentStudent._id + "/assignments",
       type: 'GET',
       success: function(result){
         console.log("success");
@@ -450,7 +451,7 @@ function timerClick(button, assignmentID){
       addTimesAndFinish(timesToAdd[0], timesToAdd[1], assignmentID);
     }
     else{
-      justFinish(assignmentID);
+      justFinish(true, assignmentID);
     }
     console.log("Finishing the assignment with id: " + assignmentID)
     updateAssignments();
@@ -650,13 +651,23 @@ function addTimesAndFinish(start, stop, assignmentID) {
   });
 }
 
-function justFinish(assignmentID){
-  $.ajax({
-    url: "api/assignments/"+assignmentID+"/times",
-    type: 'POST',
-    data: {'finished' : true},
-    success: function(result){console.log("success");}
-  });
+function justFinish(state, assignmentID){
+  if (state){
+    $.ajax({
+      url: "api/assignments/"+assignmentID+"/times",
+      type: 'POST',
+      data: {'finished' : true},
+      success: function(result){console.log("success");}
+    });
+  }
+  else{
+    $.ajax({
+      url: "api/assignments/"+assignmentID+"/times",
+      type: 'POST',
+      data: {'finished' : false},
+      success: function(result){console.log("success");}
+    });
+  }
 }
 
 function renderURLInput(){
