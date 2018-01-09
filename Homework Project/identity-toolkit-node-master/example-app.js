@@ -61,7 +61,8 @@ var StudentSchema = new Schema({
     courses:Array,
     connectedSpreadsheet:Boolean,
     spreadsheetURL:String,
-    ICSURL:String
+    ICSURL:String,
+    startDate: { type: Date, default: Date.now }
 });
 
 var AssignmentSchema = new Schema({
