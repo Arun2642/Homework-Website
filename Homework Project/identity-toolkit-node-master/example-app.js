@@ -291,20 +291,23 @@ router.route('/assignments/:assignment_id')
         .put(function (req, res) {
 
             // use our assignment model to find the assignment we want
-            Student.findById(req.params.assignment_id, function (err, assignment) {
+            Assignment.findById(req.params.assignment_id, function (err, assignment) {
 
                 if (err){
+                    console.log("Could not find assignment because: " + err);
                     res.send(err);
-                    console.log(err);
                 }
                 else{
+                    console.log("found " + assignment)
                     if (req.body.finished)
+                    console.log("The assignment is: " + assignment)
                     assignment.finished = req.body.finished;
  
                     // save the assignment
                     assignment.save(function (err) {
                      if (err){
-                         res.send(err);
+                        console.log("Could not save because: " + err)
+                        res.send(err);
                      }
                      else{
                         res.json({message: 'Assignment updated!'});
