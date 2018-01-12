@@ -299,7 +299,7 @@ router.route('/assignments/:assignment_id')
                 }
                 else{
                     console.log("found " + assignment)
-                    if (req.body.finished)
+                    if (req.body.finished !== null)
                     console.log("The assignment is: " + assignment)
                     assignment.finished = req.body.finished;
  

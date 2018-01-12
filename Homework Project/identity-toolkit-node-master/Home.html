@@ -42,14 +42,14 @@
           <br>
           <br>
           <h2>Two Options to Begin</h2>
-          <p>There are two ways to use this website. Either link a google spreadsheet, which this website will read the data from to make graphs and add to class statistics, or use the website to input assignments dirrectly. Choose one:</p>
+          <p>There are two ways to use this website. Either link a google spreadsheet, which this website will read the data from to make graphs and add to class statistics, or use the website to input assignments directly. Choose one:</p>
         </header>
 		<!-- Three -->
 			<section id="three" class="wrapper">
 				<div class="inner">
 					<div id="buttons" class="align-center" style="">
 						<button class="button button-large" onclick="renderURLInput()">Import Spreadsheet</button>
-						<button class="button button-large" onclick="renderDirrectInput()">Input Dirrectly</button>
+						<button class="button button-large" onclick="renderDirrectInput()">Input Directly</button>
           </div>
           <div id="timer" class="align-center"></div>
           <div id="newAssignmentForm"></div>
@@ -436,6 +436,7 @@ function timer(command, duration){
 //This function should deal with any button clicks from the left side (the manual entry option) by 1) changing the inner html of the start/stop/resume button to match it's current state, 2) start and stop the timer, and 3) send new information about assignments to the database, and get information the timer needs from the database
 function timerClick(button, assignmentID){
   if (!assignmentID){
+    alert('Please select an assignment')
     return
   }
   console.log("Someone clicked a timer button")
@@ -658,7 +659,7 @@ function addTimesAndFinish(start, stop, assignmentID) {
     data: {'start': start, 'stop': stop, 'finished' : true},
     success: function(result){
       console.log("success");
-      updateAssignments();
+      updateAssignments(assignmentID);
     }
   });
 }
