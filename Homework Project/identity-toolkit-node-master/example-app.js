@@ -254,7 +254,7 @@ router.route('/assignments/:assignment_id/times')
                 else{
                     //if (assignment.times === null) { assignment.times = []; }
                     assignment.times.push([req.body.start,req.body.stop]);
-                    if (req.body.finished) {
+                    if (req.body.finished !== null) {
                         assignment.finished = req.body.finished;
                     }
                     // save the assignment and check for errors
@@ -299,9 +299,10 @@ router.route('/assignments/:assignment_id')
                 }
                 else{
                     console.log("found " + assignment)
-                    if (req.body.finished !== null)
-                    console.log("The assignment is: " + assignment)
-                    assignment.finished = req.body.finished;
+                    if (req.body.finished !== null) {
+                       console.log("The assignment is: " + assignment)
+                       assignment.finished = req.body.finished;
+                    }
  
                     // save the assignment
                     assignment.save(function (err) {
