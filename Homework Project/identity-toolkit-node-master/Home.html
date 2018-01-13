@@ -42,14 +42,14 @@
           <br>
           <br>
           <h2>Two Options to Begin</h2>
-          <p>There are two ways to use this website. Either link a google spreadsheet, which this website will read the data from to make graphs and add to class statistics, or use the website to input assignments dirrectly. Choose one:</p>
+          <p>There are two ways to use this website. Either link a google spreadsheet, which this website will read the data from to make graphs and add to class statistics, or use the website to input assignments directly. Choose one:</p>
         </header>
 		<!-- Three -->
 			<section id="three" class="wrapper">
 				<div class="inner">
 					<div id="buttons" class="align-center" style="">
 						<button class="button button-large" onclick="renderURLInput()">Import Spreadsheet</button>
-						<button class="button button-large" onclick="renderDirrectInput()">Input Dirrectly</button>
+						<button class="button button-large" onclick="renderDirrectInput()">Input Directly</button>
           </div>
           <div id="timer" class="align-center"></div>
           <div id="newAssignmentForm"></div>
@@ -75,8 +75,8 @@
                         <br>
                         <ul class="actions fit">
                           <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="StartButton">Start</button></li>
-                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="FinishButton">Cancel</button></li>
-                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="CancelButton">Finish</button></li>
+                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="CancelButton">Cancel</button></li>
+                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="FinishButton">Finish</button></li>
                         </ul>
                   </section>
                   <section class='6u$ 12u$(medium)'>
@@ -140,7 +140,7 @@
                         <nav "width: 1000px">
                             <select id="pastAssignments" size="20" style="height:300px; width:1200px;">
                             </select>
-                            <button id="unfinishButton" onclick="justFinish(false, document.getElementById('pastAssignments'))">Re-add to todo list</button>
+                            <button id="unfinishButton" onclick="justFinish(false, document.getElementById('pastAssignments').value)">Re-add to todo list</button>
                           </nav>
                         </div>
                   </div>
@@ -243,7 +243,7 @@ function updateButtonNames(assignmentID){
   }
 }
 
-function updateAssignments(){
+function updateAssignments(assignmentID){
   $.ajax({
       url: "api/students/" + currentStudent._id + "/assignments",
       type: 'GET',
@@ -251,6 +251,7 @@ function updateAssignments(){
         console.log("success");
         assignments = result;
         renderAssignmentLists();
+        document.getElementById(assignmentID).selected = true;
       }
   });
 }
@@ -263,7 +264,7 @@ function addAnAssignment(classCode, title){
     success: function(result){
       console.log("success");
       assignments.push(result.assignment);
-      loadPage();
+      renderAssignmentLists();
     }
   });
 }
@@ -333,9 +334,9 @@ function disableLockedFeatures(){
     console.log("You should make it so that clicking these disabled buttons will give an alert explaining the need to input a class code or ICS url first");
   }
   else{
-    document.getElementsByClassName("autoButton").className = "button button-large";
-    document.getElementsByClassName("autoFinishButton").className = "button button-large";
-    document.getElementsByClassName("autoCancelButton").className = "button button-large";
+    document.getElementsByClassName("StartButton").className = "button button-large";
+    document.getElementsByClassName("FinishButton").className = "button button-large";
+    document.getElementsByClassName("CancelButton").className = "button button-large";
   }
 }
 
@@ -368,6 +369,11 @@ function selectability(){
 }
 
 var timerInterval;
+
+//Some neat satellites:
+//WorldView
+//LandSat
+//MODIS
 
 function timer(command, duration){
   if (command == 'start'){
@@ -411,6 +417,7 @@ function timer(command, duration){
     document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
       + minutes + ':' + seconds + '</b></h></font>';
     running = false;
+    makeAllTheGraphs();
     return [startTime, stopTime, duration]
   }
   if (command == 'cancel'){
@@ -429,6 +436,7 @@ function timer(command, duration){
 //This function should deal with any button clicks from the left side (the manual entry option) by 1) changing the inner html of the start/stop/resume button to match it's current state, 2) start and stop the timer, and 3) send new information about assignments to the database, and get information the timer needs from the database
 function timerClick(button, assignmentID){
   if (!assignmentID){
+    alert('Please select an assignment')
     return
   }
   console.log("Someone clicked a timer button")
@@ -440,6 +448,9 @@ function timerClick(button, assignmentID){
   if (button.innerHTML == 'Stop'){
     var timesToAdd = timer('stop', timeSpentOn(assignmentID));
     addTimes(timesToAdd[0], timesToAdd[1], assignmentID);
+    console.log("Missing feature here. Finish later.")
+    //console.log("Adding time of: " + timeSpentOn(assignmentID) + " to assignment that reads: " + document.getElementById(assignmentID).innerHTML);
+    //document.getElementById(assignmentID).innerHTML = timeSpentOn(assignmentID);
   }
   if (button.innerHTML == 'Resume'){
     timer('start', timeSpentOn(assignmentID));
@@ -447,14 +458,13 @@ function timerClick(button, assignmentID){
   if (button.innerHTML == 'Finish'){
     if (running){
       document.getElementById("StartButton").innerHTML = "Start"
-      var timesToAdd = timer('cancel', timeSpentOn(assignmentID));
+      var timesToAdd = timer('stop', timeSpentOn(assignmentID));
       addTimesAndFinish(timesToAdd[0], timesToAdd[1], assignmentID);
     }
     else{
       justFinish(true, assignmentID);
     }
     console.log("Finishing the assignment with id: " + assignmentID)
-    updateAssignments();
   }
   if (button.innerHTML == 'Cancel'){
     timer('cancel', timeSpentOn(assignmentID));
@@ -636,7 +646,7 @@ function addTimes(start, stop, assignmentID) {
     data: {'start': start, 'stop': stop},
     success: function(result){
       console.log("SuCcEsS");
-      updateAssignments()
+      updateAssignments(assignmentID);
     }
   });
 }
@@ -647,25 +657,34 @@ function addTimesAndFinish(start, stop, assignmentID) {
     url: "api/assignments/"+assignmentID+"/times",
     type: 'POST',
     data: {'start': start, 'stop': stop, 'finished' : true},
-    success: function(result){console.log("success");}
+    success: function(result){
+      console.log("success");
+      updateAssignments(assignmentID);
+    }
   });
 }
 
 function justFinish(state, assignmentID){
   if (state){
     $.ajax({
-      url: "api/assignments/"+assignmentID+"/times",
-      type: 'POST',
+      url: "api/assignments/"+assignmentID,
+      type: 'PUT',
       data: {'finished' : true},
-      success: function(result){console.log("success");}
+      success: function(result){
+        console.log("success");
+        updateAssignments(assignmentID);
+      }
     });
   }
   else{
     $.ajax({
-      url: "api/assignments/"+assignmentID+"/times",
-      type: 'POST',
+      url: "api/assignments/"+assignmentID,
+      type: 'PUT',
       data: {'finished' : false},
-      success: function(result){console.log("success");}
+      success: function(result){
+        console.log("Un finished assignment " + assignmentID + ", success");
+        updateAssignments(assignmentID);
+      }
     });
   }
 }
@@ -715,7 +734,7 @@ function toggle(id){
 function generateTodoList(futureAssignments){
   var todoList = "";
   for(var i=0; i<futureAssignments.length; i++){
-    todoList += "<option onmouseover='' value='" + futureAssignments[i][0] + "'>" + futureAssignments[i][1] + " | " + futureAssignments[i][2] + "</option>";
+    todoList += "<option onmouseover='' id='"+futureAssignments[i][0]+"' value='" + futureAssignments[i][0] + "'>" + futureAssignments[i][1] + " | " + futureAssignments[i][2] + "</option>";
   }
   document.getElementById("todoList").innerHTML = todoList
 }
@@ -724,7 +743,7 @@ function generatePastAssignments(pastAssignments){
   console.log("generating past assignments, there are: " + pastAssignments.length + " to write")
   var pastList = "";
   for(var i=0; i<pastAssignments.length; i++){
-    pastList += "<option onmouseover='' value='" + pastAssignments[i][0] + "'>" + pastAssignments[i][1] + " | " + pastAssignments[i][2] + "</option>";
+    pastList += "<option onmouseover='' id='"+pastAssignments[i][0]+"' value='" + pastAssignments[i][0] + "'>" + pastAssignments[i][1] + " | " + pastAssignments[i][2] + "</option>";
   }
   console.log("injecting: " + pastList)
   document.getElementById("pastAssignments").innerHTML = pastList
@@ -1569,12 +1588,17 @@ function makeAllTheGraphs(){
     cumulativeDictionary[currentStudent.courses[i]] = {y:[], x:[], name:currentStudent.courses[i], mode:"lines", type:"scatter"};
   }
   var numberOfDays;
+  var earliestStart = 10000000000000000000;
   if (assignments.length != 0){
     for (var q=0; q<assignments.length; q++){
       if (assignments[q].times.length != 0){
-        numberOfDays = (((((Date.now() - assignments[q].times[0][0])/1000)/60)/60)/24);
+        if (assignments[q].times[0][0]<earliestStart){
+          earliestStart = assignments[q].times[0][0];
+        }
       }
     }
+    var now = Date.now();
+    numberOfDays = (((((now - earliestStart)/1000)/60)/60)/24);
   }
   else{
     numberOfDays = 0;
@@ -1582,22 +1606,24 @@ function makeAllTheGraphs(){
   for (var d=0; d<numberOfDays; d++){
     if (d == 0){
       for (var c=0; c<currentStudent.courses.length;c++){
-        cumulativeDictionary[currentStudent.courses[c]].y.push(0);
-        var assignmentTime = new Date(assignments[0].times[0][0] + (1000*60*60*24*d));
-        cumulativeDictionary[currentStudent.courses[c]].x.push(getDateFromTimestamp(assignmentTime));
+        //console.log("The dictionary is: " + JSON.stringify(cumulativeDictionary[currentStudent.courses[c]]));
+        cumulativeDictionary[currentStudent.courses[c]]["y"].push(0);
+        var assignmentTime = new Date(1515393944 + (1000*60*60*24*d)); //This timestamp used to be assignments[0].times[0][0]
+        cumulativeDictionary[currentStudent.courses[c]]["x"].push(getDateFromTimestamp(assignmentTime));
       }
     }
     else{
       for (var c=0; c<currentStudent.courses.length;c++){
-        cumulativeDictionary[currentStudent.courses[c]].y.push(cumulativeDictionary[currentStudent.courses[c]][y][d]);
-        var assignmentTime = new Date(assignments[0].times[0][0] + (1000*60*60*24*d));
-        cumulativeDictionary[currentStudent.courses[c]].x.push(getDateFromTimestamp(assignmentTime));
+        //console.log("The dictionary is: " + JSON.stringify(cumulativeDictionary[currentStudent.courses[c]]));
+        cumulativeDictionary[currentStudent.courses[c]]["y"].push(cumulativeDictionary[currentStudent.courses[c]]["y"][d]);
+        var assignmentTime = new Date(1515393944 + (1000*60*60*24*d));
+        cumulativeDictionary[currentStudent.courses[c]]["x"].push(getDateFromTimestamp(assignmentTime));
       }
       for (var a=0; a<assignments.length; a++){
         for (var n=0; n<assignments[a].times.length; n++){
           var assignmentTime = new Date(assignments[a].times[n][0])
-          if (getDateFromTimestamp(assignmentTime) == cumulativeDictionary[assignments[a].course][x][d]){
-            cumulativeDictionary[assignments[a].course][y][d] = ((assignments[a].times[n][1] - assignments[a].times[n][0])/1000)
+          if (getDateFromTimestamp(assignmentTime) == cumulativeDictionary[assignments[a].course]["x"][d]){
+            cumulativeDictionary[assignments[a].course]["y"][d] = ((assignments[a].times[n][1] - assignments[a].times[n][0])/1000)
           }
         } 
       } 
@@ -1700,6 +1726,7 @@ function getDateFromTimestamp(timestamp){
   var day = timestamp.getDate();
   var month = monthsOfTheYear[timestamp.getMonth()]
   var date = month + " " + day
+  return date
 }
 
 function getValueArrayFromDictionary(dictionary){

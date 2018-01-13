@@ -254,7 +254,7 @@ router.route('/assignments/:assignment_id/times')
                 else{
                     //if (assignment.times === null) { assignment.times = []; }
                     assignment.times.push([req.body.start,req.body.stop]);
-                    if (req.body.finished) {
+                    if (req.body.finished !== null) {
                         assignment.finished = req.body.finished;
                     }
                     // save the assignment and check for errors
@@ -291,20 +291,24 @@ router.route('/assignments/:assignment_id')
         .put(function (req, res) {
 
             // use our assignment model to find the assignment we want
-            Student.findById(req.params.assignment_id, function (err, assignment) {
+            Assignment.findById(req.params.assignment_id, function (err, assignment) {
 
                 if (err){
+                    console.log("Could not find assignment because: " + err);
                     res.send(err);
-                    console.log(err);
                 }
                 else{
-                    if (req.body.finished)
-                    assignment.finished = req.body.finished;
+                    console.log("found " + assignment)
+                    if (req.body.finished !== null) {
+                       console.log("The assignment is: " + assignment)
+                       assignment.finished = req.body.finished;
+                    }
  
                     // save the assignment
                     assignment.save(function (err) {
                      if (err){
-                         res.send(err);
+                        console.log("Could not save because: " + err)
+                        res.send(err);
                      }
                      else{
                         res.json({message: 'Assignment updated!'});
