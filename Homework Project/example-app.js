@@ -69,7 +69,7 @@ var AssignmentSchema = new Schema({
     studentId: ObjectId,
     assignment: String,
     course: String,
-    finished: Boolean,
+    finished: { type: Boolean, default: false },
     title: String,
     description: String,
     times: [[Number]],
@@ -254,7 +254,7 @@ router.route('/assignments/:assignment_id/times')
                 else{
                     //if (assignment.times === null) { assignment.times = []; }
                     assignment.times.push([req.body.start,req.body.stop]);
-                    if (req.body.finished) {
+                    if (req.body.finished !== null) {
                         assignment.finished = req.body.finished;
                     }
                     // save the assignment and check for errors
@@ -299,9 +299,10 @@ router.route('/assignments/:assignment_id')
                 }
                 else{
                     console.log("found " + assignment)
-                    if (req.body.finished !== null)
-                    console.log("The assignment is: " + assignment)
-                    assignment.finished = req.body.finished;
+                    if (req.body.finished !== null) {
+                       console.log("The assignment is: " + assignment)
+                       assignment.finished = req.body.finished;
+                    }
  
                     // save the assignment
                     assignment.save(function (err) {
@@ -520,7 +521,6 @@ function readCoursesFromURL(studentId, url) {
                                 "studentId": studentId,
                                 "assignment": dict["UID"],
                                 "course": m[2],
-                                "finished": false,
                                 "title": m[1],
                                 "group": m[3],
                                 "description": dict['DESCRIPTION'],
