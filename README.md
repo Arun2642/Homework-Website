@@ -1,2 +1,2 @@
-# Homework-Website
-The alpha version of the homework website
+This is a Node.js sample web app using Google Identity Toolkit service to login users.
+=====================
