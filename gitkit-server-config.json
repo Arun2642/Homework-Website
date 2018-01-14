@@ -2,6 +2,6 @@
   "projectId": "maximal-storm-122223",
   "serviceAccountEmail": "service-acount-key@maximal-storm-122223.iam.gserviceaccount.com",
   "serviceAccountPrivateKeyFile": "google.pem",
-  "widgetUrl": "aruninc.com:8000/homepage.html",
+  "widgetUrl": "homeworkhomepage.com/homepage.html",
   "cookieName": "gtoken"
 }
