@@ -50,7 +50,8 @@ The below codes uses mongoose to create a database, and define schemas with whic
 input data into the database. 
 */
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/homework_database');
+var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/homework_database'
+mongoose.connect(mongoURI);
 
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
