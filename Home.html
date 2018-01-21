@@ -67,7 +67,7 @@
                   <section class='6u 12u$(medium)'>
                     <h3>Select from Todo List:</h3>
                     <nav>
-                        <select id="todoList" size="20" style="height: 380px;" onclick="updateButtonNames(this.value)">
+                        <select id="todoList" size="20" style="height: 380px;" onchange="updateButtonNames(this.value)">
                           
                         </select>
                     </nav>
@@ -341,8 +341,8 @@ function sendICS2(){
 
 function loadPage(){
   selectability();
-  if (!currentStudent.connectedSpreadsheet && currentStudent.courses.length == 0 && assignments.length == 0){
-    console.log("This student has either not yet visited, or not yet interacted with the page")
+  if (!currentStudent.connectedSpreadsheet && currentStudent.courses.length === 0 && assignments.length === 0) {
+    console.log("This student has either not yet visited, or not yet interacted with the page");
   }
   else{
     if (currentStudent.connectedSpreadsheet){
@@ -353,15 +353,15 @@ function loadPage(){
     }
   }
   renderAssignmentLists();
-  if (document.getElementById("givenICSURL")){document.getElementById("givenICSURL").value=currentStudent.ICSURL};
-  if (document.getElementById("givenICSURL2")){document.getElementById("givenICSURL2").value=currentStudent.ICSURL2};
+  if (document.getElementById("givenICSURL")){document.getElementById("givenICSURL").value=currentStudent.ICSURL;};
+  if (document.getElementById("givenICSURL2")){document.getElementById("givenICSURL2").value=currentStudent.ICSURL2;};
   disableLockedFeatures();
   makeAllTheGraphs();
 
 }
 
 function disableLockedFeatures(){
-  if (currentStudent.courses.length == 0){
+  if (currentStudent.courses.length === 0){
     document.getElementsByClassName("button button-large").classNames = "button disabled";
     document.getElementsByClassName("button special fit").classNames = "button disabled";
     console.log("You should make it so that clicking these disabled buttons will give an alert explaining the need to input a class code or ICS url first");
@@ -409,9 +409,9 @@ var timerInterval;
 //MODIS
 
 function timer(command, duration){
-  if (command == 'start'){
-    document.getElementById("todoList").disabled = true
-    startTime = new Date().getTime()
+  if (command === 'start'){
+    document.getElementById("todoList").disabled = true;
+    startTime = new Date().getTime();
     var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
     var seconds = (Math.floor(duration % (1000 * 60)) / 1000).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
@@ -434,14 +434,15 @@ function timer(command, duration){
       // Display the result in the element with id="demo"
       document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
       + minutes + ':' + seconds + '</b></h></font>';  
-      running = true
-      return duration
+      document.title = hours + ':' + minutes + ':' + seconds;
+      running = true;
+      return duration;
     }, 1000);
   }
-  if (command == 'stop'){
+  if (command === 'stop') {
     document.getElementById("todoList").disabled = false;
     stopTime = new Date().getTime();
-    endDuration = (stopTime-startTime) + duration
+    endDuration = (stopTime-startTime) + duration;
     console.log("duration was: " + endDuration)
     clearInterval(timerInterval);
     var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -449,6 +450,7 @@ function timer(command, duration){
     var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
     document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
       + minutes + ':' + seconds + '</b></h></font>';
+    document.title = hours + ':' + minutes + ':' + seconds;
     running = false;
     makeAllTheGraphs();
     return [startTime, stopTime, duration]
@@ -462,6 +464,7 @@ function timer(command, duration){
     var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
     document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
       + minutes + ':' + seconds + '</b></h></font>';
+    document.title =  hours + ':' + minutes + ':' + seconds; 
     running = false;
   }
 }
