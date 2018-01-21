@@ -1,3 +1,5 @@
+/* global __dirname, Promise */
+
 /**
  * An Express web app using Google Identity Toolkit service to login users.
  */
@@ -13,7 +15,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 var fs = require('fs');
-var url = require('url');
 
 var GitkitClient = require('gitkitclient');
 var gitkitClient = new GitkitClient(JSON.parse(fs.readFileSync('./gitkit-server-config.json')));
@@ -31,7 +32,6 @@ app.get('/', renderIndexPage);
 app.get('/index.html', renderIndexPage);
 app.get('/Home.html', renderHomePage);
 app.get('/Test.html', renderTestPage);
-app.get('/Play.html', renderPlayPage);
 app.get('/moreInfo.html', renderFAQPage);
 
 
@@ -50,7 +50,7 @@ The below codes uses mongoose to create a database, and define schemas with whic
 input data into the database. 
 */
 var mongoose = require('mongoose');
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/homework_database'
+var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/homework_database';
 mongoose.connect(mongoURI);
 
 var Schema = mongoose.Schema;
@@ -63,6 +63,7 @@ var StudentSchema = new Schema({
     connectedSpreadsheet:Boolean,
     spreadsheetURL:String,
     ICSURL:String,
+    ICSURL2:String,
     startDate: { type: Date, default: Date.now }
 });
 
@@ -170,8 +171,11 @@ router.route('/students/:student_id')
                 if (req.body.ICSURL) {
                     student.ICSURL = req.body.ICSURL;
                     readCoursesFromURL(student,student.ICSURL);
+                } else if (req.body.ICSURL2) {
+                    student.ICSURL2 = req.body.ICSURL2;
+                    readCoursesFromURL(student,student.ICSURL2);
                 }
-
+                    
                 // save the student
                 student.save(function (err) {
                     if (err)
@@ -299,16 +303,16 @@ router.route('/assignments/:assignment_id')
                     res.send(err);
                 }
                 else{
-                    console.log("found " + assignment)
+                    console.log("found " + assignment);
                     if (req.body.finished !== null) {
-                       console.log("The assignment is: " + assignment)
+                       console.log("The assignment is: " + assignment);
                        assignment.finished = req.body.finished;
                     }
  
                     // save the assignment
                     assignment.save(function (err) {
                      if (err){
-                        console.log("Could not save because: " + err)
+                        console.log("Could not save because: " + err);
                         res.send(err);
                      }
                      else{
@@ -388,7 +392,7 @@ function renderHomePage(req, res) {
 }
 
 function renderFAQPage(req, res){
-    renderHome(req,res,"./moreInfo.html")
+    renderHome(req,res,"./moreInfo.html");
 }
 
 function renderTestPage(req, res) {
@@ -423,9 +427,10 @@ function renderHome(req,res,page) {
                                  courses:[],
                                  connectedSpredsheet:false, 
                                  spreadsheetURL : "", 
-                                 ICSURL : ""});
+                                 ICSURL : "", 
+                                 ICSURL2 : ""});
                         newStudent.save(function(err){
-                            if(err){
+                            if (err){
                                 console.log("Could not save to database because: " + err);
                             }
                             else{
@@ -445,7 +450,12 @@ function renderHome(req,res,page) {
                         promise = Promise.resolve();
                     }
                     
-                    promise.then(
+                    promise.then(() => {
+                        if (specificStudent.ICSURL2) {
+                           readCoursesFromURL(specificStudent._id,specificStudent.ICSURL2);
+                        } 
+                   
+                    }).then(
                         Assignment.find({"studentId": specificStudent._id},function(err,studentAssignments) {
                             if (err) {
                                 console.log("A database error occured");
@@ -467,20 +477,6 @@ function renderHome(req,res,page) {
     }
 }
     
-function renderPlayPage(req, res) {
-    if (req.cookies.gtoken) {
-        gitkitClient.verifyGitkitToken(req.cookies.gtoken, function (err, resp) {
-            if (err) {
-                printLoginInfo(res, 'Invalid token: ' + err);
-            } else {
-                printLoginInfo(res, 'Welcome back! Login token is: ' + JSON.stringify(resp));
-            }
-        });
-    } else {
-        printLoginInfo(res, 'You are not logged in yet.');
-    }
-}
-
 
 function renderSendEmailPage(req, res) {
     app.disable('etag');

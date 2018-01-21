@@ -84,11 +84,19 @@
                       <form id="ics-url-form" method="post" action="#">
                         <div class="row uniform">
                             <div class="9u 12u$(small)">
-                            <input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
-                          </div>
-                          <div class="3u$ 12u$(small)">
-                            <input type="button" value="Load" class="small" name="ICSURL" onclick="sendICS()"/>
-                          </div>
+                               <input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
+                            </div>
+                            <div class="3u$ 12u$(small)">
+                               <input type="button" value="Load" class="small" name="ICSURL" onclick="sendICS()"/>
+                            </div>
+                        </div>
+                        <div class="row uniform">
+                            <div class="9u 12u$(small)">
+                               <input type="text" name="query3" id="givenICSURL2" value="" placeholder="Optionally enter additional ICS URL (from GOA)" />
+                            </div>
+                            <div class="3u$ 12u$(small)">
+                               <input type="button" value="Load" class="small" name="ICSURL2" onclick="sendICS2()"/>
+                            </div>
                         </div>
                       </form>
 
@@ -284,11 +292,11 @@ function addAClass(className){
 }
 
 function sendICS(){
-   console.log("trying to send")
+   console.log("trying to send");
    var givenData = {};
    var ICSURL = document.getElementById("givenICSURL").value;
    givenData.ICSURL = ICSURL;
-   console.log(givenData)
+   console.log(givenData);
 
    $.ajax({
      type: 'PUT',
@@ -301,8 +309,32 @@ function sendICS(){
        disableLockedFeatures();
      },
      error: function(xhr,status,error){
-       console.log("xhr: " + xhr + " status: " + status)
-       console.log("The url is: " + "http://127.0.0.1:8000/api/students/"+currentStudent._id)
+       console.log("xhr: " + xhr + " status: " + status);
+       console.log("The url is: " + "http://127.0.0.1:8000/api/students/"+currentStudent._id);
+     }
+   });
+}
+
+function sendICS2(){
+   console.log("trying to send");
+   var givenData = {};
+   var ICSURL2 = document.getElementById("givenICSURL2").value;
+   givenData.ICSURL2 = ICSURL2;
+   console.log(givenData);
+
+   $.ajax({
+     type: 'PUT',
+     data: givenData,
+     url: "/api/students/"+currentStudent._id, //node.js server is running
+     success: function(data) {
+       currentStudent = data.student;
+       updateAssignments();
+       if (document.getElementById("givenICSURL2")) document.getElementById("givenICSURL2").value=currentStudent.ICSURL2;
+       disableLockedFeatures();
+     },
+     error: function(xhr,status,error){
+       console.log("xhr: " + xhr + " status: " + status);
+       console.log("The url is: " + "http://127.0.0.1:8000/api/students/"+currentStudent._id);
      }
    });
 }
@@ -322,6 +354,7 @@ function loadPage(){
   }
   renderAssignmentLists();
   if (document.getElementById("givenICSURL")){document.getElementById("givenICSURL").value=currentStudent.ICSURL};
+  if (document.getElementById("givenICSURL2")){document.getElementById("givenICSURL2").value=currentStudent.ICSURL2};
   disableLockedFeatures();
   makeAllTheGraphs();
 
