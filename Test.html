@@ -2,50 +2,306 @@
 <html>
     <head>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <title>Page for testing</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            table.selectable tbody tr { cursor: default; }
+            .highlight { background: yellow; }
+
+            table.scroll {
+                width: 816px; /* 140px * 5 column + 16px scrollbar width */
+                border-spacing: 0;
+                border: 2px solid black;
+            }
+
+            table.scroll tbody,
+            table.scroll thead tr { display: block; }
+
+            table.scroll tbody {
+                height: 200px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            table.scroll tbody td,
+            table.scroll thead th {
+                width: 140px;
+                border-right: 1px solid black;
+            }
+            table.scroll tbody td.long,
+            table.scroll thead th.long {
+                width: 380px;
+                border-right: 1px solid black;
+            }           
+
+            table.scroll thead th:last-child {
+                width: 156px; /* 140px + 16px scrollbar width */
+            }
+
+            thead tr th { 
+                height: 30px;
+                line-height: 30px;
+                /*text-align: left;*/
+            }
+
+            tbody { border-top: 2px solid black; }
+
+            tbody td:last-child, thead th:last-child {
+                border-right: none !important;
+            }
+
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+
+            /* Modal Content/Box */
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto; /* 15% from the top and centered */
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%; /* Could be more or less, depending on screen size */
+            }
+
+            /* The Close Button */
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body>
         <div>TODO write content</div>
         <div id="name"></div>
         <div id="url"></div>
         <div id="ics"></div>
+        <div id="ics2"></div>
         <div id="assignments"></div>
+        <p><input class="datePicker" type="text" placeholder="Select Date.."></p>
+        <table class="scroll selectable">
+            <thead>
+                <tr><th>Course</th><th class="long">Assignment</th><th>Time spent</th><th>Due</th></tr>
+            </thead>
+            <tbody id="assignmentTable">
+
+            </tbody>
+        </table>
+        <button id="viewEditAssignment" disabled>View/Edit Assignment</button>
+
+        <!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
+
         <script>
             var currentStudent = %%student%%;
             var assignments = %%assignments%%;
+            var selectedAssignment;
+
+            function deleteTimes(item, n) {
+               console.log(item+" "+n+" "+JSON.stringify(selectedAssignment));
+               item.closest("tr").remove(); 
+               selectedAssignment.times[n];
+               $("#saveChanges").prop("disabled",false);
+            }
+                
+            function editTimes(item, n) {
+               var dateFormat = "Y-m-d H:i";
+               var row = item.closest("tr");
+               var times = selectedAssignment.times[n];
+               console.log(item+" "+n+" "+row+" "+JSON.stringify(selectedAssignment)+" "+times);
+               row.innerHTML = "<td><input class='datePicker' type='text' value='"+flatpickr.formatDate(new Date(times[0]), dateFormat)+"'></td>" +
+                               "<td><input class='datePicker' type='text' value='"+flatpickr.formatDate(new Date(times[1]), dateFormat)+"'></td>" +
+                               "<td>"+milliSecondsToTime(times[1]-times[0])+"</td>" +
+                               "<td><a href='#' onclick='save(this,"+n+")'>Save Changes</a></td>";
+               $(".datePicker").flatpickr({enableTime: true, dateFormat: dateFormat});
+            }
+                
             function editURL() {
                 $.ajax({
-                    url: "api/students/"+currentStudent._id, 
+                    url: "api/students/" + currentStudent._id,
                     type: 'PUT',
                     data: {ICSURL: 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics'},
                     success: function(result){console.log("success");}
                 });
             }
             function addTimes() {
-                console.log("updateing "+ assignments[0]._id);
+                console.log("updating " + assignments[0]._id);
                 var now = Date.now();
                 $.ajax({
-                    url: "api/assignments/"+assignments[0]._id+"/times",
+                    url: "api/assignments/" + assignments[0]._id + "/times",
                     type: 'POST',
-                    data: {'start': now, 'stop': now-1000},
-                    success: function(result){console.log("success");}
+                    data: {'start': now, 'stop': now - 1000},
+                    success: function (result) {
+                        console.log("success");
+                    }
                 });
             }
 
             $("#name").html("Welcome " + currentStudent.name + " (" + currentStudent.googleId + ")!");
             if (currentStudent.spreadsheetURL) {
-              $("#url").html("Your spreadsheet URL is " + currentStudent.spreadsheetURL);
+                $("#url").html("Your spreadsheet URL is " + currentStudent.spreadsheetURL);
             } else {
-              $('#url').html('No spreadsheet URL set <a href="#" onclick="editURL(); return false;">Edit</a>');
+                $('#url').html('No spreadsheet URL set <a href="#" onclick="editURL(); return false;">Edit</a>');
             }
             if (currentStudent.ICSURL) {
-               $('#ics').html("Your ICS URL is " + currentStudent.ICSURL);
+                $('#ics').html("Your ICS URL is " + currentStudent.ICSURL);
             } else {
-               $('#ics').html('No ICS URL set <a href="#" onclick="editURL(); return false;">Edit</a>');
+                $('#ics').html('No ICS URL set <a href="#" onclick="editURL(); return false;">Edit</a>');
             }
-            $('#assignments').html("Assignments " + assignments.length+' <a href="#" onclick="addTimes(); return false;">Add times</a>');
+            if (currentStudent.ICSURL2) {
+                $('#ics2').html("Your ICS URL2 is " + currentStudent.ICSURL2);
+            } else {
+                $('#ics2').html('No ICS URL2 set <a href="#" onclick="editURL(); return false;">Edit</a>');
+            }
+            $('#assignments').html("Assignments " + assignments.length + ' <a href="#" onclick="addTimes(); return false;">Add times</a>');
+
+            function findAssignment(assignmentId) {
+                for (var i = 0; i<assignments.length; i++) {
+                   if (assignments[i]._id === assignmentId) {
+                      return assignments[i];
+                   }
+                }
+                return null;
+            }
+
+            function addTimes(times) {
+                var timeSpent = 0;
+                for (var n = 0; n < times.length; n++) {
+                    timeSpent += times[n][1] - times[n][0];
+                }
+                return timeSpent;
+            }
+
+            function milliSecondsToTime(millis) {
+                var seconds = Math.round(millis / 1000);
+                var hours = Math.floor(seconds / 3600);
+                var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+                var seconds = seconds - (hours * 3600) - (minutes * 60);
+                var time = "";
+
+                if (hours !== 0) {
+                    time = hours + ":";
+                }
+                if (minutes !== 0 || time !== "") {
+                    minutes = (minutes < 10 && time !== "") ? "0" + minutes : String(minutes);
+                    time += minutes + ":";
+                }
+                if (time === "") {
+                    time = seconds + "s";
+                } else {
+                    time += (seconds < 10) ? "0" + seconds : String(seconds);
+                }
+                return time;
+            }
+
+            for (var i = 0; i < assignments.length; i++) {
+                var assignment = assignments[i];
+                $('#assignmentTable').append("<tr id=" + assignment._id + "><td>" + assignment.course +
+                        "</td><td class='long'>" + assignment.title +
+                        "</td><td>" + milliSecondsToTime(addTimes(assignment.times)) +
+                        "</td><td>" + assignment.dtend + "</td></tr>");
+            }
+
+
+            $(function () {
+                
+                /* Get all rows from your 'table' but not the first one 
+                 * that includes headers. */
+                var rows = $('.selectable').children("tbody").children("tr");
+
+                /* Create 'click' event handler for rows */
+                rows.on('click', function (e) {
+
+                    /* Get current row */
+                    var row = $(this);
+                    rows.removeClass('highlight');
+                    row.addClass('highlight');
+                    $('#viewEditAssignment').prop('disabled', false);
+                    console.log("You selected assignmentId: " + row.attr('id'));
+                    selectedAssignment = findAssignment(row.attr('id'));
+                });
+
+                /* This 'event' is used just to avoid that the table text 
+                 * gets selected (just for styling). 
+                 * For example, when pressing 'Shift' keyboard key and clicking 
+                 * (without this 'event') the text of the 'table' will be selected.
+                 * You can remove it if you want, I just tested this in 
+                 * Chrome v30.0.1599.69 */
+                $(document).bind('selectstart dragstart', function (e) {
+                    e.preventDefault();
+                    return false;
+                });
+
+                // When the user clicks on the viewEditAssignment button, open the modal  
+                $('#viewEditAssignment').click(function() {
+                   var content = $('#myModal .modal-content p');
+                   var html = "Course: "+selectedAssignment.course+
+                           "<br>Title: " + selectedAssignment.title+
+                           "<br>Description: " + selectedAssignment.description +
+                           "<br>Due Date: " + selectedAssignment.dtend +
+                           "<br>Time spent: " + milliSecondsToTime(addTimes(selectedAssignment.times)) +
+                           "<table><thead><tr><th>Start</th><th>End</th><th>Duration</th><th>Action</th></tr></thead><tbody>";
+                   for (var n=0; n<selectedAssignment.times.length; n++) {
+                       var time = selectedAssignment.times[n];
+                       html += "<tr><td>"+new Date(time[0])+"</td>";
+                       html += "<td>"+new Date(time[1])+"</td>";
+                       html += "<td>"+milliSecondsToTime(time[1]-time[0])+"</td>";
+                       html += "<td><a href='#' onclick='deleteTimes(this,"+n+"); return false;'>Delete</a>";
+                       html += "    <a href='#' onclick='editTimes(this,"+n+"); return false;'>Edit</a></td>"; 
+                       html += "</tr>";
+                   }
+                   html += "</tbody></table>";
+                   html += "<button id='addTimes'>Add New Times</a>";
+                   html += "<button id='saveChanges' disabled>Save Changes</a>";
+                   content.html(html);
+                   $('#myModal').show();
+                });
+
+                // When the user clicks on <span> (x), close the modal
+                $('.close').click(function() {
+                   $('#myModal').hide();
+                });
+                
+                $(".datePicker").flatpickr({enableTime: true, dateFormat: "Y-m-d H:i"});
+
+                // When the user clicks anywhere outside of the modal, close it
+                //$(window).click(function(event) {
+                //   console.log("Event: "+event.target);
+                //   if (event.target !== $('#myModal')) {
+                //      $('#myModal').hide();
+                //   }
+                //});
+
+            });
         </script>
     </body>
 </html>
