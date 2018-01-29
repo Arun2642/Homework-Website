@@ -633,21 +633,21 @@ function timerClick(button){
   console.log("Someone clicked a timer button")
   console.log("The button id was: " + button.id + " and the button value was " + button.innerHTML + ". The assignment id was: " + selectedAssignment._id)
   //this should start the timer if the command issued is 'start', and should add a new assignment to the database
-  if (button.innerHTML == 'Start'){
+  if (button.innerHTML === 'Start'){
     timer('start', addTimes(selectedAssignment.times));
   }
-  if (button.innerHTML == 'Stop'){
+  if (button.innerHTML === 'Stop'){
     var timesToAdd = timer('stop', addTimes(selectedAssignment.times));
     recordTimes(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
     console.log("Missing feature here. Finish later.")
   }
-  if (button.innerHTML == 'Resume'){
+  if (button.innerHTML === 'Resume'){
     timer('start', addTimes(selectedAssignment.times));
   }
-  if (button.innerHTML == 'Finish'){
+  if (button.innerHTML === 'Finish'){
     if (running){
       document.getElementById("StartButton").innerHTML = "Start"
-      var timesToAdd = timer('stop', addTimes(selectedAssignement.times));
+      var timesToAdd = timer('stop', addTimes(selectedAssignment.times));
       addTimesAndFinish(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
     }
     else{
@@ -655,20 +655,20 @@ function timerClick(button){
     }
     console.log("Finishing the assignment with id: " + selectedAssignment._id)
   }
-  if (button.innerHTML == 'Cancel'){
+  if (button.innerHTML === 'Cancel'){
     timer('cancel', addTimes(selectedAssignment.times));
     document.getElementById("StartButton").innerHTML = "Resume";
   }
-  //the following 3 if statements deal with chaning the innerHTML of the button, it should be complete
-  if (button.innerHTML == 'Start'){
+  //the following 3 if statements deal with changing the innerHTML of the button, it should be complete
+  if (button.innerHTML === 'Start'){
     button.innerHTML = 'Stop';
     console.log("The command was <<start>>");
   }
-  else if (button.innerHTML == 'Stop'){
+  else if (button.innerHTML === 'Stop'){
     button.innerHTML = 'Resume';
     console.log("The command was <<stop>>");
   }
-  else if(button.innerHTML == 'Resume'){
+  else if(button.innerHTML === 'Resume'){
     button.innerHTML = 'Stop';
     console.log("The command was <<resume>>");
   }
@@ -823,7 +823,7 @@ function recordTimes(start, stop, assignmentID) {
 }
 
 function addTimesAndFinish(start, stop, assignmentID) {
-  console.log("updateing "+ assignmentID);
+  console.log("updating "+ assignmentID);
   $.ajax({
     url: "api/assignments/"+assignmentID+"/times",
     type: 'POST',
@@ -877,7 +877,7 @@ function renderDirrectInput(){
   var classOptions = "";
   //previousInputs are not stored for now, thus, always false:
 
-  if(currentStudent.courses.length == 0){
+  if(currentStudent.courses.length === 0){
     classOptions = "<option value=''>- Class/Catagory -</option><option value='1'>Input class names below</option>"
   }
   else{
