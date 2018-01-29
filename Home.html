@@ -6,15 +6,95 @@
 -->
 <html>
 	<head>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <style>
-    nav ul{height:200px;}
-    nav ul{overflow:hidden;overflow-y:scroll;}
-    .selected{background:lightgreen;}
+       nav ul{height:200px;}
+       nav ul{overflow:hidden;overflow-y:scroll;}
+        table.selectable tbody tr { cursor: default; }
+        table.selectable tbody tr.highlight { background: lightgreen; }
+
+        table.scroll {
+            width: 576px; /* 140px * 4 column + 16px scrollbar width */
+            border-spacing: 0;
+            border: 2px solid black;
+        }
+
+        table.scroll tbody,
+        table.scroll thead tr { display: block; }
+
+        table.scroll tbody {
+            height: 400px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        table.scroll tbody td,
+        table.scroll thead th {
+            width: 120px;
+            border-right: 2px solid black;
+        }
+        table.scroll tbody td.long,
+        table.scroll thead th.long {
+            width: 200px;
+            border-right: 2px solid black;
+        }           
+
+        table.scroll thead th:last-child {
+            width: 128px; /* 140px + 16px scrollbar width */
+        }
+
+        thead tr th { 
+            height: 30px;
+            line-height: 30px;
+            /*text-align: left;*/
+        }
+
+        tbody { border-top: 2px solid black; }
+
+        tbody td:last-child, thead th:last-child {
+            border-right: none !important;
+        }    
+        
+        /* The Modal (background) */
+       .modal {
+           display: none; /* Hidden by default */
+           position: fixed; /* Stay in place */
+           z-index: 1; /* Sit on top */
+           left: 0;
+           top: 0;
+           width: 100%; /* Full width */
+           height: 100%; /* Full height */
+           overflow: auto; /* Enable scroll if needed */
+           background-color: rgb(0,0,0); /* Fallback color */
+           background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+       }
+
+       /* Modal Content/Box */
+       .modal-content {
+           background-color: #fefefe;
+           margin: 15% auto; /* 15% from the top and centered */
+           padding: 20px;
+           border: 1px solid #888;
+           width: 80%; /* Could be more or less, depending on screen size */
+       }
+
+       /* The Close Button */
+       .close {
+           color: #aaa;
+           float: right;
+           font-size: 28px;
+           font-weight: bold;
+       }
+
+       .close:hover,
+       .close:focus {
+           color: black;
+           text-decoration: none;
+           cursor: pointer;
+       }
     </style>
-        <script
-			  src="https://code.jquery.com/jquery-3.2.1.min.js"
-			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
     <title>Homework Homepage</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -67,16 +147,24 @@
                   <section class='6u 12u$(medium)'>
                     <h3>Select from Todo List:</h3>
                     <nav>
-                        <select id="todoList" size="20" style="height: 380px;" onchange="updateButtonNames(this.value)">
-                          
-                        </select>
+                       <table class="scroll selectable">
+                          <thead>
+                             <tr><th>Course</th><th class="long">Assignment</th><th>Time spent</th><th>Due</th></tr>
+                          </thead>
+                          <tbody id="assignmentTable">
+
+                          </tbody>
+                       </table>
                     </nav>
                     <div class="12u$">
                         <br>
                         <ul class="actions fit">
-                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="StartButton">Start</button></li>
-                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="CancelButton">Cancel</button></li>
-                          <li><button class="button special fit" onclick="timerClick(this, document.getElementById('todoList').value)" id="FinishButton">Finish</button></li>
+                          <li><button class="button special fit" onclick="timerClick(this)" disabled id="StartButton">Start</button></li>
+                          <li><button class="button special fit" onclick="timerClick(this)" disabled id="CancelButton">Cancel</button></li>
+                          <li><button class="button special fit" onclick="timerClick(this)" disabled id="FinishButton">Finish</button></li>
+                        </ul>
+                        <ul class="actions fit">
+                          <li><button class="button special fit" id="viewEditAssignment" disabled>View/Edit Assignment</button></li>
                         </ul>
                   </section>
                   <section class='6u$ 12u$(medium)'>
@@ -186,7 +274,16 @@
 
 				</div>
       </section>
-      
+         <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
+            </div>
+
+        </div>
 
 		<!-- Footer -->
 			<footer id="footer">
@@ -221,7 +318,6 @@
 			</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
@@ -237,18 +333,20 @@ var started = false;
 var duration = 0;
 var currentStudent = %%student%%;
 var assignments = %%assignments%%;
+var selectedAssignment;
+var copyOfTimes;
+var dateFormat = "Y-m-d H:i";
 
-function updateButtonNames(assignmentID){
-  if (running){
-    alert("Please stop timer before selecting a new assignment")
-    return
-  }
-  if (timeSpentOn(assignmentID) > 0){
+
+function updateButtonNames(assignment){
+
+  if (addTimes(assignment.times) > 0){
     document.getElementById("StartButton").innerHTML = "Resume"
   }
   else{
     document.getElementById("StartButton").innerHTML = "Start"
   }
+  $('#StartButton').prop('disabled', false);
 }
 
 function updateAssignments(assignmentID){
@@ -373,6 +471,62 @@ function disableLockedFeatures(){
   }
 }
 
+function findAssignment(assignmentId) {
+    for (var i = 0; i < assignments.length; i++) {
+        if (assignments[i]._id === assignmentId) {
+            return assignments[i];
+        }
+    }
+    return null;
+}
+
+function makeTableRowsClickable() {
+   /* Get all rows from your 'table' but not the first one 
+     * that includes headers. */
+    var rows = $('.selectable').children("tbody").children("tr");
+
+    /* Create 'click' event handler for rows */
+    rows.on('click', function (e) {
+
+        if (running){
+           alert("Please stop timer before selecting a new assignment");
+           return;
+        }
+        /* Get current row */
+        var row = $(this);
+        rows.removeClass('highlight');
+        row.addClass('highlight');
+        $('#viewEditAssignment').prop('disabled', false);
+        console.log("You selected assignmentId: " + row.attr('id'));
+        selectedAssignment = findAssignment(row.attr('id'));
+        updateButtonNames(selectedAssignment);
+    });
+
+    /* This 'event' is used just to avoid that the table text 
+     * gets selected (just for styling). 
+     * For example, when pressing 'Shift' keyboard key and clicking 
+     * (without this 'event') the text of the 'table' will be selected.
+     * You can remove it if you want, I just tested this in 
+     * Chrome v30.0.1599.69 */
+    $(document).bind('selectstart dragstart', function (e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // When the user clicks on the viewEditAssignment button, open the modal  
+    $('#viewEditAssignment').click(function () {
+        formatDialog();
+    });
+
+    // When the user clicks on <span> (x), close the modal
+    $('.close').click(function () {
+        $('#myModal').hide();
+    });
+
+    $(".datePicker").flatpickr({enableTime: true, dateFormat: "Y-m-d H:i"});
+    
+}
+
 function renderAssignmentLists(){
   var pastAssignments = [];
   var futureAssignments = [];
@@ -381,11 +535,12 @@ function renderAssignmentLists(){
       pastAssignments.push([assignments[i]._id,assignments[i].course,assignments[i].title,assignments[i].description]);
     }
     else{
-      futureAssignments.push([assignments[i]._id,assignments[i].course,assignments[i].title,assignments[i].description]);
+      futureAssignments.push(assignments[i]);
     }
   }
   generateTodoList(futureAssignments);
   generatePastAssignments(pastAssignments);
+  makeTableRowsClickable();
 }
 
 function selectability(){
@@ -410,7 +565,8 @@ var timerInterval;
 
 function timer(command, duration){
   if (command === 'start'){
-    document.getElementById("todoList").disabled = true;
+    $('#CancelButton').prop("disabled",false);
+    $('#FinishButton').prop("disabled",false);
     startTime = new Date().getTime();
     var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
@@ -440,10 +596,11 @@ function timer(command, duration){
     }, 1000);
   }
   if (command === 'stop') {
-    document.getElementById("todoList").disabled = false;
+    $('#CancelButton').prop("disabled",true);
+    $('#FinishButton').prop("disabled",true);
     stopTime = new Date().getTime();
     endDuration = (stopTime-startTime) + duration;
-    console.log("duration was: " + endDuration)
+    console.log("duration was: " + endDuration);
     clearInterval(timerInterval);
     var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = (Math.floor((endDuration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
@@ -453,10 +610,11 @@ function timer(command, duration){
     document.title = hours + ':' + minutes + ':' + seconds;
     running = false;
     makeAllTheGraphs();
-    return [startTime, stopTime, duration]
+    return [startTime, stopTime, duration];
   }
-  if (command == 'cancel'){
-    document.getElementById("todoList").disabled = false;
+  if (command === 'cancel'){
+    $('#CancelButton').prop("disabled",true);
+    $('#FinishButton').prop("disabled",true);
     console.log("duration, prior to cancel, was: " + duration);
     clearInterval(timerInterval);
     var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -470,40 +628,34 @@ function timer(command, duration){
 }
 
 //This function should deal with any button clicks from the left side (the manual entry option) by 1) changing the inner html of the start/stop/resume button to match it's current state, 2) start and stop the timer, and 3) send new information about assignments to the database, and get information the timer needs from the database
-function timerClick(button, assignmentID){
-  if (!assignmentID){
-    alert('Please select an assignment')
-    return
-  }
+function timerClick(button){
   console.log("Someone clicked a timer button")
-  console.log("The button id was: " + button.id + " and the button value was " + button.innerHTML + ". The assignment id was: " + assignmentID)
+  console.log("The button id was: " + button.id + " and the button value was " + button.innerHTML + ". The assignment id was: " + selectedAssignment._id)
   //this should start the timer if the command issued is 'start', and should add a new assignment to the database
   if (button.innerHTML == 'Start'){
-    timer('start', timeSpentOn(assignmentID));
+    timer('start', addTimes(selectedAssignment.times));
   }
   if (button.innerHTML == 'Stop'){
-    var timesToAdd = timer('stop', timeSpentOn(assignmentID));
-    addTimes(timesToAdd[0], timesToAdd[1], assignmentID);
+    var timesToAdd = timer('stop', addTimes(selectedAssignment.times));
+    recordTimes(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
     console.log("Missing feature here. Finish later.")
-    //console.log("Adding time of: " + timeSpentOn(assignmentID) + " to assignment that reads: " + document.getElementById(assignmentID).innerHTML);
-    //document.getElementById(assignmentID).innerHTML = timeSpentOn(assignmentID);
   }
   if (button.innerHTML == 'Resume'){
-    timer('start', timeSpentOn(assignmentID));
+    timer('start', addTimes(selectedAssignment.times));
   }
   if (button.innerHTML == 'Finish'){
     if (running){
       document.getElementById("StartButton").innerHTML = "Start"
-      var timesToAdd = timer('stop', timeSpentOn(assignmentID));
-      addTimesAndFinish(timesToAdd[0], timesToAdd[1], assignmentID);
+      var timesToAdd = timer('stop', addTimes(selectedAssignement.times));
+      addTimesAndFinish(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
     }
     else{
       justFinish(true, assignmentID);
     }
-    console.log("Finishing the assignment with id: " + assignmentID)
+    console.log("Finishing the assignment with id: " + selectedAssignment._id)
   }
   if (button.innerHTML == 'Cancel'){
-    timer('cancel', timeSpentOn(assignmentID));
+    timer('cancel', addTimes(selectedAssignment.times));
     document.getElementById("StartButton").innerHTML = "Resume";
   }
   //the following 3 if statements deal with chaning the innerHTML of the button, it should be complete
@@ -522,24 +674,6 @@ function timerClick(button, assignmentID){
 }
 // we also need a new automaticTimerClick function to deal with button clicks from the buttons associated with the todo list. It should act the same as the previous function except, instead of making and modifying a new assignment, it should make changes to the assignment selected in the todo list
 
-
-function timeSpentOn(assignmentID){ //given an assignment id, returns the total time logged for the assignment in MILISECONDS
-  for (var i = 0; i<assignments.length; i++){
-    if (assignments[i]._id == assignmentID){
-      var timeSpent = 0;
-      if (!assignments[i].times[0]){
-        return 0
-      }
-      for (var n = 0; n<assignments[i].times.length; n++){
-        timeSpent += (assignments[i].times[n][1] - assignments[i].times[n][0])
-      }
-      console.log("Found assignment. Time spent was: " + timeSpent)
-      return timeSpent
-    }
-  }
-  console.log("No assignment with matching ID found")
-  return 0
-}
 
 function theIdOf(assignmentInfo){
   for (var a=0; a<assignments.length; a++){
@@ -674,7 +808,7 @@ if (!Array.prototype.last){
 ///////////                Actual code:           //////////////
 ////////////////////////////////////////////////////////////////
 
-function addTimes(start, stop, assignmentID) {
+function recordTimes(start, stop, assignmentID) {
   console.log("updateing "+ assignmentID);
   $.ajax({
     url: "api/assignments/"+assignmentID+"/times",
@@ -767,12 +901,135 @@ function toggle(id){
   }
 }
 
+function formatTableRow(time, n) {
+    html = "<td>" + flatpickr.formatDate(new Date(time[0]), dateFormat) + "</td>";
+    html += "<td>" + flatpickr.formatDate(new Date(time[1]), dateFormat) + "</td>";
+    html += "<td>" + milliSecondsToTime(time[1] - time[0]) + "</td>";
+    html += "<td><a href='#' onclick='deleteTimes(this," + n + "); return false;'>Delete</a>";
+    html += "    <a href='#' onclick='editTimes(this," + n + "); return false;'>Edit</a></td>";
+    return html;
+}
+
+
+function formatDialog() {
+    var content = $('#myModal .modal-content p');
+    var html = "Course: " + selectedAssignment.course +
+            "<br>Title: " + selectedAssignment.title +
+            "<br>Description: " + selectedAssignment.description +
+            "<br>Due Date: " + selectedAssignment.dtend +
+            "<br>Time spent: " + milliSecondsToTime(addTimes(selectedAssignment.times)) +
+            "<table><thead><tr><th>Start</th><th>End</th><th>Duration</th><th>Action</th></tr></thead><tbody id='timesTable'>";
+    copyOfTimes = JSON.parse(JSON.stringify(selectedAssignment.times));
+    for (var n = 0; n < copyOfTimes.length; n++) {
+        var time = copyOfTimes[n];
+        html += "<tr>";
+        html += formatTableRow(time, n);
+        html += "</tr>";
+    }
+    html += "</tbody></table>";
+    html += "<button id='addTimes' onclick='addNewTimes(); return false'>Add New Times</a>";
+    html += "<button id='saveChanges' disabled onclick='saveChanges(); return false'>Save Changes</a>";
+    content.html(html);
+    $('#myModal').show();                    
+}
+
+function saveChanges() {
+    selectedAssignment.times = copyOfTimes;
+    formatDialog();
+    console.log("data="+JSON.stringify({times: copyOfTimes}));
+    $.ajax({
+        url: "api/assignments/" + selectedAssignment._id,
+        type: 'PUT',
+        dataType: 'json',
+        data: {times: copyOfTimes},
+        success: function (result) {
+            console.log("success");
+        }
+    });
+}
+
+function save(item, n) {
+    var row = item.closest("tr");
+    var times = copyOfTimes[n];
+    times[0] = flatpickr.parseDate($(row).find("#startTime").val(), dateFormat).getTime();
+    times[1] = flatpickr.parseDate($(row).find("#endTime").val(), dateFormat).getTime();
+    console.log("times " + times[0] + "  " + times[1]);
+    row.innerHTML = formatTableRow(times, n);
+    $("#saveChanges").prop("disabled", false);
+}
+
+function deleteTimes(item, n) {
+    console.log(item + " " + n + " " + JSON.stringify(selectedAssignment));
+    item.closest("tr").remove();
+    copyOfTimes.splice(n,1);
+    $("#saveChanges").prop("disabled", false);
+}
+
+function addNewTimes() {
+    var now = Date.now();
+    copyOfTimes.push([now, now]);
+    var n = copyOfTimes.length - 1;
+    $("#timesTable").append("<tr>"+formatTableRow(copyOfTimes[n],n)+"</tr>");
+}
+
+function timesChanged(item) {
+    var row = item.closest("tr");
+    var start = flatpickr.parseDate($(row).find("#startTime").val(), dateFormat).getTime();
+    var stop = flatpickr.parseDate($(row).find("#endTime").val(), dateFormat).getTime();
+    console.log("times " + start + "  " + stop);
+    $(row).find(":nth-child(3)").html(milliSecondsToTime(stop-start));
+}
+
+function editTimes(item, n) {
+    var row = item.closest("tr");
+    var times = copyOfTimes[n];
+    console.log(item + " " + n + " " + row + " " + JSON.stringify(selectedAssignment) + " " + times);
+    row.innerHTML = "<td><input onchange='timesChanged(this)' class='datePicker' type='text' id='startTime' value='" + flatpickr.formatDate(new Date(times[0]), dateFormat) + "'></td>" +
+            "<td><input onchange='timesChanged(this)' class='datePicker' type='text' id='endTime' value='" + flatpickr.formatDate(new Date(times[1]), dateFormat) + "'></td>" +
+            "<td>" + milliSecondsToTime(times[1] - times[0]) + "</td>" +
+            "<td><a href='#' onclick='save(this," + n + ")'>Save Changes</a></td>";
+    $(".datePicker").flatpickr({enableTime: true, dateFormat: dateFormat});
+}
+
+function addTimes(times) {
+    var timeSpent = 0;
+    for (var n = 0; n < times.length; n++) {
+        timeSpent += times[n][1] - times[n][0];
+    }
+    return timeSpent;
+}
+
+function milliSecondsToTime(millis) {
+    var seconds = Math.round(millis / 1000);
+    var hours = Math.floor(seconds / 3600);
+    var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+    var seconds = seconds - (hours * 3600) - (minutes * 60);
+    var time = "";
+
+    if (hours !== 0) {
+        time = hours + ":";
+    }
+    if (minutes !== 0 || time !== "") {
+        minutes = (minutes < 10 && time !== "") ? "0" + minutes : String(minutes);
+        time += minutes + ":";
+    }
+    if (time === "") {
+        time = seconds + "s";
+    } else {
+        time += (seconds < 10) ? "0" + seconds : String(seconds);
+    }
+    return time;
+}
+
 function generateTodoList(futureAssignments){
-  var todoList = "";
-  for(var i=0; i<futureAssignments.length; i++){
-    todoList += "<option onmouseover='' id='"+futureAssignments[i][0]+"' value='" + futureAssignments[i][0] + "'>" + futureAssignments[i][1] + " | " + futureAssignments[i][2] + "</option>";
-  }
-  document.getElementById("todoList").innerHTML = todoList
+    $('#assignmentTable').html("");
+    for (var i = 0; i < futureAssignments.length; i++) {
+        var assignment = futureAssignments[i];
+        $('#assignmentTable').append("<tr id=" + assignment._id + "><td>" + assignment.course +
+                "</td><td class='long'>" + assignment.title +
+                "</td><td>" + milliSecondsToTime(addTimes(assignment.times)) +
+                "</td><td>" + assignment.dtend + "</td></tr>");
+    }
 }
 
 function generatePastAssignments(pastAssignments){
