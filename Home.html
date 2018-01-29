@@ -25,7 +25,7 @@
         table.scroll thead tr { display: block; }
 
         table.scroll tbody {
-            height: 400px;
+            height: 384px;
             overflow-y: auto;
             overflow-x: hidden;
         }
@@ -42,7 +42,7 @@
         }           
 
         table.scroll thead th:last-child {
-            width: 128px; /* 140px + 16px scrollbar width */
+            width: 165px; /* 140px + 16px scrollbar width */
         }
 
         thead tr th { 
@@ -157,7 +157,6 @@
                        </table>
                     </nav>
                     <div class="12u$">
-                        <br>
                         <ul class="actions fit">
                           <li><button class="button special fit" onclick="timerClick(this)" disabled id="StartButton">Start</button></li>
                           <li><button class="button special fit" onclick="timerClick(this)" disabled id="CancelButton">Cancel</button></li>
@@ -189,6 +188,7 @@
                       </form>
 
                       <br>
+                      <br>
                       <h2>Add a class manually:</h2>
                       <form method="post" action="#">
                           <div class="row uniform">
@@ -201,6 +201,7 @@
                           </div>
                         </form>
 
+                      <br>
                       <br>
                       <h2>Add Assignments Manually:</h2>
                       <div class='12u$'>
@@ -1022,6 +1023,7 @@ function milliSecondsToTime(millis) {
 }
 
 function generateTodoList(futureAssignments){
+    var selectedId = selectedAssignment ? selectedAssignment._id : 0;
     $('#assignmentTable').html("");
     for (var i = 0; i < futureAssignments.length; i++) {
         var assignment = futureAssignments[i];
@@ -1029,6 +1031,10 @@ function generateTodoList(futureAssignments){
                 "</td><td class='long'>" + assignment.title +
                 "</td><td>" + milliSecondsToTime(addTimes(assignment.times)) +
                 "</td><td>" + assignment.dtend + "</td></tr>");
+    }
+    if (selectedId !== 0) {
+        $('#'+selectedId).addClass('highlight');
+        selectedAssignment = findAssignment(selectedId);
     }
 }
 
