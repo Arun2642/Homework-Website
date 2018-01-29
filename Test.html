@@ -111,46 +111,121 @@
         <button id="viewEditAssignment" disabled>View/Edit Assignment</button>
 
         <!-- The Modal -->
-<div id="myModal" class="modal">
+        <div id="myModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-  </div>
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
+            </div>
 
-</div>
+        </div>
 
         <script>
             var currentStudent = %%student%%;
             var assignments = %%assignments%%;
             var selectedAssignment;
+            var copyOfTimes;
+            var dateFormat = "Y-m-d H:i";
+
+            function formatTableRow(time, n) {
+                html = "<td>" + flatpickr.formatDate(new Date(time[0]), dateFormat) + "</td>";
+                html += "<td>" + flatpickr.formatDate(new Date(time[1]), dateFormat) + "</td>";
+                html += "<td>" + milliSecondsToTime(time[1] - time[0]) + "</td>";
+                html += "<td><a href='#' onclick='deleteTimes(this," + n + "); return false;'>Delete</a>";
+                html += "    <a href='#' onclick='editTimes(this," + n + "); return false;'>Edit</a></td>";
+                return html;
+            }
+
+                
+            function formatDialog() {
+                var content = $('#myModal .modal-content p');
+                var html = "Course: " + selectedAssignment.course +
+                        "<br>Title: " + selectedAssignment.title +
+                        "<br>Description: " + selectedAssignment.description +
+                        "<br>Due Date: " + selectedAssignment.dtend +
+                        "<br>Time spent: " + milliSecondsToTime(addTimes(selectedAssignment.times)) +
+                        "<table><thead><tr><th>Start</th><th>End</th><th>Duration</th><th>Action</th></tr></thead><tbody id='timesTable'>";
+                copyOfTimes = JSON.parse(JSON.stringify(selectedAssignment.times));
+                for (var n = 0; n < copyOfTimes.length; n++) {
+                    var time = copyOfTimes[n];
+                    html += "<tr>";
+                    html += formatTableRow(time, n);
+                    html += "</tr>";
+                }
+                html += "</tbody></table>";
+                html += "<button id='addTimes' onclick='addNewTimes(); return false'>Add New Times</a>";
+                html += "<button id='saveChanges' disabled onclick='saveChanges(); return false'>Save Changes</a>";
+                content.html(html);
+                $('#myModal').show();                    
+            }
+
+            function saveChanges() {
+                selectedAssignment.times = copyOfTimes;
+                formatDialog();
+                console.log("data="+JSON.stringify({times: copyOfTimes}));
+                $.ajax({
+                    url: "api/assignments/" + selectedAssignment._id,
+                    type: 'PUT',
+                    dataType: 'json',
+                    data: {times: copyOfTimes},
+                    success: function (result) {
+                        console.log("success");
+                    }
+                });
+            }
+
+            function save(item, n) {
+                var row = item.closest("tr");
+                var times = copyOfTimes[n];
+                times[0] = flatpickr.parseDate($(row).find("#startTime").val(), dateFormat).getTime();
+                times[1] = flatpickr.parseDate($(row).find("#endTime").val(), dateFormat).getTime();
+                console.log("times " + times[0] + "  " + times[1]);
+                row.innerHTML = formatTableRow(times, n);
+                $("#saveChanges").prop("disabled", false);
+            }
 
             function deleteTimes(item, n) {
-               console.log(item+" "+n+" "+JSON.stringify(selectedAssignment));
-               item.closest("tr").remove(); 
-               selectedAssignment.times[n];
-               $("#saveChanges").prop("disabled",false);
+                console.log(item + " " + n + " " + JSON.stringify(selectedAssignment));
+                item.closest("tr").remove();
+                copyOfTimes.splice(n,1);
+                $("#saveChanges").prop("disabled", false);
             }
-                
+            
+            function addNewTimes() {
+                var now = Date.now();
+                copyOfTimes.push([now, now]);
+                var n = copyOfTimes.length - 1;
+                $("#timesTable").append("<tr>"+formatTableRow(copyOfTimes[n],n)+"</tr>");
+            }
+            
+            function timesChanged(item) {
+                var row = item.closest("tr");
+                var start = flatpickr.parseDate($(row).find("#startTime").val(), dateFormat).getTime();
+                var stop = flatpickr.parseDate($(row).find("#endTime").val(), dateFormat).getTime();
+                console.log("times " + start + "  " + stop);
+                $(row).find(":nth-child(3)").html(milliSecondsToTime(stop-start));
+            }
+
             function editTimes(item, n) {
-               var dateFormat = "Y-m-d H:i";
-               var row = item.closest("tr");
-               var times = selectedAssignment.times[n];
-               console.log(item+" "+n+" "+row+" "+JSON.stringify(selectedAssignment)+" "+times);
-               row.innerHTML = "<td><input class='datePicker' type='text' value='"+flatpickr.formatDate(new Date(times[0]), dateFormat)+"'></td>" +
-                               "<td><input class='datePicker' type='text' value='"+flatpickr.formatDate(new Date(times[1]), dateFormat)+"'></td>" +
-                               "<td>"+milliSecondsToTime(times[1]-times[0])+"</td>" +
-                               "<td><a href='#' onclick='save(this,"+n+")'>Save Changes</a></td>";
-               $(".datePicker").flatpickr({enableTime: true, dateFormat: dateFormat});
+                var row = item.closest("tr");
+                var times = copyOfTimes[n];
+                console.log(item + " " + n + " " + row + " " + JSON.stringify(selectedAssignment) + " " + times);
+                row.innerHTML = "<td><input onchange='timesChanged(this)' class='datePicker' type='text' id='startTime' value='" + flatpickr.formatDate(new Date(times[0]), dateFormat) + "'></td>" +
+                        "<td><input onchange='timesChanged(this)' class='datePicker' type='text' id='endTime' value='" + flatpickr.formatDate(new Date(times[1]), dateFormat) + "'></td>" +
+                        "<td>" + milliSecondsToTime(times[1] - times[0]) + "</td>" +
+                        "<td><a href='#' onclick='save(this," + n + ")'>Save Changes</a></td>";
+                $(".datePicker").flatpickr({enableTime: true, dateFormat: dateFormat});
             }
-                
+
             function editURL() {
                 $.ajax({
                     url: "api/students/" + currentStudent._id,
                     type: 'PUT',
                     data: {ICSURL: 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics'},
-                    success: function(result){console.log("success");}
+                    success: function (result) {
+                        console.log("success");
+                    }
                 });
             }
             function addTimes() {
@@ -185,10 +260,10 @@
             $('#assignments').html("Assignments " + assignments.length + ' <a href="#" onclick="addTimes(); return false;">Add times</a>');
 
             function findAssignment(assignmentId) {
-                for (var i = 0; i<assignments.length; i++) {
-                   if (assignments[i]._id === assignmentId) {
-                      return assignments[i];
-                   }
+                for (var i = 0; i < assignments.length; i++) {
+                    if (assignments[i]._id === assignmentId) {
+                        return assignments[i];
+                    }
                 }
                 return null;
             }
@@ -233,7 +308,7 @@
 
 
             $(function () {
-                
+
                 /* Get all rows from your 'table' but not the first one 
                  * that includes headers. */
                 var rows = $('.selectable').children("tbody").children("tr");
@@ -262,35 +337,15 @@
                 });
 
                 // When the user clicks on the viewEditAssignment button, open the modal  
-                $('#viewEditAssignment').click(function() {
-                   var content = $('#myModal .modal-content p');
-                   var html = "Course: "+selectedAssignment.course+
-                           "<br>Title: " + selectedAssignment.title+
-                           "<br>Description: " + selectedAssignment.description +
-                           "<br>Due Date: " + selectedAssignment.dtend +
-                           "<br>Time spent: " + milliSecondsToTime(addTimes(selectedAssignment.times)) +
-                           "<table><thead><tr><th>Start</th><th>End</th><th>Duration</th><th>Action</th></tr></thead><tbody>";
-                   for (var n=0; n<selectedAssignment.times.length; n++) {
-                       var time = selectedAssignment.times[n];
-                       html += "<tr><td>"+new Date(time[0])+"</td>";
-                       html += "<td>"+new Date(time[1])+"</td>";
-                       html += "<td>"+milliSecondsToTime(time[1]-time[0])+"</td>";
-                       html += "<td><a href='#' onclick='deleteTimes(this,"+n+"); return false;'>Delete</a>";
-                       html += "    <a href='#' onclick='editTimes(this,"+n+"); return false;'>Edit</a></td>"; 
-                       html += "</tr>";
-                   }
-                   html += "</tbody></table>";
-                   html += "<button id='addTimes'>Add New Times</a>";
-                   html += "<button id='saveChanges' disabled>Save Changes</a>";
-                   content.html(html);
-                   $('#myModal').show();
+                $('#viewEditAssignment').click(function () {
+                    formatDialog();
                 });
 
                 // When the user clicks on <span> (x), close the modal
-                $('.close').click(function() {
-                   $('#myModal').hide();
+                $('.close').click(function () {
+                    $('#myModal').hide();
                 });
-                
+
                 $(".datePicker").flatpickr({enableTime: true, dateFormat: "Y-m-d H:i"});
 
                 // When the user clicks anywhere outside of the modal, close it

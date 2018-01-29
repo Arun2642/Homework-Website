@@ -303,10 +303,21 @@ router.route('/assignments/:assignment_id')
                     res.send(err);
                 }
                 else{
-                    console.log("found " + assignment);
-                    if (req.body.finished !== null) {
-                       console.log("The assignment is: " + assignment);
-                       assignment.finished = req.body.finished;
+                    if (req.body.finished !== undefined) {
+                        assignment.finished = req.body.finished;
+                    }
+                    if (req.body['times[0][]'] !== undefined) {
+                        times = [];
+                        for (var i=0; ;i++) {
+                            newTimes = req.body['times['+i+'][]'];
+                            if (newTimes) {
+                                times.push(newTimes);
+                            }
+                            else {
+                                break;
+                            }
+                        }
+                        assignment.times = times;
                     }
  
                     // save the assignment
