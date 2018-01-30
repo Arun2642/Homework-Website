@@ -12,46 +12,38 @@
             .highlight { background: yellow; }
 
             table.scroll {
-                width: 816px; /* 140px * 5 column + 16px scrollbar width */
+                display: flex;
+                flex-flow: column;
                 border-spacing: 0;
                 border: 2px solid black;
+                height: 400px;
             }
 
-            table.scroll tbody,
-            table.scroll thead tr { display: block; }
+            table.scroll thead {
+                /* head takes the height it requires, 
+                and it's not scaled when table is resized */
+                flex: 0 0 auto;
+                width: calc(100% - 0.9em);
+            }
 
             table.scroll tbody {
-                height: 200px;
-                overflow-y: auto;
-                overflow-x: hidden;
+                flex: 1 1 auto;
+                display: block;
+                overflow-y: scroll;
             }
-
-            table.scroll tbody td,
-            table.scroll thead th {
-                width: 140px;
-                border-right: 1px solid black;
+            
+            table.scroll tbody tr {
+                width: 100%;
             }
-            table.scroll tbody td.long,
-            table.scroll thead th.long {
-                width: 380px;
-                border-right: 1px solid black;
-            }           
-
-            table.scroll thead th:last-child {
-                width: 156px; /* 140px + 16px scrollbar width */
+ 
+            table.scroll thead,
+            table.scroll tbody tr {
+                display: table;
+                table-layout: fixed;
             }
-
-            thead tr th { 
-                height: 30px;
-                line-height: 30px;
-                /*text-align: left;*/
-            }
+            
 
             tbody { border-top: 2px solid black; }
-
-            tbody td:last-child, thead th:last-child {
-                border-right: none !important;
-            }
 
             /* The Modal (background) */
             .modal {
