@@ -312,7 +312,7 @@
 					</form>
 
 					<div class="copyright">
-						&copy; Arun S. Johnson 2017. CSS and HTML templates from <a href="https://templated.co">Templated</a>. Thanks to Leo Ikle-Maizlich for providing inspiration for the project and part of the back-end code.
+						&copy; Arun S. Johnson 2017. CSS and HTML templates from <a href="https://templated.co">Templated</a>. Thanks to Leo Ikle-Maizlish for providing inspiration for the project and part of the back-end code.
 					</div>
 
 				</div>
@@ -351,6 +351,7 @@ function updateButtonNames(assignment){
     document.getElementById("StartButton").innerHTML = "Start"
   }
   $('#StartButton').prop('disabled', false);
+  $('#FinishButton').prop('disabled', false);
 }
 
 function updateAssignments(assignmentID){
@@ -570,7 +571,6 @@ var timerInterval;
 function timer(command, duration){
   if (command === 'start'){
     $('#CancelButton').prop("disabled",false);
-    $('#FinishButton').prop("disabled",false);
     startTime = new Date().getTime();
     var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
@@ -601,7 +601,6 @@ function timer(command, duration){
   }
   if (command === 'stop') {
     $('#CancelButton').prop("disabled",true);
-    $('#FinishButton').prop("disabled",true);
     stopTime = new Date().getTime();
     endDuration = (stopTime-startTime) + duration;
     console.log("duration was: " + endDuration);
@@ -618,7 +617,6 @@ function timer(command, duration){
   }
   if (command === 'cancel'){
     $('#CancelButton').prop("disabled",true);
-    $('#FinishButton').prop("disabled",true);
     console.log("duration, prior to cancel, was: " + duration);
     clearInterval(timerInterval);
     var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -654,7 +652,7 @@ function timerClick(button){
       addTimesAndFinish(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
     }
     else{
-      justFinish(true, assignmentID);
+      justFinish(true, selectedAssignment._id);
     }
     console.log("Finishing the assignment with id: " + selectedAssignment._id)
   }
