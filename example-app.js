@@ -355,7 +355,8 @@ app.use('/api', router);
 
 function renderGitkitWidgetPage(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    var html = new Buffer(fs.readFileSync('./gitkit-widget.html')).toString();
+    var gitkit = process.env.GITKIT || 'gitkit-widget.html';
+    var html = new Buffer(fs.readFileSync(gitkit)).toString();
     html = html.replace('%%postBody%%', encodeURIComponent(req.body || ''));
     res.end(html);
 }
