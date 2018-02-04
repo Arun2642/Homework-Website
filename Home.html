@@ -12,50 +12,83 @@
     <style>
        nav ul{height:200px;}
        nav ul{overflow:hidden;overflow-y:scroll;}
+       
         table.selectable tbody tr { cursor: default; }
         table.selectable tbody tr.highlight { background: lightgreen; }
 
-        table.scroll {
-            width: 576px; /* 140px * 4 column + 16px scrollbar width */
-            border-spacing: 0;
-            border: 2px solid black;
+        .table-scroll {
+	    position: relative;
+	    max-width: 1280px;
+	    width:100%;
+	    margin: auto;
+	    display:table;
         }
-
-        table.scroll tbody,
-        table.scroll thead tr { display: block; }
-
-        table.scroll tbody {
-            height: 384px;
-            overflow-y: auto;
-            overflow-x: hidden;
+        .table-wrap {
+	    width: 100%;
+	    display:block;
+	    overflow: auto;
+	    position:relative;
+	    z-index:1;
+       }
+      .table-wrap.fixedON,
+      .table-wrap.fixedON table,
+      .faux-table table {
+	   height: 300px;/* match heights*/
+       }
+       .table-scroll table {
+	   width: 100%;
+	   margin: auto;
+	   border-collapse: separate;
+	   border-spacing: 0;
+       }
+       .table-scroll th, .table-scroll td {
+	   padding: 5px 10px;
+	   border: 1px solid #000;
+	   vertical-align: top;
+       }
+       .faux-table table {
+	   position: absolute;
+	   top: 0;
+	   left: 0;
+	   width: 100%;
+	   pointer-events: none;
         }
-
-        table.scroll tbody td,
-        table.scroll thead th {
-            width: 120px;
-            border-right: 2px solid black;
+        .faux-table table tbody {
+	   visibility: hidden;
         }
-        table.scroll tbody td.long,
-        table.scroll thead th.long {
-            width: 200px;
-            border-right: 2px solid black;
-        }           
-
-        table.scroll thead th:last-child {
-            width: 165px; /* 140px + 16px scrollbar width */
+        /* shrink cells in cloned table so that the table height is exactly 300px so that the header and footer appear fixed */
+        .faux-table table tbody th, .faux-table table tbody td {
+	   padding-top:0;
+	   padding-bottom:0;
+	   border-top:none;
+	   border-bottom:none;
+	   line-height:0.1;
         }
-
-        thead tr th { 
-            height: 30px;
-            line-height: 30px;
-            /*text-align: left;*/
+        .faux-table table tbody tr + tr th, .faux-table tbody tr + tr td {
+	   line-height:0;
         }
-
-        tbody { border-top: 2px solid black; }
-
-        tbody td:last-child, thead th:last-child {
-            border-right: none !important;
-        }    
+        .faux-table thead th, .faux-table tfoot th, .faux-table tfoot td,
+        .table-wrap thead th, .table-wrap tfoot th, .table-wrap tfoot td{
+	    background: #ccc;
+        }
+        .faux-table {
+	    position:absolute;
+	    top:0;
+	    right:0;
+	    left:0;
+	    bottom:0;
+	    overflow-y:scroll;
+        }
+        .faux-table thead, .faux-table tfoot, .faux-table thead th, .faux-table tfoot th, .faux-table tfoot td {
+                position:relative;
+                z-index:2;
+        }
+        /* ie bug */
+        .table-scroll table thead tr,
+        .table-scroll table thead tr th,
+        .table-scroll table tfoot  tr,
+        .table-scroll table tfoot  tr th,
+        .table-scroll table tfoot  tr td{height:1px;} 
         
         /* The Modal (background) */
        .modal {
@@ -146,16 +179,18 @@
               <div class='row'>
                   <section class='6u 12u$(medium)'>
                     <h3>Select from Todo List:</h3>
-                    <nav>
-                       <table class="scroll selectable">
-                          <thead>
-                             <tr><th>Course</th><th class="long">Assignment</th><th>Time spent</th><th>Due</th></tr>
-                          </thead>
-                          <tbody id="assignmentTable">
-
-                          </tbody>
-                       </table>
-                    </nav>
+                    <div id="table-scroll" class="table-scroll">
+                    <div id="faux-table" class="faux-table" aria-hidden="true"></div>
+                        <div id="table-wrap" class="table-wrap">
+                            <table id="main-table" class="selectable">
+                                <thead>
+                                   <tr><th>Course</th><th class="long">Assignment</th><th>Time spent</th><th>Due</th></tr>
+                                </thead>
+                                <tbody id="assignmentTable">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="12u$">
                         <ul class="actions fit">
                           <li><button class="button special fit" onclick="timerClick(this)" disabled id="StartButton">Start</button></li>
@@ -456,6 +491,18 @@ function loadPage(){
     }
   }
   renderAssignmentLists();
+  
+  // Fix to do table
+  var mainTable = document.getElementById("main-table"); 
+  var tableHeight = mainTable.offsetHeight; 
+  if (tableHeight > 300) { 
+       var fauxTable = document.getElementById("faux-table");
+       document.getElementById("table-wrap").className += ' ' + 'fixedON';
+       var clonedElement = mainTable.cloneNode(true); 
+       clonedElement.id = "";
+       fauxTable.appendChild(clonedElement);
+  }
+  
   if (document.getElementById("givenICSURL")){document.getElementById("givenICSURL").value=currentStudent.ICSURL;};
   if (document.getElementById("givenICSURL2")){document.getElementById("givenICSURL2").value=currentStudent.ICSURL2;};
   disableLockedFeatures();
