@@ -1,368 +1,351 @@
 <!DOCTYPE HTML>
 <!--
-	Projection by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+        Projection by TEMPLATED
+        templated.co @templatedco
+        Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <html>
-	<head>
+    <head>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <style>
-       nav ul{height:200px;}
-       nav ul{overflow:hidden;overflow-y:scroll;}
-       
-        table.selectable tbody tr { cursor: default; }
-        table.selectable tbody tr.highlight { background: lightgreen; }
+        <style>
+            nav ul{height:200px;}
+            nav ul{overflow:hidden;overflow-y:scroll;}
 
-        .table-scroll {
-	    position: relative;
-	    max-width: 1280px;
-	    width:100%;
-	    margin: auto;
-	    display:table;
-        }
-        .table-wrap {
-	    width: 100%;
-	    display:block;
-	    overflow: auto;
-	    position:relative;
-	    z-index:1;
-       }
-      .table-wrap.fixedON,
-      .table-wrap.fixedON table,
-      .faux-table table {
-	   height: 500px;/* match heights*/
-       }
-       .table-scroll table {
-	   width: 100%;
-	   margin: auto;
-	   border-collapse: separate;
-	   border-spacing: 0;
-       }
-       .table-scroll th, .table-scroll td {
-	   padding: 5px 10px;
-	   border: 1px solid #000;
-	   vertical-align: top;
-       }
-       .faux-table table {
-	   position: absolute;
-	   top: 0;
-	   left: 0;
-	   width: 100%;
-	   pointer-events: none;
-        }
-        .faux-table table tbody {
-	   visibility: hidden;
-        }
-        /* shrink cells in cloned table so that the table height is exactly 300px so that the header and footer appear fixed */
-        .faux-table table tbody th, .faux-table table tbody td {
-	   padding-top:0;
-	   padding-bottom:0;
-	   border-top:none;
-	   border-bottom:none;
-	   line-height:0.1;
-        }
-        .faux-table table tbody tr + tr th, .faux-table tbody tr + tr td {
-	   line-height:0;
-        }
-        .faux-table thead th, .faux-table tfoot th, .faux-table tfoot td,
-        .table-wrap thead th, .table-wrap tfoot th, .table-wrap tfoot td{
-	    background: #ccc;
-        }
-        .faux-table {
-	    position:absolute;
-	    top:0;
-	    right:0;
-	    left:0;
-	    bottom:0;
-	    overflow-y:scroll;
-        }
-        .faux-table thead, .faux-table tfoot, .faux-table thead th, .faux-table tfoot th, .faux-table tfoot td {
+            table.selectable tbody tr { cursor: default; }
+            table.selectable tbody tr.highlight { background: lightgreen; }
+
+            .table-scroll {
+                position: relative;
+                max-width: 1280px;
+                width:100%;
+                margin: auto;
+                display:table;
+            }
+            .table-wrap {
+                width: 100%;
+                display:block;
+                overflow: auto;
+                position:relative;
+                z-index:1;
+            }
+            .table-wrap.fixedON,
+            .table-wrap.fixedON table,
+            .faux-table table {
+                height: 500px;/* match heights*/
+            }
+            .table-scroll table {
+                width: 100%;
+                margin: auto;
+                border-collapse: separate;
+                border-spacing: 0;
+            }
+            .table-scroll th, .table-scroll td {
+                padding: 5px 10px;
+                border: 1px solid #000;
+                vertical-align: top;
+            }
+            .faux-table table {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                pointer-events: none;
+            }
+            .faux-table table tbody {
+                visibility: hidden;
+            }
+            /* shrink cells in cloned table so that the table height is exactly 300px so that the header and footer appear fixed */
+            .faux-table table tbody th, .faux-table table tbody td {
+                padding-top:0;
+                padding-bottom:0;
+                border-top:none;
+                border-bottom:none;
+                line-height:0.1;
+            }
+            .faux-table table tbody tr + tr th, .faux-table tbody tr + tr td {
+                line-height:0;
+            }
+            .faux-table thead th, .faux-table tfoot th, .faux-table tfoot td,
+            .table-wrap thead th, .table-wrap tfoot th, .table-wrap tfoot td{
+                background: #ccc;
+            }
+            .faux-table {
+                position:absolute;
+                top:0;
+                right:0;
+                left:0;
+                bottom:0;
+                overflow-y:scroll;
+            }
+            .faux-table thead, .faux-table tfoot, .faux-table thead th, .faux-table tfoot th, .faux-table tfoot td {
                 position:relative;
                 z-index:2;
-        }
-        /* ie bug */
-        .table-scroll table thead tr,
-        .table-scroll table thead tr th,
-        .table-scroll table tfoot  tr,
-        .table-scroll table tfoot  tr th,
-        .table-scroll table tfoot  tr td{height:1px;} 
-        
-        /* The Modal (background) */
-       .modal {
-           display: none; /* Hidden by default */
-           position: fixed; /* Stay in place */
-           z-index: 10; /* Sit on top */
-           left: 0;
-           top: 0;
-           width: 100%; /* Full width */
-           height: 100%; /* Full height */
-           overflow: auto; /* Enable scroll if needed */
-           background-color: rgb(0,0,0); /* Fallback color */
-           background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-       }
+            }
+            /* ie bug */
+            .table-scroll table thead tr,
+            .table-scroll table thead tr th,
+            .table-scroll table tfoot  tr,
+            .table-scroll table tfoot  tr th,
+            .table-scroll table tfoot  tr td{height:1px;} 
 
-       /* Modal Content/Box */
-       .modal-content {
-           background-color: #fefefe;
-           margin: 15% auto; /* 15% from the top and centered */
-           padding: 20px;
-           border: 1px solid #888;
-           width: 80%; /* Could be more or less, depending on screen size */
-       }
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 10; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
 
-       /* The Close Button */
-       .close {
-           color: #aaa;
-           float: right;
-           font-size: 28px;
-           font-weight: bold;
-       }
+            /* Modal Content/Box */
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto; /* 15% from the top and centered */
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%; /* Could be more or less, depending on screen size */
+            }
 
-       .close:hover,
-       .close:focus {
-           color: black;
-           text-decoration: none;
-           cursor: pointer;
-       }
-    </style>
-    <title>Homework Homepage</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="subpage" onload="loadPage()">
+            /* The Close Button */
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
 
-    <!-- Header -->
-			<header id="header">
-				<div class="inner">
-					<a href="index.html" class="logo"><strong>Homework Homepage</strong></a>
-					<nav id="nav">
-						<a href="index.html">Log-in Page</a>
-						<a href="home.html">Homepage</a>
-						<a href="moreInfo.html">FAQ</a>
-					</nav>
-					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-                                </div>
-      </header>
-      <div class="align-right">
-          <span class="icon fa-cog" style="font-size:48px; padding-top:40px; padding-right:40px" onmouseover=""></span>	
-        </div>
-      <header class="align-center" id="introMessage">
-          <br>
-          <br>
-          <br>
-          <h2>Two Options to Begin</h2>
-          <p>There are two ways to use this website. Either link a google spreadsheet, which this website will read the data from to make graphs and add to class statistics, or use the website to input assignments directly. Choose one:</p>
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
+        <title>Homework Homepage</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+    </head>
+    <body class="subpage" onload="loadPage()">
+
+        <!-- Header -->
+        <header id="header">
+            <div class="inner">
+                <a href="index.html" class="logo"><strong>Homework Homepage</strong></a>
+                <nav id="nav">
+                    <a href="index.html">Log-in Page</a>
+                    <a href="home.html">Homepage</a>
+                    <a href="moreInfo.html">FAQ</a>
+                </nav>
+                <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+            </div>
         </header>
-		<!-- Three -->
-			<section id="three" class="wrapper">
-				<div class="inner">
-					<div id="buttons" class="align-center" style="">
-						<button class="button button-large" onclick="renderURLInput()">Import Spreadsheet</button>
-						<button class="button button-large" onclick="renderDirrectInput()">Input Directly</button>
-          </div>
-          <div id="timer" class="align-center"></div>
-          <div id="newAssignmentForm"></div>
-          <header id ="instructionsInd" class="align-center" style="display:none">
-              <h2 id='inst_1'>Please enter the URL</h2>
-              <p  id='inst_2'>Paste the sharing url for the spreadsheet you wish to import into the box below: </p>
-          </header>
-          <header id ="instructionsDir"class="align-center" style="display:none">
-              <h2 id='inst_1'>Log homework/tasks:</h2> 
-              <p id='inst_2'> Use either the todo list or the manual input to log your homework time: </p>
-          </header>
-          <div id="addMoreDataButton" class="align-center"></div>
-          <div id="urlFormDir" style="display:none">
-              <div class='row'>
-                  <section class='6u 12u$(medium)'>
-                    <h3>Select from Todo List:</h3>
-                    <div id="table-scroll" class="table-scroll">
-                    <div id="faux-table" class="faux-table" aria-hidden="true"></div>
-                        <div id="table-wrap" class="table-wrap">
-                            <table id="main-table" class="selectable">
-                                <thead>
-                                   <tr><th>Course</th><th class="long">Assignment</th><th>Time spent</th><th>Due</th></tr>
-                                </thead>
-                                <tbody id="assignmentTable">
-                                </tbody>
-                            </table>
+        <div class="align-right">
+            <span class="icon fa-cog" style="font-size:48px; padding-top:40px; padding-right:40px" onmouseover=""></span>	
+        </div>
+        <header class="align-center" id="introMessage">
+            <br>
+            <br>
+            <br>
+            <h2>Two Options to Begin</h2>
+            <p>There are two ways to use this website. Either link a google spreadsheet, which this website will read the data from to make graphs and add to class statistics, or use the website to input assignments directly. Choose one:</p>
+        </header>
+        <!-- Three -->
+        <section id="three" class="wrapper">
+            <div class="inner">
+                <div id="buttons" class="align-center" style="">
+                    <button class="button button-large" onclick="renderURLInput()">Import Spreadsheet</button>
+                    <button class="button button-large" onclick="renderDirrectInput()">Input Directly</button>
+                </div>
+                <div id="timer" class="align-center"></div>
+                <div id="newAssignmentForm"></div>
+                <header id ="instructionsInd" class="align-center" style="display:none">
+                    <h2 id='inst_1'>Please enter the URL</h2>
+                    <p  id='inst_2'>Paste the sharing url for the spreadsheet you wish to import into the box below: </p>
+                </header>
+                <header id ="instructionsDir"class="align-center" style="display:none">
+                    <h2 id='inst_1'>Log homework/tasks:</h2> 
+                    <p id='inst_2'> Use either the todo list or the manual input to log your homework time: </p>
+                </header>
+                <div id="addMoreDataButton" class="align-center"></div>
+                <div id="urlFormDir" style="display:none">
+                    <div class='row'>
+                        <section class='6u 12u$(medium)'>
+                            <h3>Select from Todo List:</h3>
+                            <div id="table-scroll" class="table-scroll">
+                                <div id="faux-table" class="faux-table" aria-hidden="true"></div>
+                                <div id="table-wrap" class="table-wrap">
+                                    <table id="main-table" class="selectable">
+                                        <thead>
+                                            <tr><th>Course</th><th class="long">Assignment</th><th>Time spent</th><th>Due</th></tr>
+                                        </thead>
+                                        <tbody id="assignmentTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="12u$">
+                                <ul class="actions fit">
+                                    <li><button class="button special fit" onclick="timerClick(this)" disabled id="StartButton">Start</button></li>
+                                    <li><button class="button special fit" onclick="timerClick(this)" disabled id="CancelButton">Cancel</button></li>
+                                    <li><button class="button special fit" onclick="timerClick(this)" disabled id="FinishButton">Finish</button></li>
+                                </ul>
+                                <ul class="actions fit">
+                                    <li><button class="button special fit" id="viewEditAssignment" disabled>View/Edit Assignment</button></li>
+                                </ul>
+                        </section>
+                        <section class='6u$ 12u$(medium)'>
+                            <h2>Load classes and assignments from canvas:</h2>
+                            <form id="ics-url-form" method="post" action="#">
+                                <div class="row uniform">
+                                    <div class="9u 12u$(small)">
+                                        <input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
+                                    </div>
+                                    <div class="3u$ 12u$(small)">
+                                        <input type="button" value="Load" class="small" name="ICSURL" onclick="sendICS()"/>
+                                    </div>
+                                </div>
+                                <div class="row uniform">
+                                    <div class="9u 12u$(small)">
+                                        <input type="text" name="query3" id="givenICSURL2" value="" placeholder="Optionally enter additional ICS URL (from GOA)" />
+                                    </div>
+                                    <div class="3u$ 12u$(small)">
+                                        <input type="button" value="Load" class="small" name="ICSURL2" onclick="sendICS2()"/>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <br>
+                            <br>
+                            <h2>Add a class manually:</h2>
+                            <form method="post" action="#">
+                                <div class="row uniform">
+                                    <div class="9u 12u$(small)">
+                                        <input type="text" name="query" id="newClass" value="" placeholder="Enter class code (e.g. HIST301)" />
+                                    </div>
+                                    <div class="3u$ 12u$(small)">
+                                        <input type="button" value="Add" class="small" onclick="addAClass(document.getElementById('newClass').value)" />
+                                    </div>
+                                </div>
+                            </form>
+
+                            <br>
+                            <br>
+                            <h2>Add Assignments Manually:</h2>
+                            <div class='12u$'>
+                                <div class='select-wrapper'>
+                                    <select name='demo-category' id='classOptions'>
+                                        <option value=''>- Class/Catagory -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='row uniform'>
+                                <div class='9u 12u$(small)'>
+                                    <div class='select-wrapper'>
+                                        <input type='text' name='query' id='assignmentTitle' value='' placeholder='Describe the task/assignment (optional)' />
+                                    </div>
+                                </div>
+                                <div class="3u$ 12u$(small)">
+                                    <input type="button" value="Add" class="small" onclick="addAnAssignment(document.getElementById('classOptions').value, document.getElementById('assignmentTitle').value)"/>
+                                </div>
+                            </div>
+
+                        </section>
+                    </div>
+                    <div class='row uniform'>
+                        <section class='6u 12u$(medium)'>
+                        </section>
+                        <section class='6u 12u$(medium)'>
+                        </section>
+                    </div>
+                    <hr class="major" />                  
+                    <div class='row uniform'>
+                        <div class="12u$">
+                            <h2>Previous Assignments:</h2>
+                            <nav "width: 1000px">
+                                <select id="pastAssignments" size="20" style="height:300px; width:1200px;">
+                                </select>
+                                <button id="unfinishButton" onclick="justFinish(false, document.getElementById('pastAssignments').value)">Re-add to todo list</button>
+                            </nav>
                         </div>
                     </div>
-                    <br>
-                    <div class="12u$">
-                        <ul class="actions fit">
-                          <li><button class="button special fit" onclick="timerClick(this)" disabled id="StartButton">Start</button></li>
-                          <li><button class="button special fit" onclick="timerClick(this)" disabled id="CancelButton">Cancel</button></li>
-                          <li><button class="button special fit" onclick="timerClick(this)" disabled id="FinishButton">Finish</button></li>
-                        </ul>
-                        <ul class="actions fit">
-                          <li><button class="button special fit" id="viewEditAssignment" disabled>View/Edit Assignment</button></li>
-                        </ul>
-                  </section>
-                  <section class='6u$ 12u$(medium)'>
-                      <h2>Load classes and assignments from canvas:</h2>
-                      <form id="ics-url-form" method="post" action="#">
-                        <div class="row uniform">
-                            <div class="9u 12u$(small)">
-                               <input type="text" name="query2" id="givenICSURL" value="" placeholder="Enter ICS feed URL (from canvas calendar)" />
-                            </div>
-                            <div class="3u$ 12u$(small)">
-                               <input type="button" value="Load" class="small" name="ICSURL" onclick="sendICS()"/>
-                            </div>
-                        </div>
-                        <div class="row uniform">
-                            <div class="9u 12u$(small)">
-                               <input type="text" name="query3" id="givenICSURL2" value="" placeholder="Optionally enter additional ICS URL (from GOA)" />
-                            </div>
-                            <div class="3u$ 12u$(small)">
-                               <input type="button" value="Load" class="small" name="ICSURL2" onclick="sendICS2()"/>
-                            </div>
-                        </div>
-                      </form>
+                    <hr class="major" />
+                    <div id='graphSpace1'></div>
+                    <div id='graphSpace2'></div>
+                    <div id='graphSpace3'></div>
+                    <div id='graphSpace4'></div>
+                    <div id='graphSpace5'></div>
+                    <div id='graphSpace6'></div>
+                </div>
+                <div id="urlFormInd" style="display:none">
+                    <form method='post' action='receive' id='spreadsheetURL'>
+                        <textarea name='url' rows='10' cols='60' id="urlInputForm"></textarea>
+                        <input type='hidden' name='id' id='id' value='" + currentStudent._id + "'></input>
+                        <br>
+                        <button class='button button-small'>Save</button>
+                    </form>
+                    <button class='button button-small' onclick='fetchCSV()'>Make Graphs!</button>
+                </div>
 
-                      <br>
-                      <br>
-                      <h2>Add a class manually:</h2>
-                      <form method="post" action="#">
-                          <div class="row uniform">
-                            <div class="9u 12u$(small)">
-                              <input type="text" name="query" id="newClass" value="" placeholder="Enter class code (e.g. HIST301)" />
-                            </div>
-                            <div class="3u$ 12u$(small)">
-                              <input type="button" value="Add" class="small" onclick="addAClass(document.getElementById('newClass').value)" />
-                            </div>
-                          </div>
-                        </form>
+            </div>
+    </section>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
 
-                      <br>
-                      <br>
-                      <h2>Add Assignments Manually:</h2>
-                      <div class='12u$'>
-                        <div class='select-wrapper'>
-                          <select name='demo-category' id='classOptions'>
-                            <option value=''>- Class/Catagory -</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class='row uniform'>
-                        <div class='9u 12u$(small)'>
-                          <div class='select-wrapper'>
-                            <input type='text' name='query' id='assignmentTitle' value='' placeholder='Describe the task/assignment (optional)' />
-                          </div>
-                        </div>
-                        <div class="3u$ 12u$(small)">
-                            <input type="button" value="Add" class="small" onclick="addAnAssignment(document.getElementById('classOptions').value, document.getElementById('assignmentTitle').value)"/>
-                          </div>
-                      </div>
-                      
-                  </section>
-                  </div>
-                  <div class='row uniform'>
-                  <section class='6u 12u$(medium)'>
-                  </section>
-                  <section class='6u 12u$(medium)'>
-                  </section>
-                  </div>
-                  <hr class="major" />                  
-                  <div class='row uniform'>
-                      <div class="12u$">
-                        <h2>Previous Assignments:</h2>
-                        <nav "width: 1000px">
-                            <select id="pastAssignments" size="20" style="height:300px; width:1200px;">
-                            </select>
-                            <button id="unfinishButton" onclick="justFinish(false, document.getElementById('pastAssignments').value)">Re-add to todo list</button>
-                          </nav>
-                        </div>
-                  </div>
-                  <hr class="major" />
-                  <div id='graphSpace1'></div>
-                  <div id='graphSpace2'></div>
-                  <div id='graphSpace3'></div>
-                  <div id='graphSpace4'></div>
-                  <div id='graphSpace5'></div>
-                  <div id='graphSpace6'></div>
-          </div>
-          <div id="urlFormInd" style="display:none">
-              <form method='post' action='receive' id='spreadsheetURL'>
-                <textarea name='url' rows='10' cols='60' id="urlInputForm"></textarea>
-                <input type='hidden' name='id' id='id' value='" + currentStudent._id + "'></input>
-                <br>
-                <button class='button button-small'>Save</button>
-              </form>
-              <button class='button button-small' onclick='fetchCSV()'>Make Graphs!</button>
-          </div>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>
 
-          </div>
-          
-					<!-- <div class="image round left">
-						<img src="images/pic01.jpg" alt="Pic 01" />
-					</div>
-					<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+    </div>
 
-					<div class="image round right">
-						<img src="images/pic02.jpg" alt="Pic 02" />
-					</div>
-					<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
 
-					<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p> -->
+            <h3>Give me feedback! (Or report bugs)</h3>
 
-				</div>
-      </section>
-         <!-- The Modal -->
-        <div id="myModal" class="modal">
+            <form action="#" method="post">
 
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>Some text in the Modal..</p>
+                <div class="field half first">
+                    <label for="name">Name</label>
+                    <input name="name" id="name" type="text" placeholder="Name">
+                </div>
+                <div class="field half">
+                    <label for="email">Email</label>
+                    <input name="email" id="email" type="email" placeholder="Email">
+                </div>
+                <div class="field">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" rows="6" placeholder="Message"></textarea>
+                </div>
+                <ul class="actions">
+                    <li><input value="Send Message" class="button alt" onclick="giveAlert()"></li>
+                </ul>
+            </form>
+
+            <div class="copyright">
+                &copy; Arun S. Johnson 2017. CSS and HTML templates from <a href="https://templated.co">Templated</a>. Thanks to Leo Ikle-Maizlish for providing inspiration for the project and part of the back-end code.
             </div>
 
         </div>
+    </footer>
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-
-					<h3>Give me feedback! (Or report bugs)</h3>
-
-					<form action="#" method="post">
-
-						<div class="field half first">
-							<label for="name">Name</label>
-							<input name="name" id="name" type="text" placeholder="Name">
-						</div>
-						<div class="field half">
-							<label for="email">Email</label>
-							<input name="email" id="email" type="email" placeholder="Email">
-						</div>
-						<div class="field">
-							<label for="message">Message</label>
-							<textarea name="message" id="message" rows="6" placeholder="Message"></textarea>
-						</div>
-						<ul class="actions">
-							<li><input value="Send Message" class="button alt" onclick="giveAlert()"></li>
-						</ul>
-					</form>
-
-					<div class="copyright">
-						&copy; Arun S. Johnson 2017. CSS and HTML templates from <a href="https://templated.co">Templated</a>. Thanks to Leo Ikle-Maizlish for providing inspiration for the project and part of the back-end code.
-					</div>
-
-				</div>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script>
-
-
-
+    <!-- Scripts -->
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
 var startTime = 0;
 var stopTime = 0;
 var running = false;
@@ -383,162 +366,166 @@ var entityMap = {
     '/': '&#x2F;',
     '`': '&#x60;',
     '=': '&#x3D;'
-  };
+};
 
-  function escapeHtml (string) {
+function escapeHtml(string) {
     return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-      return entityMap[s];
+        return entityMap[s];
     });
-  }
-
-function giveAlert(){
-  alert('This form is broken right now, sorry! I will have it working soon. Until then, please send feedback/bugs to arujohn@nuevaschool.org');
 }
 
-function updateButtonNames(assignment){
-
-  if (addTimes(assignment.times) > 0){
-    document.getElementById("StartButton").innerText = "Resume";
-  }
-  else{
-    document.getElementById("StartButton").innerText = "Start";
-  }
-  $('#StartButton').prop('disabled', false);
-  $('#FinishButton').prop('disabled', false);
+function giveAlert() {
+    alert('This form is broken right now, sorry! I will have it working soon. Until then, please send feedback/bugs to arujohn@nuevaschool.org');
 }
 
-function updateAssignments(assignmentID){
-  $.ajax({
-      url: "api/students/" + currentStudent._id + "/assignments",
-      type: 'GET',
-      success: function(result){
-        console.log("success");
-        assignments = result;
-        renderAssignmentLists();
-        document.getElementById(assignmentID).selected = true;
-      }
-  });
-}
+function updateButtonNames(assignment) {
 
-function addAnAssignment(classCode, title){
-  $.ajax({
-    url: "api/assignments/",
-    type: 'POST',
-    data: {'studentId': currentStudent._id, 'course': classCode, 'title': title, 'finished': false},
-    success: function(result){
-      console.log("success");
-      assignments.push(result.assignment);
-      renderAssignmentLists();
+    if (addTimes(assignment.times) > 0) {
+        document.getElementById("StartButton").innerText = "Resume";
+    } else {
+        document.getElementById("StartButton").innerText = "Start";
     }
-  });
+    $('#StartButton').prop('disabled', false);
+    $('#FinishButton').prop('disabled', false);
 }
 
-function addAClass(className){
-  currentStudent.courses.push(className);
-  $.ajax({
-    url: "api/students/"+currentStudent._id, 
-    type: 'PUT',
-    data: {"courses": currentStudent.courses},
-    success: function(result){
-      console.log("success");
-      currentStudent = result.student;
-      loadPage();
+function updateAssignments(assignmentID) {
+    $.ajax({
+        url: "api/students/" + currentStudent._id + "/assignments",
+        type: 'GET',
+        success: function (result) {
+            console.log("success");
+            assignments = result;
+            renderAssignmentLists();
+            document.getElementById(assignmentID).selected = true;
+        }
+    });
+}
+
+function addAnAssignment(classCode, title) {
+    $.ajax({
+        url: "api/assignments/",
+        type: 'POST',
+        data: {'studentId': currentStudent._id, 'course': classCode, 'title': title, 'finished': false},
+        success: function (result) {
+            console.log("success");
+            assignments.push(result.assignment);
+            renderAssignmentLists();
+        }
+    });
+}
+
+function addAClass(className) {
+    currentStudent.courses.push(className);
+    $.ajax({
+        url: "api/students/" + currentStudent._id,
+        type: 'PUT',
+        data: {"courses": currentStudent.courses},
+        success: function (result) {
+            console.log("success");
+            currentStudent = result.student;
+            loadPage();
+        }
+    });
+}
+
+function sendICS() {
+    console.log("trying to send");
+    var givenData = {};
+    var ICSURL = document.getElementById("givenICSURL").value;
+    givenData.ICSURL = ICSURL;
+    console.log(givenData);
+
+    $.ajax({
+        type: 'PUT',
+        data: givenData,
+        url: "/api/students/" + currentStudent._id, //node.js server is running
+        success: function (data) {
+            currentStudent = data.student;
+            updateAssignments();
+            if (document.getElementById("givenICSURL"))
+                document.getElementById("givenICSURL").value = currentStudent.ICSURL;
+            disableLockedFeatures();
+        },
+        error: function (xhr, status, error) {
+            console.log("xhr: " + xhr + " status: " + status);
+            console.log("The url is: " + "http://127.0.0.1:8000/api/students/" + currentStudent._id);
+        }
+    });
+}
+
+function sendICS2() {
+    console.log("trying to send");
+    var givenData = {};
+    var ICSURL2 = document.getElementById("givenICSURL2").value;
+    givenData.ICSURL2 = ICSURL2;
+    console.log(givenData);
+
+    $.ajax({
+        type: 'PUT',
+        data: givenData,
+        url: "/api/students/" + currentStudent._id, //node.js server is running
+        success: function (data) {
+            currentStudent = data.student;
+            updateAssignments();
+            if (document.getElementById("givenICSURL2"))
+                document.getElementById("givenICSURL2").value = currentStudent.ICSURL2;
+            disableLockedFeatures();
+        },
+        error: function (xhr, status, error) {
+            console.log("xhr: " + xhr + " status: " + status);
+            console.log("The url is: " + "http://127.0.0.1:8000/api/students/" + currentStudent._id);
+        }
+    });
+}
+
+function loadPage() {
+    selectability();
+    if (!currentStudent.connectedSpreadsheet && currentStudent.courses.length === 0 && assignments.length === 0) {
+        console.log("This student has either not yet visited, or not yet interacted with the page");
+    } else {
+        if (currentStudent.connectedSpreadsheet) {
+            renderURLInput();
+        } else {
+            renderDirrectInput();
+        }
     }
-  });
-}
+    renderAssignmentLists();
 
-function sendICS(){
-   console.log("trying to send");
-   var givenData = {};
-   var ICSURL = document.getElementById("givenICSURL").value;
-   givenData.ICSURL = ICSURL;
-   console.log(givenData);
-
-   $.ajax({
-     type: 'PUT',
-     data: givenData,
-     url: "/api/students/"+currentStudent._id, //node.js server is running
-     success: function(data) {
-       currentStudent = data.student;
-       updateAssignments();
-       if (document.getElementById("givenICSURL")) document.getElementById("givenICSURL").value=currentStudent.ICSURL;
-       disableLockedFeatures();
-     },
-     error: function(xhr,status,error){
-       console.log("xhr: " + xhr + " status: " + status);
-       console.log("The url is: " + "http://127.0.0.1:8000/api/students/"+currentStudent._id);
-     }
-   });
-}
-
-function sendICS2(){
-   console.log("trying to send");
-   var givenData = {};
-   var ICSURL2 = document.getElementById("givenICSURL2").value;
-   givenData.ICSURL2 = ICSURL2;
-   console.log(givenData);
-
-   $.ajax({
-     type: 'PUT',
-     data: givenData,
-     url: "/api/students/"+currentStudent._id, //node.js server is running
-     success: function(data) {
-       currentStudent = data.student;
-       updateAssignments();
-       if (document.getElementById("givenICSURL2")) document.getElementById("givenICSURL2").value=currentStudent.ICSURL2;
-       disableLockedFeatures();
-     },
-     error: function(xhr,status,error){
-       console.log("xhr: " + xhr + " status: " + status);
-       console.log("The url is: " + "http://127.0.0.1:8000/api/students/"+currentStudent._id);
-     }
-   });
-}
-
-function loadPage(){
-  selectability();
-  if (!currentStudent.connectedSpreadsheet && currentStudent.courses.length === 0 && assignments.length === 0) {
-    console.log("This student has either not yet visited, or not yet interacted with the page");
-  }
-  else{
-    if (currentStudent.connectedSpreadsheet){
-      renderURLInput();
+    // Fix to do table
+    var mainTable = document.getElementById("main-table");
+    var tableHeight = mainTable.offsetHeight;
+    if (tableHeight > 300) {
+        var fauxTable = document.getElementById("faux-table");
+        document.getElementById("table-wrap").className += ' ' + 'fixedON';
+        var clonedElement = mainTable.cloneNode(true);
+        clonedElement.id = "";
+        fauxTable.appendChild(clonedElement);
     }
-    else{
-      renderDirrectInput();
+
+    if (document.getElementById("givenICSURL")) {
+        document.getElementById("givenICSURL").value = currentStudent.ICSURL;
     }
-  }
-  renderAssignmentLists();
-  
-  // Fix to do table
-  var mainTable = document.getElementById("main-table"); 
-  var tableHeight = mainTable.offsetHeight; 
-  if (tableHeight > 300) { 
-       var fauxTable = document.getElementById("faux-table");
-       document.getElementById("table-wrap").className += ' ' + 'fixedON';
-       var clonedElement = mainTable.cloneNode(true); 
-       clonedElement.id = "";
-       fauxTable.appendChild(clonedElement);
-  }
-  
-  if (document.getElementById("givenICSURL")){document.getElementById("givenICSURL").value=currentStudent.ICSURL;};
-  if (document.getElementById("givenICSURL2")){document.getElementById("givenICSURL2").value=currentStudent.ICSURL2;};
-  disableLockedFeatures();
-  makeAllTheGraphs();
+    ;
+    if (document.getElementById("givenICSURL2")) {
+        document.getElementById("givenICSURL2").value = currentStudent.ICSURL2;
+    }
+    ;
+    disableLockedFeatures();
+    makeAllTheGraphs();
 
 }
 
-function disableLockedFeatures(){
-  if (currentStudent.courses.length === 0){
-    document.getElementsByClassName("button button-large").classNames = "button disabled";
-    document.getElementsByClassName("button special fit").classNames = "button disabled";
-    console.log("You should make it so that clicking these disabled buttons will give an alert explaining the need to input a class code or ICS url first");
-  }
-  else{
-    document.getElementsByClassName("StartButton").className = "button button-large";
-    document.getElementsByClassName("FinishButton").className = "button button-large";
-    document.getElementsByClassName("CancelButton").className = "button button-large";
-  }
+function disableLockedFeatures() {
+    if (currentStudent.courses.length === 0) {
+        document.getElementsByClassName("button button-large").classNames = "button disabled";
+        document.getElementsByClassName("button special fit").classNames = "button disabled";
+        console.log("You should make it so that clicking these disabled buttons will give an alert explaining the need to input a class code or ICS url first");
+    } else {
+        document.getElementsByClassName("StartButton").className = "button button-large";
+        document.getElementsByClassName("FinishButton").className = "button button-large";
+        document.getElementsByClassName("CancelButton").className = "button button-large";
+    }
 }
 
 function findAssignment(assignmentId) {
@@ -551,16 +538,16 @@ function findAssignment(assignmentId) {
 }
 
 function makeTableRowsClickable() {
-   /* Get all rows from your 'table' but not the first one 
+    /* Get all rows from your 'table' but not the first one 
      * that includes headers. */
     var rows = $('.selectable').children("tbody").children("tr");
 
     /* Create 'click' event handler for rows */
     rows.on('click', function (e) {
 
-        if (running){
-           alert("Please stop timer before selecting a new assignment");
-           return;
+        if (running) {
+            alert("Please stop timer before selecting a new assignment");
+            return;
         }
         /* Get current row */
         var row = $(this);
@@ -594,36 +581,35 @@ function makeTableRowsClickable() {
     });
 
     $(".datePicker").flatpickr({enableTime: true, dateFormat: "Y-m-d H:i"});
-    
+
 }
 
-function renderAssignmentLists(){
-  var pastAssignments = [];
-  var futureAssignments = [];
-  for (var i = 0; i<assignments.length;i++){
-    if (assignments[i].finished){
-      pastAssignments.push([assignments[i]._id,assignments[i].course,assignments[i].title,assignments[i].description]);
+function renderAssignmentLists() {
+    var pastAssignments = [];
+    var futureAssignments = [];
+    for (var i = 0; i < assignments.length; i++) {
+        if (assignments[i].finished) {
+            pastAssignments.push([assignments[i]._id, assignments[i].course, assignments[i].title, assignments[i].description]);
+        } else {
+            futureAssignments.push(assignments[i]);
+        }
     }
-    else{
-      futureAssignments.push(assignments[i]);
-    }
-  }
-  generateTodoList(futureAssignments);
-  generatePastAssignments(pastAssignments);
-  makeTableRowsClickable();
+    generateTodoList(futureAssignments);
+    generatePastAssignments(pastAssignments);
+    makeTableRowsClickable();
 }
 
-function selectability(){
-  document.querySelector('ul').addEventListener('click', function(e){
-    var selected;
-    if(e.target.tagName==='LI'){
-      selected = document.querySelector('li.selected');
-      if(selected){
-        selected.className = '';
-      }
-      e.target.className = "selected";
-    }
-  })
+function selectability() {
+    document.querySelector('ul').addEventListener('click', function (e) {
+        var selected;
+        if (e.target.tagName === 'LI') {
+            selected = document.querySelector('li.selected');
+            if (selected) {
+                selected.className = '';
+            }
+            e.target.className = "selected";
+        }
+    })
 }
 
 var timerInterval;
@@ -633,339 +619,335 @@ var timerInterval;
 //LandSat
 //MODIS
 
-function timer(command, duration){
-  if (command === 'start'){
-    $('#CancelButton').prop("disabled",false);
-    startTime = new Date().getTime();
-    var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-    var seconds = (Math.floor(duration % (1000 * 60)) / 1000).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-    // Display the result in the element with id="demo"
-    document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
-    + minutes + ':' + seconds + '</b></h></font>';
-    timerInterval = setInterval(function() {
+function timer(command, duration) {
+    if (command === 'start') {
+        $('#CancelButton').prop("disabled", false);
+        startTime = new Date().getTime();
+        var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US", {minimumIntegerDigits: 2, useGrouping: false});
+        var seconds = (Math.floor(duration % (1000 * 60)) / 1000).toLocaleString("en-US", {minimumIntegerDigits: 2, useGrouping: false});
+        // Display the result in the element with id="demo"
+        document.getElementById("timer").innerHTML = '<font size="32"><h><b>' + hours + ':'
+                + minutes + ':' + seconds + '</b></h></font>';
+        timerInterval = setInterval(function () {
 
-      // Get todays date and time
-      var now = new Date().getTime();
+            // Get todays date and time
+            var now = new Date().getTime();
 
-      // Find the distance between now an the count down date
-      var elapsed = duration + (now-startTime);
+            // Find the distance between now an the count down date
+            var elapsed = duration + (now - startTime);
 
-      // Time calculations for days, hours, minutes and seconds
-      var hours = Math.floor((elapsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = (Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-      var seconds = (Math.floor((elapsed % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+            // Time calculations for days, hours, minutes and seconds
+            var hours = Math.floor((elapsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = (Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US", {minimumIntegerDigits: 2, useGrouping: false});
+            var seconds = (Math.floor((elapsed % (1000 * 60)) / 1000)).toLocaleString("en-US", {minimumIntegerDigits: 2, useGrouping: false});
 
-      // Display the result in the element with id="demo"
-      document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
-      + minutes + ':' + seconds + '</b></h></font>';  
-      document.title = hours + ':' + minutes + ':' + seconds;
-      running = true;
-      return duration;
-    }, 1000);
-  }
-  if (command === 'stop') {
-    $('#CancelButton').prop("disabled",true);
-    stopTime = new Date().getTime();
-    endDuration = (stopTime-startTime) + duration;
-    console.log("duration was: " + endDuration);
-    clearInterval(timerInterval);
-    var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = (Math.floor((endDuration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-    var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-    document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
-      + minutes + ':' + seconds + '</b></h></font>';
-    document.title = hours + ':' + minutes + ':' + seconds;
-    running = false;
-    makeAllTheGraphs();
-    return [startTime, stopTime, duration];
-  }
-  if (command === 'cancel'){
-    $('#CancelButton').prop("disabled",true);
-    console.log("duration, prior to cancel, was: " + duration);
-    clearInterval(timerInterval);
-    var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = (Math.floor((endDuration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-    var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-    document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
-      + minutes + ':' + seconds + '</b></h></font>';
-    document.title =  hours + ':' + minutes + ':' + seconds; 
-    running = false;
-  }
+            // Display the result in the element with id="demo"
+            document.getElementById("timer").innerHTML = '<font size="32"><h><b>' + hours + ':'
+                    + minutes + ':' + seconds + '</b></h></font>';
+            document.title = hours + ':' + minutes + ':' + seconds;
+            running = true;
+            return duration;
+        }, 1000);
+    }
+    if (command === 'stop') {
+        $('#CancelButton').prop("disabled", true);
+        stopTime = new Date().getTime();
+        endDuration = (stopTime - startTime) + duration;
+        console.log("duration was: " + endDuration);
+        clearInterval(timerInterval);
+        var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = (Math.floor((endDuration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US", {minimumIntegerDigits: 2, useGrouping: false});
+        var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US", {minimumIntegerDigits: 2, useGrouping: false});
+        document.getElementById("timer").innerHTML = '<font size="32"><h><b>' + hours + ':'
+                + minutes + ':' + seconds + '</b></h></font>';
+        document.title = hours + ':' + minutes + ':' + seconds;
+        running = false;
+        makeAllTheGraphs();
+        return [startTime, stopTime, duration];
+    }
+    if (command === 'cancel') {
+        $('#CancelButton').prop("disabled", true);
+        console.log("duration, prior to cancel, was: " + duration);
+        clearInterval(timerInterval);
+        var hours = Math.floor((endDuration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = (Math.floor((endDuration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US", {minimumIntegerDigits: 2, useGrouping: false});
+        var seconds = (Math.floor((endDuration % (1000 * 60)) / 1000)).toLocaleString("en-US", {minimumIntegerDigits: 2, useGrouping: false});
+        document.getElementById("timer").innerHTML = '<font size="32"><h><b>' + hours + ':'
+                + minutes + ':' + seconds + '</b></h></font>';
+        document.title = hours + ':' + minutes + ':' + seconds;
+        running = false;
+    }
 }
 
 //This function should deal with any button clicks from the left side (the manual entry option) by 1) changing the inner html of the start/stop/resume button to match it's current state, 2) start and stop the timer, and 3) send new information about assignments to the database, and get information the timer needs from the database
-function timerClick(button){
-  console.log("Someone clicked a timer button");
-  console.log("The button id was: " + button.id + " and the button value was " + button.innerHTML + ". The assignment id was: " + selectedAssignment._id);
-  //this should start the timer if the command issued is 'start', and should add a new assignment to the database
-  if (button.innerHTML === 'Start'){
-    timer('start', addTimes(selectedAssignment.times));
-  }
-  if (button.innerHTML === 'Stop'){
-    var timesToAdd = timer('stop', addTimes(selectedAssignment.times));
-    recordTimes(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
-    console.log("Missing feature here. Finish later.");
-  }
-  if (button.innerHTML === 'Resume'){
-    timer('start', addTimes(selectedAssignment.times));
-  }
-  if (button.innerHTML === 'Finish'){
-    if (running){
-      document.getElementById("StartButton").innerText = "Start";
-      var timesToAdd = timer('stop', addTimes(selectedAssignment.times));
-      addTimesAndFinish(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
+function timerClick(button) {
+    console.log("Someone clicked a timer button");
+    console.log("The button id was: " + button.id + " and the button value was " + button.innerHTML + ". The assignment id was: " + selectedAssignment._id);
+    //this should start the timer if the command issued is 'start', and should add a new assignment to the database
+    if (button.innerHTML === 'Start') {
+        timer('start', addTimes(selectedAssignment.times));
     }
-    else{
-      justFinish(true, selectedAssignment._id);
+    if (button.innerHTML === 'Stop') {
+        var timesToAdd = timer('stop', addTimes(selectedAssignment.times));
+        recordTimes(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
+        console.log("Missing feature here. Finish later.");
     }
-    console.log("Finishing the assignment with id: " + selectedAssignment._id)
-  }
-  if (button.innerHTML === 'Cancel'){
-    timer('cancel', addTimes(selectedAssignment.times));
-    document.getElementById("StartButton").innerText = "Resume";
-  }
-  //the following 3 if statements deal with changing the innerHTML of the button, it should be complete
-  if (button.innerHTML === 'Start'){
-    button.innerText = 'Stop';
-    console.log("The command was <<start>>");
-  }
-  else if (button.innerHTML === 'Stop'){
-    button.innerText = 'Resume';
-    console.log("The command was <<stop>>");
-  }
-  else if(button.innerHTML === 'Resume'){
-    button.innerText = 'Stop';
-    console.log("The command was <<resume>>");
-  }
+    if (button.innerHTML === 'Resume') {
+        timer('start', addTimes(selectedAssignment.times));
+    }
+    if (button.innerHTML === 'Finish') {
+        if (running) {
+            document.getElementById("StartButton").innerText = "Start";
+            var timesToAdd = timer('stop', addTimes(selectedAssignment.times));
+            addTimesAndFinish(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
+        } else {
+            justFinish(true, selectedAssignment._id);
+        }
+        console.log("Finishing the assignment with id: " + selectedAssignment._id)
+    }
+    if (button.innerHTML === 'Cancel') {
+        timer('cancel', addTimes(selectedAssignment.times));
+        document.getElementById("StartButton").innerText = "Resume";
+    }
+    //the following 3 if statements deal with changing the innerHTML of the button, it should be complete
+    if (button.innerHTML === 'Start') {
+        button.innerText = 'Stop';
+        console.log("The command was <<start>>");
+    } else if (button.innerHTML === 'Stop') {
+        button.innerText = 'Resume';
+        console.log("The command was <<stop>>");
+    } else if (button.innerHTML === 'Resume') {
+        button.innerText = 'Stop';
+        console.log("The command was <<resume>>");
+    }
 }
 // we also need a new automaticTimerClick function to deal with button clicks from the buttons associated with the todo list. It should act the same as the previous function except, instead of making and modifying a new assignment, it should make changes to the assignment selected in the todo list
 
 
-function theIdOf(assignmentInfo){
-  for (var a=0; a<assignments.length; a++){
-    if (assignments[i].studentId === currentStudent._id){
-      if (assignments[i].course === assignmentInfo[0]){
-        if (assignments[i].title === assignmentInfo[1]){
-          return assignments[i]._id;
+function theIdOf(assignmentInfo) {
+    for (var a = 0; a < assignments.length; a++) {
+        if (assignments[i].studentId === currentStudent._id) {
+            if (assignments[i].course === assignmentInfo[0]) {
+                if (assignments[i].title === assignmentInfo[1]) {
+                    return assignments[i]._id;
+                }
+            }
         }
-      }
     }
-  }
-  return(0);
+    return(0);
 }
 
-function newAssignment(assignmentID, assignmentInfo){
+function newAssignment(assignmentID, assignmentInfo) {
 // this should make a new assignment, and, if it does not have an aassignment id (if 0 is passed) it should create a new id
-  $.ajax({
-                    url: "api/students/"+currentStudent._id, 
-                    type: 'PUT',
-                    data: {ICSURL: 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics'},
-                    success: function(result){console.log("success");}
-                });
+    $.ajax({
+        url: "api/students/" + currentStudent._id,
+        type: 'PUT',
+        data: {ICSURL: 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics'},
+        success: function (result) {
+            console.log("success");
+        }
+    });
 }
 
 /*function timer(command, assignmentID){
-  if (command == "toggle"){
-    if (running){
-      command = 'stop';
-    }
-    else{
-      command = 'start';
-    }
-  }
-  if (command == 'start'){
-    if (started){
-      running = true;
-      startTime = new Date().getTime() - duration;
-      // Time calculations for days, hours, minutes and seconds
-      var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-      var seconds = (Math.floor(duration % (1000 * 60)) / 1000).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+ if (command == "toggle"){
+ if (running){
+ command = 'stop';
+ }
+ else{
+ command = 'start';
+ }
+ }
+ if (command == 'start'){
+ if (started){
+ running = true;
+ startTime = new Date().getTime() - duration;
+ // Time calculations for days, hours, minutes and seconds
+ var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+ var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+ var seconds = (Math.floor(duration % (1000 * 60)) / 1000).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
 
-      // Display the result in the element with id="demo"
-      document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
-      + minutes + ':' + seconds + '</b></h></font>';
-      timerInterval = setInterval(function() {
+ // Display the result in the element with id="demo"
+ document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
+ + minutes + ':' + seconds + '</b></h></font>';
+ timerInterval = setInterval(function() {
 
-      // Get todays date and time
-      var now = new Date().getTime();
+ // Get todays date and time
+ var now = new Date().getTime();
 
-      // Find the distance between now an the count down date
-      var distance = now - startTime;
+ // Find the distance between now an the count down date
+ var distance = now - startTime;
 
-      // Time calculations for days, hours, minutes and seconds
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = (Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-      var seconds = (Math.floor((distance % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+ // Time calculations for days, hours, minutes and seconds
+ var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+ var minutes = (Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+ var seconds = (Math.floor((distance % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
 
-      // Display the result in the element with id="demo"
-      document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
-      + minutes + ':' + seconds + '</b></h></font>';
+ // Display the result in the element with id="demo"
+ document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
+ + minutes + ':' + seconds + '</b></h></font>';
 
-      // If the count down is finished, write some text  
-      }, 1000);
-      
-    }
-    else{
-    startTime = new Date().getTime();
-    console.log("startTime is: " + startTime)
-    running = true;
-    started = true;
-    document.getElementById("timer").innerHTML = '<font size="32"><h><b>0:00:00</b></h></font>'
-    timerInterval = setInterval(function() {
+ // If the count down is finished, write some text  
+ }, 1000);
 
-      // Get todays date and time
-      var now = new Date().getTime();
+ }
+ else{
+ startTime = new Date().getTime();
+ console.log("startTime is: " + startTime)
+ running = true;
+ started = true;
+ document.getElementById("timer").innerHTML = '<font size="32"><h><b>0:00:00</b></h></font>'
+ timerInterval = setInterval(function() {
 
-      // Find the distance between now an the count down date
-      var distance = now - startTime;
+ // Get todays date and time
+ var now = new Date().getTime();
 
-      // Time calculations for days, hours, minutes and seconds
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = (Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-      var seconds = (Math.floor((distance % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+ // Find the distance between now an the count down date
+ var distance = now - startTime;
 
-      // Display the result in the element with id="demo"
-      document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
-      + minutes + ':' + seconds + '</b></h></font>';
+ // Time calculations for days, hours, minutes and seconds
+ var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+ var minutes = (Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+ var seconds = (Math.floor((distance % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
 
-      // If the count down is finished, write some text  
-    }, 1000);
-    }
-  }
-  if (command == 'stop'){
-    stopTime = new Date().getTime();
-    addTimes(startTime, stopTime, assignmentID)
-    duration = stopTime-startTime
-    console.log("duration was:" + duration)
-    running = false;
-    clearInterval(timerInterval);
-    var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-    var seconds = (Math.floor((duration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
-    document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
-      + minutes + ':' + seconds + '</b></h></font>';
-    return duration
-    
-  }
-  if (command == 'finish'){
-    running = false;
-    started = false;
-    var totalDuration = duration;
-    duration = 0;
-  }
-  if (command == 'cancel'){
-    console.log("You need to finish the timer function")
-  }
-} */
+ // Display the result in the element with id="demo"
+ document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
+ + minutes + ':' + seconds + '</b></h></font>';
+
+ // If the count down is finished, write some text  
+ }, 1000);
+ }
+ }
+ if (command == 'stop'){
+ stopTime = new Date().getTime();
+ addTimes(startTime, stopTime, assignmentID)
+ duration = stopTime-startTime
+ console.log("duration was:" + duration)
+ running = false;
+ clearInterval(timerInterval);
+ var hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+ var minutes = (Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+ var seconds = (Math.floor((duration % (1000 * 60)) / 1000)).toLocaleString("en-US",{minimumIntegerDigits:2,useGrouping:false});
+ document.getElementById("timer").innerHTML =  '<font size="32"><h><b>' + hours + ':'
+ + minutes + ':' + seconds + '</b></h></font>';
+ return duration
+
+ }
+ if (command == 'finish'){
+ running = false;
+ started = false;
+ var totalDuration = duration;
+ duration = 0;
+ }
+ if (command == 'cancel'){
+ console.log("You need to finish the timer function")
+ }
+ } */
 
 
 ////////////////////////////////////////////////////////////////
 ///////////                SHORTCUTS            ////////////////
 ////////////////////////////////////////////////////////////////
 
-if (!Array.prototype.last){
-    Array.prototype.last = function(){
+if (!Array.prototype.last) {
+    Array.prototype.last = function () {
         return this[this.length - 1];
     };
-};
+}
+;
 
 ////////////////////////////////////////////////////////////////
 ///////////                Actual code:           //////////////
 ////////////////////////////////////////////////////////////////
 
 function recordTimes(start, stop, assignmentID) {
-  console.log("updateing "+ assignmentID);
-  $.ajax({
-    url: "api/assignments/"+assignmentID+"/times",
-    type: 'POST',
-    data: {'start': start, 'stop': stop},
-    success: function(result){
-      console.log("SuCcEsS");
-      updateAssignments(assignmentID);
-    }
-  });
+    console.log("updateing " + assignmentID);
+    $.ajax({
+        url: "api/assignments/" + assignmentID + "/times",
+        type: 'POST',
+        data: {'start': start, 'stop': stop},
+        success: function (result) {
+            console.log("SuCcEsS");
+            updateAssignments(assignmentID);
+        }
+    });
 }
 
 function addTimesAndFinish(start, stop, assignmentID) {
-  console.log("updating "+ assignmentID);
-  $.ajax({
-    url: "api/assignments/"+assignmentID+"/times",
-    type: 'POST',
-    data: {'start': start, 'stop': stop, 'finished' : true},
-    success: function(result){
-      console.log("success");
-      updateAssignments(assignmentID);
+    console.log("updating " + assignmentID);
+    $.ajax({
+        url: "api/assignments/" + assignmentID + "/times",
+        type: 'POST',
+        data: {'start': start, 'stop': stop, 'finished': true},
+        success: function (result) {
+            console.log("success");
+            updateAssignments(assignmentID);
+        }
+    });
+}
+
+function justFinish(state, assignmentID) {
+    if (state) {
+        $.ajax({
+            url: "api/assignments/" + assignmentID,
+            type: 'PUT',
+            data: {'finished': true},
+            success: function (result) {
+                console.log("success");
+                updateAssignments(assignmentID);
+            }
+        });
+    } else {
+        $.ajax({
+            url: "api/assignments/" + assignmentID,
+            type: 'PUT',
+            data: {'finished': false},
+            success: function (result) {
+                console.log("Un finished assignment " + assignmentID + ", success");
+                updateAssignments(assignmentID);
+            }
+        });
     }
-  });
 }
 
-function justFinish(state, assignmentID){
-  if (state){
-    $.ajax({
-      url: "api/assignments/"+assignmentID,
-      type: 'PUT',
-      data: {'finished' : true},
-      success: function(result){
-        console.log("success");
-        updateAssignments(assignmentID);
-      }
-    });
-  }
-  else{
-    $.ajax({
-      url: "api/assignments/"+assignmentID,
-      type: 'PUT',
-      data: {'finished' : false},
-      success: function(result){
-        console.log("Un finished assignment " + assignmentID + ", success");
-        updateAssignments(assignmentID);
-      }
-    });
-  }
+function renderURLInput() {
+    console.log("Changing");
+    document.getElementById("buttons").style.display = "none";
+    document.getElementById("instructionsInd").style.display = "";
+    document.getElementById("urlFormInd").style.display = "";
+    document.getElementById("introMessage").style.display = "none";
+    document.getElementById("urlInputForm").innerText = currentStudent.spreadsheetURL;
+}
+function renderDirrectInput() {
+    console.log("Changing");
+    document.getElementById("buttons").style.display = "none";
+    document.getElementById("instructionsDir").style.display = "";
+    document.getElementById("urlFormDir").style.display = "";
+    document.getElementById("introMessage").style.display = "none";
+    var classOptions = "";
+    //previousInputs are not stored for now, thus, always false:
+
+    if (currentStudent.courses.length === 0) {
+        classOptions = "<option value=''>- Class/Catagory -</option><option value='1'>Input class names below</option>";
+    } else {
+        for (var i = 0; i < currentStudent.courses.length; i++) {
+            classOptions += "<option value='" + escapeHtml(currentStudent.courses[i]) + "'>" + escapeHtml(currentStudent.courses[i]) + "</option>";
+        }
+    }
+    document.getElementById("classOptions").innerHTML = classOptions;
+    selectability();
 }
 
-function renderURLInput(){
-	console.log("Changing");
-  document.getElementById("buttons").style.display = "none";
-	document.getElementById("instructionsInd").style.display = "";
-  document.getElementById("urlFormInd").style.display = "";
-  document.getElementById("introMessage").style.display = "none";
-  document.getElementById("urlInputForm").innerText = currentStudent.spreadsheetURL;
-}
-function renderDirrectInput(){
-  console.log("Changing");
-  document.getElementById("buttons").style.display = "none";
-  document.getElementById("instructionsDir").style.display = "";
-  document.getElementById("urlFormDir").style.display = "";
-  document.getElementById("introMessage").style.display = "none";
-  var classOptions = "";
-  //previousInputs are not stored for now, thus, always false:
-
-  if(currentStudent.courses.length === 0){
-    classOptions = "<option value=''>- Class/Catagory -</option><option value='1'>Input class names below</option>";
-  }
-  else{
-    for (var i = 0; i<currentStudent.courses.length; i++){
-        classOptions += "<option value='"+ escapeHtml(currentStudent.courses[i]) +"'>" + escapeHtml(currentStudent.courses[i]) + "</option>";
-      }
-  }
-  document.getElementById("classOptions").innerHTML = classOptions;
-  selectability();
-}
-
-function toggle(id){
-  timer("toggle");
-  if (document.getElementById(id).innerHTML === "start"){
-    document.getElementById(id).innerText = "stop";
-  }
-  else if (document.getElementById(id).innerHTML === "stop"){
-    document.getElementById(id).innerText = "resume";
-  }
-  else{
-    document.getElementById(id).innerText = "stop";
-  }
+function toggle(id) {
+    timer("toggle");
+    if (document.getElementById(id).innerHTML === "start") {
+        document.getElementById(id).innerText = "stop";
+    } else if (document.getElementById(id).innerHTML === "stop") {
+        document.getElementById(id).innerText = "resume";
+    } else {
+        document.getElementById(id).innerText = "stop";
+    }
 }
 
 function formatTableRow(time, n) {
@@ -997,13 +979,13 @@ function formatDialog() {
     html += "<button id='addTimes' onclick='addNewTimes(); return false'>Add New Times</a>";
     html += "<button id='saveChanges' disabled onclick='saveChanges(); return false'>Save Changes</a>";
     content.html(html);
-    $('#myModal').show();                    
+    $('#myModal').show();
 }
 
 function saveChanges() {
     selectedAssignment.times = copyOfTimes;
     formatDialog();
-    console.log("data="+JSON.stringify({times: copyOfTimes}));
+    console.log("data=" + JSON.stringify({times: copyOfTimes}));
     $.ajax({
         url: "api/assignments/" + selectedAssignment._id,
         type: 'PUT',
@@ -1028,7 +1010,7 @@ function save(item, n) {
 function deleteTimes(item, n) {
     console.log(item + " " + n + " " + JSON.stringify(selectedAssignment));
     item.closest("tr").remove();
-    copyOfTimes.splice(n,1);
+    copyOfTimes.splice(n, 1);
     $("#saveChanges").prop("disabled", false);
 }
 
@@ -1036,7 +1018,7 @@ function addNewTimes() {
     var now = Date.now();
     copyOfTimes.push([now, now]);
     var n = copyOfTimes.length - 1;
-    $("#timesTable").append("<tr>"+formatTableRow(copyOfTimes[n],n)+"</tr>");
+    $("#timesTable").append("<tr>" + formatTableRow(copyOfTimes[n], n) + "</tr>");
 }
 
 function timesChanged(item) {
@@ -1044,7 +1026,7 @@ function timesChanged(item) {
     var start = flatpickr.parseDate($(row).find("#startTime").val(), dateFormat).getTime();
     var stop = flatpickr.parseDate($(row).find("#endTime").val(), dateFormat).getTime();
     console.log("times " + start + "  " + stop);
-    $(row).find(":nth-child(3)").html(milliSecondsToTime(stop-start));
+    $(row).find(":nth-child(3)").html(milliSecondsToTime(stop - start));
 }
 
 function editTimes(item, n) {
@@ -1088,7 +1070,7 @@ function milliSecondsToTime(millis) {
     return time;
 }
 
-function generateTodoList(futureAssignments){
+function generateTodoList(futureAssignments) {
     var selectedId = selectedAssignment ? selectedAssignment._id : 0;
     $('#assignmentTable').html("");
     for (var i = 0; i < futureAssignments.length; i++) {
@@ -1099,77 +1081,77 @@ function generateTodoList(futureAssignments){
                 "</td><td>" + escapeHtml(assignment.dtend) + "</td></tr>");
     }
     if (selectedId !== 0) {
-        $('#'+selectedId).addClass('highlight');
+        $('#' + selectedId).addClass('highlight');
         selectedAssignment = findAssignment(selectedId);
     }
 }
 
-function generatePastAssignments(pastAssignments){
-  console.log("generating past assignments, there are: " + pastAssignments.length + " to write");
-  var pastList = "";
-  for(var i=0; i<pastAssignments.length; i++){
-    pastList += "<option onmouseover='' id='"+pastAssignments[i][0]+"' value='" + pastAssignments[i][0] + "'>" + escapeHtml(pastAssignments[i][1]) + " | " + escapeHtml(pastAssignments[i][2]) + "</option>";
-  }
-  console.log("injecting: " + pastList);
-  document.getElementById("pastAssignments").innerHTML = pastList;
-}
-
-function fetchICS(){
-  console.log("reading ICS file....");
-  var givenICSURL = 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics';
-  $(document).ready(function()
-    {
-      $.ajax({
-        type: "GET",
-        url: givenICSURL,
-        dataType: "text",
-        fail:
-          function(jqXHR, textStatus, errorThrown) 
-		        {
-			        console.log("Failed to fetch! The error is: " + jqXHR + " , " + errorThrown + " , " + errorThrown);
-		        },
-        success: 
-          function(data)
-            {
-              console.log(data);
-              generateTodoList(data);
-            }
-      });
+function generatePastAssignments(pastAssignments) {
+    console.log("generating past assignments, there are: " + pastAssignments.length + " to write");
+    var pastList = "";
+    for (var i = 0; i < pastAssignments.length; i++) {
+        pastList += "<option onmouseover='' id='" + pastAssignments[i][0] + "' value='" + pastAssignments[i][0] + "'>" + escapeHtml(pastAssignments[i][1]) + " | " + escapeHtml(pastAssignments[i][2]) + "</option>";
     }
-  );
+    console.log("injecting: " + pastList);
+    document.getElementById("pastAssignments").innerHTML = pastList;
 }
 
-function fetchCSV(){
-	console.log("fetching...");
+function fetchICS() {
+    console.log("reading ICS file....");
+    var givenICSURL = 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics';
+    $(document).ready(function ()
+    {
+        $.ajax({
+            type: "GET",
+            url: givenICSURL,
+            dataType: "text",
+            fail:
+                    function (jqXHR, textStatus, errorThrown)
+                    {
+                        console.log("Failed to fetch! The error is: " + jqXHR + " , " + errorThrown + " , " + errorThrown);
+                    },
+            success:
+                    function (data)
+                    {
+                        console.log(data);
+                        generateTodoList(data);
+                    }
+        });
+    }
+    );
+}
+
+function fetchCSV() {
+    console.log("fetching...");
     const givenURL = currentStudent.spreadsheetURL;
-    if (!/gid/.test(givenURL)){
+    if (!/gid/.test(givenURL)) {
         alert("To clarify, after sharing the document, paste the url as it appears in your browser NOT the sharing url");
     }
     console.log(csvURL);
     const regex = /(.\S*)\/edit#gid=(\d+)/g;
     const subst = '$1/export?format=csv&gid=$2';
     //The substituted value will be contained in the result variable
-    var csvURL = givenURL.replace(regex, subst); 
+    var csvURL = givenURL.replace(regex, subst);
     console.log('Substitutionresult: ', csvURL);
-/* 	$(document).ready(function()
-	{ */
-	 $.ajax({ 
-		type : "GET",
-		url : csvURL, 
-		dataType : "text",
-		fail:
-	function(jqXHR, textStatus, errorThrown) 
-		{
-			console.log("error is: " + jqXHR + " , " + errorThrown + " , " + errorThrown)
-		},
-        success: 
-    function(data)
-        {
-			//console.log(data)
-			init(data)
-        }
-		});
-	//});
+    /* 	$(document).ready(function()
+     { */
+    $.ajax({
+        type: "GET",
+        url: csvURL,
+        dataType: "text",
+        fail:
+                function (jqXHR, textStatus, errorThrown)
+                {
+                    console.log("error is: " + jqXHR + " , " + errorThrown + " , " + errorThrown)
+                },
+        success:
+                function (data)
+                {
+                    //console.log(data)
+                    init(data)
+                }
+    });
+    //});
 }
 
 var parseEvent = new Event('finishedParse');
@@ -1187,958 +1169,957 @@ reader.addEventListener('loadend', init, false);
 //General loading/saving functions
 //Initializes the file loader and sets it up to print debug info upon running
 function handleFileSelect(evt) {
-  processStartTime = new Date();
-  var files = evt.target.files; // FileList object
-  // files is a FileList of File objects. List some properties.
-  var output = [];
-  for (var i = 0, f; f = files[i]; i++) {
-    //console.log(f);
-    theCSV = f;
-    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-              f.size, ' bytes, last modified: ',
-              f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-              '</li>');
+    processStartTime = new Date();
+    var files = evt.target.files; // FileList object
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+        //console.log(f);
+        theCSV = f;
+        output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                f.size, ' bytes, last modified: ',
+                f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                '</li>');
 
-              //reader.readAsText(theCSV);
-              fileArray.push(f);
-  }
-  document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-  //reader.readAsText(theCSV);
-  //console.log(fileArray);
-  readSomeStuff();
+        //reader.readAsText(theCSV);
+        fileArray.push(f);
+    }
+    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+    //reader.readAsText(theCSV);
+    //console.log(fileArray);
+    readSomeStuff();
 }
 
-function readSomeStuff(){
-  if(fileArray[bufferNumber]&&(bufferNumber!==fileArray.length-1||(fileArray.length===1&&bufferNumber===0))){
-    //console.log("Reading student file #"+bufferNumber+".")
-    //console.log(fileArray[bufferNumber]);
-    reader.readAsText(fileArray[bufferNumber]);
-    bufferNumber++;
-  }
-  else{
-    processEndTime= new Date();
-    //**console.log("Process took "+((processEndTime.getTime()-processStartTime.getTime())/1000)+" seconds.")
-  }
+function readSomeStuff() {
+    if (fileArray[bufferNumber] && (bufferNumber !== fileArray.length - 1 || (fileArray.length === 1 && bufferNumber === 0))) {
+        //console.log("Reading student file #"+bufferNumber+".")
+        //console.log(fileArray[bufferNumber]);
+        reader.readAsText(fileArray[bufferNumber]);
+        bufferNumber++;
+    } else {
+        processEndTime = new Date();
+        //**console.log("Process took "+((processEndTime.getTime()-processStartTime.getTime())/1000)+" seconds.")
+    }
 }
 
 
 
 //CSV specific functions
-  //parses the CSV into the array buffer once it has finished loading
-function init(data){
-  //console.log("Starting to parse CSV to array...");
-  //console.log("File is " +reader.result.length+" bytes long.");
-  //CSVArray = clean(parseCSV(reader.result));
-  CSVArray = parseCSV(data);
-  reader.dispatchEvent(parseEvent);
-  //console.log("Finished.");
-  makeGraphSpace();
+//parses the CSV into the array buffer once it has finished loading
+function init(data) {
+    //console.log("Starting to parse CSV to array...");
+    //console.log("File is " +reader.result.length+" bytes long.");
+    //CSVArray = clean(parseCSV(reader.result));
+    CSVArray = parseCSV(data);
+    reader.dispatchEvent(parseEvent);
+    //console.log("Finished.");
+    makeGraphSpace();
 }
-  //prints the csv data as a table
-function printCSV(){
-  makeTable(CSVArray);
-}
-
-function makeGraphSpace(){
-  var explaination = "<h2 id='inst_1'>Your Data, Visualized:</h2> <p  id='inst_2'>Here are some nice graphs built with the data you provided! They will update to reflect more assignments you add:</p>";
-  document.getElementById("instructions").innerHTML = explaination;
-  var addMoreDataButton = "<button class='button button-large' onclick='loadDataInput()'>Add more data</button>";
-  document.getElementById("addMoreDataButton").innerHTML = addMoreDataButton;
-	var theGraphSpace = "<div id='pie' style='width:1200px;height:500px;'></div><div id='week' style='width:1200px;height:500px;'></div><div id='classTimeSeries' style='width:1200px;height:500px;'></div><div id='percentTimeSeries' style='width:1200px;height:500px;'></div>";
-  document.getElementById("urlForm").innerHTML = theGraphSpace;
-  makeGraphs();
+//prints the csv data as a table
+function printCSV() {
+    makeTable(CSVArray);
 }
 
-function loadDataInput(){
-  var classOptions = "";
-  if (studentList[0].courseList.length === 0){
-    alert("You need to input your class names first");
-  }
-  else{
-    for (var i = 0; i<studentList[0].courseList.length; i++){
-      classOptions += "<option value='1'>" + studentList[0].courseList[i].courseCode + "</option>";
+function makeGraphSpace() {
+    var explaination = "<h2 id='inst_1'>Your Data, Visualized:</h2> <p  id='inst_2'>Here are some nice graphs built with the data you provided! They will update to reflect more assignments you add:</p>";
+    document.getElementById("instructions").innerHTML = explaination;
+    var addMoreDataButton = "<button class='button button-large' onclick='loadDataInput()'>Add more data</button>";
+    document.getElementById("addMoreDataButton").innerHTML = addMoreDataButton;
+    var theGraphSpace = "<div id='pie' style='width:1200px;height:500px;'></div><div id='week' style='width:1200px;height:500px;'></div><div id='classTimeSeries' style='width:1200px;height:500px;'></div><div id='percentTimeSeries' style='width:1200px;height:500px;'></div>";
+    document.getElementById("urlForm").innerHTML = theGraphSpace;
+    makeGraphs();
+}
+
+function loadDataInput() {
+    var classOptions = "";
+    if (studentList[0].courseList.length === 0) {
+        alert("You need to input your class names first");
+    } else {
+        for (var i = 0; i < studentList[0].courseList.length; i++) {
+            classOptions += "<option value='1'>" + studentList[0].courseList[i].courseCode + "</option>";
+        }
     }
-  }
-  var classSelector = "<div class='12u$'><div class='select-wrapper'><select name='demo-category' id='demo-category'><option value=''>- Class/Catagory -</option>"+ classOptions +"</select></div>";
-  var descriptionAndSubmitButton = "<form method='post' action='#'><div class='row uniform'><div class='9u 12u$(small)'><input type='text' name='query' id='query' value='' placeholder='Describe the task/assignment (optional)' /></div><div class='3u$ 12u$(small)'><input type='submit' value='Start' class='fit' /></div></div></form>";
-  var newAssignmentFormHTML = classSelector + descriptionAndSubmitButton;
-  document.getElementById("newAssignmentForm").innerHTML = newAssignmentFormHTML;
-  document.getElementById("addMoreDataButton").innerHTML = "";
+    var classSelector = "<div class='12u$'><div class='select-wrapper'><select name='demo-category' id='demo-category'><option value=''>- Class/Catagory -</option>" + classOptions + "</select></div>";
+    var descriptionAndSubmitButton = "<form method='post' action='#'><div class='row uniform'><div class='9u 12u$(small)'><input type='text' name='query' id='query' value='' placeholder='Describe the task/assignment (optional)' /></div><div class='3u$ 12u$(small)'><input type='submit' value='Start' class='fit' /></div></div></form>";
+    var newAssignmentFormHTML = classSelector + descriptionAndSubmitButton;
+    document.getElementById("newAssignmentForm").innerHTML = newAssignmentFormHTML;
+    document.getElementById("addMoreDataButton").innerHTML = "";
 }
 
-function makeGraphs(){
-  updateGraph();
-  pieGraph();
+function makeGraphs() {
+    updateGraph();
+    pieGraph();
 
 }
-  //converts all rows below the first to numerical data - disabled for now
-  //conversion in the arrays? idk dont touch it
-  function clean(inputArray){
-  for(var cleaningRow=1; cleaningRow<inputArray.length; cleaningRow++){
-    for (var cleaningColumn in inputArray[cleaningRow]){
-      inputArray[cleaningRow][cleaningColumn]=inputArray[cleaningRow][cleaningColumn]-0;
+//converts all rows below the first to numerical data - disabled for now
+//conversion in the arrays? idk dont touch it
+function clean(inputArray) {
+    for (var cleaningRow = 1; cleaningRow < inputArray.length; cleaningRow++) {
+        for (var cleaningColumn in inputArray[cleaningRow]) {
+            inputArray[cleaningRow][cleaningColumn] = inputArray[cleaningRow][cleaningColumn] - 0;
+        }
     }
-  }
-  return inputArray;
+    return inputArray;
 }
-  //converts CSV string to a 2D array object - def stole this from stackoverflow
-  function parseCSV(str) {
+//converts CSV string to a 2D array object - def stole this from stackoverflow
+function parseCSV(str) {
     //console.log("the csv string is: " + str)
     var arr = [];
     var quote = false;  // true means we're inside a quoted field
 
     // iterate over each character, keep track of current row and column (of the returned array)
     for (var row = col = c = 0; c < str.length; c++) {
-        var cc = str[c], nc = str[c+1];        // current character, next character
+        var cc = str[c], nc = str[c + 1];        // current character, next character
         arr[row] = arr[row] || [];             // create a new row if necessary
         arr[row][col] = arr[row][col] || '';   // create a new column (start with empty string) if necessary
 
         // If the current character is a quotation mark, and we're inside a
         // quoted field, and the next character is also a quotation mark,
         // add a quotation mark to the current column and skip the next character
-        if (cc === '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; };
+        if (cc === '"' && quote && nc == '"') {
+            arr[row][col] += cc;
+            ++c;
+            continue;
+        }
+        ;
 
         // If it's just one quotation mark, begin/end quoted field
-        if (cc === '"') { quote = !quote; continue; };
+        if (cc === '"') {
+            quote = !quote;
+            continue;
+        }
+        ;
 
         // If it's a comma and we're not in a quoted field, move on to the next column
-        if (cc === ',' && !quote) { ++col; continue; };
+        if (cc === ',' && !quote) {
+            ++col;
+            continue;
+        }
+        ;
 
         // If it's a newline and we're not in a quoted field, move on to the next
         // row and move to column 0 of that new row
-        if (cc === '\n' && !quote) { ++row; col = 0; continue; }
+        if (cc === '\n' && !quote) {
+            ++row;
+            col = 0;
+            continue;
+        }
 
         // Otherwise, append the current character to the current column
         arr[row][col] += cc;
     }
     return arr;
 }
-  //given a 2D array, prints a table of its values
-function makeTable(myArray,tableID,title,noprint) {
+//given a 2D array, prints a table of its values
+function makeTable(myArray, tableID, title, noprint) {
     //console.log("Starting to print array data as table...");
     var result = "<table border=1>";
-    for(var i=0; i<myArray.length; i++) {
+    for (var i = 0; i < myArray.length; i++) {
         result += "<tr>";
-        for(var j=0; j<myArray[i].length; j++){
-            result += "<td>"+myArray[i][j]+"</td>";
+        for (var j = 0; j < myArray[i].length; j++) {
+            result += "<td>" + myArray[i][j] + "</td>";
         }
         result += "</tr>";
     }
     result += "</table>";
 
-    if(title){
-      result="<h2>"+title+"</h2>"+result;
+    if (title) {
+        result = "<h2>" + title + "</h2>" + result;
     }
-    if(!tableID){
-      tableID="table";
+    if (!tableID) {
+        tableID = "table";
     }
-    if(noprint){
-      return result;
+    if (noprint) {
+        return result;
     }
     //**document.getElementById(tableID).innerHTML=result;
-          //console.log("Finished.");
+    //console.log("Finished.");
     return;
 }
 
 //old math functions, shouldn't need these
 
-function pValue(inputArray,coefic){
-  pVal=normal(coefic/(stdev(inputArray)/Math.sqrt(inputArray.length)));
-  if(pVal>0.0000001){
-    return pVal;
-  }
-  else{
-    return 0;
-  }
-  //console.log(coefic);
-  //console.log(inputArray);
+function pValue(inputArray, coefic) {
+    pVal = normal(coefic / (stdev(inputArray) / Math.sqrt(inputArray.length)));
+    if (pVal > 0.0000001) {
+        return pVal;
+    } else {
+        return 0;
+    }
+    //console.log(coefic);
+    //console.log(inputArray);
 }
 
-function stdev(inputarray){
-   if(inputarray.length===0){return 0;}
-   var i,j,total = 0, mean = 0, diffSqredArr = [];
-   for(i=0;i<inputarray.length;i+=1){
-       total+=inputarray[i];
-   }
-   mean = total/inputarray.length;
-   for(j=0;j<inputarray.length;j+=1){
-       diffSqredArr.push(Math.pow((inputarray[j]-mean),2));
-   }
-   return (Math.sqrt(diffSqredArr.reduce(function(firstEl, nextEl){
-     return firstEl + nextEl;
-          })/inputarray.length));
+function stdev(inputarray) {
+    if (inputarray.length === 0) {
+        return 0;
+    }
+    var i, j, total = 0, mean = 0, diffSqredArr = [];
+    for (i = 0; i < inputarray.length; i += 1) {
+        total += inputarray[i];
+    }
+    mean = total / inputarray.length;
+    for (j = 0; j < inputarray.length; j += 1) {
+        diffSqredArr.push(Math.pow((inputarray[j] - mean), 2));
+    }
+    return (Math.sqrt(diffSqredArr.reduce(function (firstEl, nextEl) {
+        return firstEl + nextEl;
+    }) / inputarray.length));
 }
 //approximation of normal distribution
 //https://home.ubalt.edu/ntsbarsh/Business-stat/otherapplets/pvalues.htm
 function normal(z) {
-		z=Math.abs(z);
-		var p=1+ z*(0.04986735+ z*(0.02114101+ z*(0.00327763+ z*(0.0000380036+ z*(0.0000488906+ z*0.000005383)))));
-		p=p*p; p=p*p; p=p*p;
-		return 1/(p*p);
+    z = Math.abs(z);
+    var p = 1 + z * (0.04986735 + z * (0.02114101 + z * (0.00327763 + z * (0.0000380036 + z * (0.0000488906 + z * 0.000005383)))));
+    p = p * p;
+    p = p * p;
+    p = p * p;
+    return 1 / (p * p);
 }
 
 
-function logit(){
-    console.log("yay, it works!")
-}  
+function logit() {
+    console.log("yay, it works!");
+}
 
 //increases this number by 1 each time we add a student, used an a unique id for each student
-studentIDNumber=0;
+studentIDNumber = 0;
 //buffer to add time of day (measured as minutes since beginning of 2017) to assignment start/stop times
-dayTime=0;
-dateParseSuccess=false;
+dayTime = 0;
+dateParseSuccess = false;
 //console log suppressions
-suppressAddedCourse=true;
-function printData(){
-  var printBuffer="";
+suppressAddedCourse = true;
+function printData() {
+    var printBuffer = "";
 
-  printBuffer=printBuffer.concat("<h1>Summary Data</h1>");
+    printBuffer = printBuffer.concat("<h1>Summary Data</h1>");
 
-  //course times per day
-  var perDayTableBuffer=[];
-  perDayTableBuffer.push(["Course Code","Students","Avg. Homework Time Per Day (Minutes)"]);
-  for (y=0;courseList.length>y;y++){
-    courseList[y].updateInfo();
-    perDayTableBuffer.push( [courseList[y].courseCode, courseList[y].students.length,roundToPlace(courseList[y].dailyTime,0.001)]);
-  }
-  printBuffer=printBuffer.concat(makeTable(perDayTableBuffer,"normalizedTable","Homework Per Day, By Course",true));
+    //course times per day
+    var perDayTableBuffer = [];
+    perDayTableBuffer.push(["Course Code", "Students", "Avg. Homework Time Per Day (Minutes)"]);
+    for (y = 0; courseList.length > y; y++) {
+        courseList[y].updateInfo();
+        perDayTableBuffer.push([courseList[y].courseCode, courseList[y].students.length, roundToPlace(courseList[y].dailyTime, 0.001)]);
+    }
+    printBuffer = printBuffer.concat(makeTable(perDayTableBuffer, "normalizedTable", "Homework Per Day, By Course", true));
 
-  //**document.getElementById("summaryData").innerHTML=printBuffer;
+    //**document.getElementById("summaryData").innerHTML=printBuffer;
 
 }
 
-monthStartTimes=[0,365,396,424,455,485,516,181,212,243,272,303,333];
-minsInDay=1440;
+monthStartTimes = [0, 365, 396, 424, 455, 485, 516, 181, 212, 243, 272, 303, 333];
+minsInDay = 1440;
 
 
-reader.addEventListener('finishedParse', processHomeworkSheet,false)
+reader.addEventListener('finishedParse', processHomeworkSheet, false);
 
 //array which contains all student objects
 studentList = [];
 
 //array which contains all courses
-var courseList=new Array();
+var courseList = new Array();
 
 //adds hardcoded class names to SOM and quest to avoid different naming schemes messing up data
 courseList.push(new course("SOM"));
 courseList.push(new course("QUEST"));
 
-courseList.getCourse=function(name,suppressErrors){
-  name=name.toUpperCase();
+courseList.getCourse = function (name, suppressErrors) {
+    name = name.toUpperCase();
 
-  if(name.includes("SOM")){
-    return(this[0]);
-  }
-  else if(name.includes("QUEST")){
-    return(this[1]);
-  }
-
-  for(l=0;l<this.length;l++){
-    if(this[l].courseCode==name){
-    //if(this[l].courseCode==name||name.includes(this[l].courseCode)){
-      return this[l];
+    if (name.includes("SOM")) {
+        return(this[0]);
+    } else if (name.includes("QUEST")) {
+        return(this[1]);
     }
-  }
-  if(!suppressErrors){console.log("Lookup for course ''"+name+"'' failed!");}
-  return null;
-}
 
-
-function printCourseBreakdown(){
-  var courseBreakdownTableBuffer=[];
-  courseBreakdownTableBuffer.push(["Course Code","Students","Avg. Time Logged","Total Time Logged","Standard Deviation (% of Avg.)"])
-  for(y=0;courseList.length>y;y++){
-    courseList[y].updateInfo();
-    courseBreakdownTableBuffer.push( [courseList[y].courseCode, courseList[y].students.length, courseList[y].avgTotalTime, courseList[y].totalTime, (100*(courseList[y].stdev/courseList[y].avgTotalTime)+"%") ]);
-  }
-  makeTable(courseBreakdownTableBuffer);
-}
-function printCourseTimeline(courseName,start,end){
-  perDayBuffer=[];
-  currentCourse=courseList.getCourse(courseName);
-  for(b=0;b<currentCourse.assignments.length;b++){
-    if(currentCourse.assignments[b].startTime>=start*1440&&currentCourse.assignments[b].startTime<end*1440){
-      //TODO:finish this
-    }
-  }
-}
-
-function processHomeworkSheet(){
-  printCSV();
-  studentList =  studentList.concat(new student(CSVArray));
-  //makeTable(studentList);
-  printData();
-  readSomeStuff();
-}
-
-function course(name){
-  this.courseCode=name.toUpperCase();
-  this.courseID=courseList.length;
-  this.isLanguage=false;
-  if(this.courseCode.includes("SPAN")){
-    this.isLanguage=true;
-    this.languageLevel=parseInt(this.courseCode[4]);
-  } else if(this.courseCode.includes("CHIN")){
-    this.isLanguage=true;
-    this.languageLevel=parseInt(this.courseCode[4]);
-  } else if(this.courseCode.includes("JPN")){
-    this.isLanguage=true;
-    this.languageLevel=parseInt(this.courseCode[3]);
-  } else if(this.courseCode.includes("ASML")){
-    this.isLanguage=true;
-    this.languageLevel=parseInt(this.courseCode[4]);
-  }
-  this.students=[];
-  this.avgTotalTime=0;
-  this.totalTime=0;
-  this.stdev=0;
-  this.assignments=[];
-
-
-  this.updateInfo=function(){
-    this.avgTotalTime=0;
-    var studentTimeBufferArray=[];
-    this.dailyTime=0;
-    for(r=0;r<this.students.length;r++){
-      if(isNaN(this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)])){
-        console.log("ERROR: "+this.courseCode+" total student ''"+this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)]+"'' is NaN.");
-      }
-      else{
-// GOTO THIS BOI
-        studentTimeBufferArray.push(this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)]);
-
-        this.avgTotalTime=this.avgTotalTime+this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)];
-
-        if(this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)]/this.students[r].daysLogged){
-          this.dailyTime=this.dailyTime+(this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)]/this.students[r].daysLogged);
+    for (l = 0; l < this.length; l++) {
+        if (this[l].courseCode === name) {
+            //if(this[l].courseCode==name||name.includes(this[l].courseCode)){
+            return this[l];
         }
-        else{
-          if(this.students[r].daysLogged<=0||!this.students[r].daysLogged){
-            console.log("ERROR: Student "+r+" daysLogged = "+this.students[r].daysLogged+".");
-          }
-          if(!this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)]&&this.courseCode!="SOM"&&this.courseCode!="QUEST"){
-            console.log("ERROR: Course ''"+this.courseCode+"'' cannot access student "+r+"'s logs for course.");
-          }
-        }
-      }
     }
-    if(isNaN(this.avgTotalTime)){
-      console.log("ERROR: "+this.courseCode+" total time ''"+this.avgTotalTime+"'' is NaN.");
+    if (!suppressErrors) {
+        console.log("Lookup for course ''" + name + "'' failed!");
     }
-    this.totalTime=this.avgTotalTime;
-    this.avgTotalTime=this.avgTotalTime/this.students.length;
-
-    if(this.students.length){
-    this.dailyTime=this.dailyTime/this.students.length;
-    }
-
-    this.stdev=stdev(studentTimeBufferArray);
-  }
-
-
-  if(!suppressAddedCourse){
-    console.log("Added new course ''"+this.courseCode+"''.");
-  }
-  return this;
+    return null;
 };
+
+
+function printCourseBreakdown() {
+    var courseBreakdownTableBuffer = [];
+    courseBreakdownTableBuffer.push(["Course Code", "Students", "Avg. Time Logged", "Total Time Logged", "Standard Deviation (% of Avg.)"]);
+    for (y = 0; courseList.length > y; y++) {
+        courseList[y].updateInfo();
+        courseBreakdownTableBuffer.push([courseList[y].courseCode, courseList[y].students.length, courseList[y].avgTotalTime, courseList[y].totalTime, (100 * (courseList[y].stdev / courseList[y].avgTotalTime) + "%")]);
+    }
+    makeTable(courseBreakdownTableBuffer);
+}
+function printCourseTimeline(courseName, start, end) {
+    perDayBuffer = [];
+    currentCourse = courseList.getCourse(courseName);
+    for (b = 0; b < currentCourse.assignments.length; b++) {
+        if (currentCourse.assignments[b].startTime >= start * 1440 && currentCourse.assignments[b].startTime < end * 1440) {
+            //TODO:finish this
+        }
+    }
+}
+
+function processHomeworkSheet() {
+    printCSV();
+    studentList = studentList.concat(new student(CSVArray));
+    //makeTable(studentList);
+    printData();
+    readSomeStuff();
+}
+
+function course(name) {
+    this.courseCode = name.toUpperCase();
+    this.courseID = courseList.length;
+    this.isLanguage = false;
+    if (this.courseCode.includes("SPAN")) {
+        this.isLanguage = true;
+        this.languageLevel = parseInt(this.courseCode[4]);
+    } else if (this.courseCode.includes("CHIN")) {
+        this.isLanguage = true;
+        this.languageLevel = parseInt(this.courseCode[4]);
+    } else if (this.courseCode.includes("JPN")) {
+        this.isLanguage = true;
+        this.languageLevel = parseInt(this.courseCode[3]);
+    } else if (this.courseCode.includes("ASML")) {
+        this.isLanguage = true;
+        this.languageLevel = parseInt(this.courseCode[4]);
+    }
+    this.students = [];
+    this.avgTotalTime = 0;
+    this.totalTime = 0;
+    this.stdev = 0;
+    this.assignments = [];
+
+
+    this.updateInfo = function () {
+        this.avgTotalTime = 0;
+        var studentTimeBufferArray = [];
+        this.dailyTime = 0;
+        for (r = 0; r < this.students.length; r++) {
+            if (isNaN(this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)])) {
+                console.log("ERROR: " + this.courseCode + " total student ''" + this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)] + "'' is NaN.");
+            } else {
+// GOTO THIS BOI
+                studentTimeBufferArray.push(this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)]);
+
+                this.avgTotalTime = this.avgTotalTime + this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)];
+
+                if (this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)] / this.students[r].daysLogged) {
+                    this.dailyTime = this.dailyTime + (this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)] / this.students[r].daysLogged);
+                } else {
+                    if (this.students[r].daysLogged <= 0 || !this.students[r].daysLogged) {
+                        console.log("ERROR: Student " + r + " daysLogged = " + this.students[r].daysLogged + ".");
+                    }
+                    if (!this.students[r].courseTimeSpentList[this.students[r].courseList.indexOf(this)] && this.courseCode !== "SOM" && this.courseCode !== "QUEST") {
+                        console.log("ERROR: Course ''" + this.courseCode + "'' cannot access student " + r + "'s logs for course.");
+                    }
+                }
+            }
+        }
+        if (isNaN(this.avgTotalTime)) {
+            console.log("ERROR: " + this.courseCode + " total time ''" + this.avgTotalTime + "'' is NaN.");
+        }
+        this.totalTime = this.avgTotalTime;
+        this.avgTotalTime = this.avgTotalTime / this.students.length;
+
+        if (this.students.length) {
+            this.dailyTime = this.dailyTime / this.students.length;
+        }
+
+        this.stdev = stdev(studentTimeBufferArray);
+    }
+
+
+    if (!suppressAddedCourse) {
+        console.log("Added new course ''" + this.courseCode + "''.");
+    }
+    return this;
+}
+;
 //creates a student data object given a 2D array
-function student(dataArray){
-  //assigns student a new unique ID
-  this.studentID=studentIDNumber;
-  studentIDNumber=studentIDNumber+1;
+function student(dataArray) {
+    //assigns student a new unique ID
+    this.studentID = studentIDNumber;
+    studentIDNumber = studentIDNumber + 1;
 
-  this.assignmentArray=[];
-  dayTime=0;
-  //console.log("reading course list");
+    this.assignmentArray = [];
+    dayTime = 0;
+    //console.log("reading course list");
 
-  //this line deprecated, new line below supports "time wasted" and other irregular sheets
-  //this.courseList=readCourseList(this,dataArray,[1,7]);
+    //this line deprecated, new line below supports "time wasted" and other irregular sheets
+    //this.courseList=readCourseList(this,dataArray,[1,7]);
 
-  this.courseList=readCourseList(this,dataArray,[1,dataArray[0].indexOf("Block:")+1]);
+    this.courseList = readCourseList(this, dataArray, [1, dataArray[0].indexOf("Block:") + 1]);
 
-  this.courseTimeSpentList=[0,0,0,0,0,0,0,0,0];
-  this.endDay=0;
+    this.courseTimeSpentList = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.endDay = 0;
 
-  for(i=1;i<CSVArray.length;i++){
-    //interprets dates
-    if(CSVArray[i][1].includes("DAY")){
-      //console.log("Attempting to read date: " + CSVArray[i])
-      dayTime=parseInt(interpretDate(CSVArray[i]));
-      //console.log("Parsed as: " + dayTime)
-      if(!dayTime){
-        console.log("ERROR: Returned non-usable date time''"+dayTime/1440+"''!!!");
+    for (i = 1; i < CSVArray.length; i++) {
+        //interprets dates
+        if (CSVArray[i][1].includes("DAY")) {
+            //console.log("Attempting to read date: " + CSVArray[i])
+            dayTime = parseInt(interpretDate(CSVArray[i]));
+            //console.log("Parsed as: " + dayTime)
+            if (!dayTime) {
+                console.log("ERROR: Returned non-usable date time''" + dayTime / 1440 + "''!!!");
+            }
+
+            if (i === 1 && dayTime) {
+                if (this.startDay / 1440 >= 240) {
+                    //sanity check implemented solely so that Arun Johnson's logging of
+                    //quest work before the schoolyear did not mess up his averages.
+                    this.startDay = dayTime / 1440;
+                } else {
+                    this.startDay = 240;
+                }
+            }
+
+            if (this.endDay <= dayTime / 1440) {
+                //console.log("changed end date to ''"+dayTime/1440+"''!!!");
+                this.endDay = dayTime / 1440;
+            } else {
+                //console.log(dayTime/1440+" did not pass test of being greater than or equal to "+this.endDay+".");
+            }
         }
 
-      if(i==1&&dayTime){
-        if(this.startDay/1440>=240){
-          //sanity check implemented solely so that Arun Johnson's logging of
-          //quest work before the schoolyear did not mess up his averages.
-            this.startDay=dayTime/1440;
+        //else if(CSVArray[i][0].length>2){
+        //  this.assignmentArray.push(new assignment(this,courseList.getCourse(CSVArray[i][0]),CSVArray[i][1],CSVArray[i][2],CSVArray[i][3]))
+        //}
+        else if (CSVArray[i][0].length > 2) {
+            //length check is to make blank cells will not reead as assignments if class code list is not filled out
+            //console.log("reading assignment from "+CSVArray[i][0]);
+            this.assignmentArray.push(new assignment(this, courseList.getCourse(CSVArray[i][0]), CSVArray[i][1], CSVArray[i][2], CSVArray[i][3], dayTime));
         }
-        else{
-          this.startDay=240;
+
+    }
+    for (q = 0; q < this.courseList.length; q++) {
+        if (this.courseList[q]) {
+            this.courseList[q].updateInfo;
         }
-      }
-
-      if(this.endDay<=dayTime/1440){
-        //console.log("changed end date to ''"+dayTime/1440+"''!!!");
-        this.endDay=dayTime/1440;
-      }
-      else{
-        //console.log(dayTime/1440+" did not pass test of being greater than or equal to "+this.endDay+".");
-      }
     }
-
-    //else if(CSVArray[i][0].length>2){
-    //  this.assignmentArray.push(new assignment(this,courseList.getCourse(CSVArray[i][0]),CSVArray[i][1],CSVArray[i][2],CSVArray[i][3]))
-    //}
-    else if(CSVArray[i][0].length>2){
-      //length check is to make blank cells will not reead as assignments if class code list is not filled out
-      //console.log("reading assignment from "+CSVArray[i][0]);
-      this.assignmentArray.push(new assignment(this,courseList.getCourse(CSVArray[i][0]),CSVArray[i][1],CSVArray[i][2],CSVArray[i][3],dayTime));
+    if (!this.endDay || !this.startDay || this.endDay - this.startDay < 0) {
+        console.log("ERROR: Student has starting day of " + this.startDay + " and ending day of " + this.endDay + ", this will not allow for correct data.");
     }
-
-  }
-  for (q=0;q<this.courseList.length;q++){
-    if(this.courseList[q]){
-      this.courseList[q].updateInfo;
-    }
-  }
-  if(!this.endDay||!this.startDay||this.endDay-this.startDay<0){
-    console.log("ERROR: Student has starting day of "+this.startDay+" and ending day of "+this.endDay+", this will not allow for correct data.");
-  }
-  this.daysLogged=this.endDay-this.startDay;
-  console.log("Created new student with "+this.assignmentArray.length+" assignments over "+this.daysLogged+" days of logged data.")
-  return this;
+    this.daysLogged = this.endDay - this.startDay;
+    console.log("Created new student with " + this.assignmentArray.length + " assignments over " + this.daysLogged + " days of logged data.")
+    return this;
 }
 
-function assignment(student,course,assignmentName,startTimeString,endTimeString,dayTime){
-  this.course=course;
-  this.assignmentName=assignmentName;
+function assignment(student, course, assignmentName, startTimeString, endTimeString, dayTime) {
+    this.course = course;
+    this.assignmentName = assignmentName;
 
-  this.startTime=interpretTime(startTimeString)+dayTime;
-  this.endTime=interpretTime(endTimeString)+dayTime;
-  //if assignment goes over AM-PM divide, makes sure we still have times that make sense
-  if(this.startTime>this.endTime){
-    this.endTime=this.endTime+720;
-  }
-  this.assignmentDuration=this.endTime-this.startTime;
-  if(this.assignmentDuration>720){
-    this.assignmentDuration=this.assignmentDuration-720;
-  }
+    this.startTime = interpretTime(startTimeString) + dayTime;
+    this.endTime = interpretTime(endTimeString) + dayTime;
+    //if assignment goes over AM-PM divide, makes sure we still have times that make sense
+    if (this.startTime > this.endTime) {
+        this.endTime = this.endTime + 720;
+    }
+    this.assignmentDuration = this.endTime - this.startTime;
+    if (this.assignmentDuration > 720) {
+        this.assignmentDuration = this.assignmentDuration - 720;
+    }
 
-  //adds assignment duration to student time tally
-  if(student.courseList.indexOf(this.course)!=-1&&!isNaN(this.assignmentDuration)){
-    student.courseTimeSpentList[student.courseList.indexOf(this.course)]=student.courseTimeSpentList[student.courseList.indexOf(this.course)]+this.assignmentDuration;
-    this.course.assignments.push(this);
-  }
-  return this;
+    //adds assignment duration to student time tally
+    if (student.courseList.indexOf(this.course) !== -1 && !isNaN(this.assignmentDuration)) {
+        student.courseTimeSpentList[student.courseList.indexOf(this.course)] = student.courseTimeSpentList[student.courseList.indexOf(this.course)] + this.assignmentDuration;
+        this.course.assignments.push(this);
+    }
+    return this;
 }
 
-function interpretTime(timeString){
-  //parses string representation of time into minutes since start of day
-  if (timeString.includes("PM")){
-    if (timeString[1]==":") {
-      //single digit hour
-      return (720+(60*timeString[0])+parseInt(timeString[2]+timeString[3]));
+function interpretTime(timeString) {
+    //parses string representation of time into minutes since start of day
+    if (timeString.includes("PM")) {
+        if (timeString[1] === ":") {
+            //single digit hour
+            return (720 + (60 * timeString[0]) + parseInt(timeString[2] + timeString[3]));
+        } else {
+            return (720 + (60 * (timeString[0] + timeString[1])) + parseInt(timeString[3] + timeString[4]));
+        }
+    } else {
+        if (timeString[1] === ":") {
+            //single digit hour
+            return ((60 * timeString[0]) + parseInt(timeString[2] + timeString[3]));
+        } else {
+            return ((60 * (timeString[0] + timeString[1])) + parseInt(timeString[3] + timeString[4]));
+        }
     }
-    else {
-      return (720+(60*(timeString[0]+timeString[1]))+parseInt(timeString[3]+timeString[4]));
-    }
-  }
-  else {
-    if (timeString[1]==":") {
-      //single digit hour
-      return ((60*timeString[0])+parseInt(timeString[2]+timeString[3]));
-    }
-    else {
-      return ((60*(timeString[0]+timeString[1]))+parseInt(timeString[3]+timeString[4]));
-    }
-  }
-  console.log("Reading of time string ''"+timeString+"'' failed!");
-  return null;
+    console.log("Reading of time string ''" + timeString + "'' failed!");
+    return null;
 }
 
-function readCourseList(student,dataArray,coordinates){
-  courseArray=[];
-  for(p=0;p<9;p++){
-    if(dataArray[coordinates[0]+p][coordinates[1]].length>2){
-      //if course does not already exist, create course
-      if(courseList.getCourse(dataArray[coordinates[0]+p][coordinates[1]],true)==null&&dataArray[coordinates[0]+p][coordinates[1]].length>2){
-        courseList.push(new course(dataArray[coordinates[0]+p][coordinates[1]]));
-      }
-      //adds student to course
-      courseArray[p]=courseList.getCourse(dataArray[coordinates[0]+p][coordinates[1]]);
-      if(student){
-        courseList.getCourse(dataArray[coordinates[0]+p][coordinates[1]]).students.push(student);
-      }
+function readCourseList(student, dataArray, coordinates) {
+    courseArray = [];
+    for (p = 0; p < 9; p++) {
+        if (dataArray[coordinates[0] + p][coordinates[1]].length > 2) {
+            //if course does not already exist, create course
+            if (courseList.getCourse(dataArray[coordinates[0] + p][coordinates[1]], true) === null && dataArray[coordinates[0] + p][coordinates[1]].length > 2) {
+                courseList.push(new course(dataArray[coordinates[0] + p][coordinates[1]]));
+            }
+            //adds student to course
+            courseArray[p] = courseList.getCourse(dataArray[coordinates[0] + p][coordinates[1]]);
+            if (student) {
+                courseList.getCourse(dataArray[coordinates[0] + p][coordinates[1]]).students.push(student);
+            }
+        }
     }
-  }
-  return courseArray;
+    return courseArray;
 }
 
-function validifyDate(date,inputArray){
+function validifyDate(date, inputArray) {
 
 }
 
-function interpretDate(array){
+function interpretDate(array) {
 
     //gets the number of minutes since 2017 began that the date is on
-    if(array[3][0]=="/"){
-      if(array[3].length==3){
-        return(1440*(parseInt(array[3][1]+array[3][2])+monthStartTimes[array[2]]));
-      }
-          else if(CSVArray[i][3].length==2){
-            return(1440*(parseInt(array[3][1])+monthStartTimes[array[2]]));
-          }
+    if (array[3][0] === "/") {
+        if (array[3].length === 3) {
+            return(1440 * (parseInt(array[3][1] + array[3][2]) + monthStartTimes[array[2]]));
+        } else if (CSVArray[i][3].length === 2) {
+            return(1440 * (parseInt(array[3][1]) + monthStartTimes[array[2]]));
         }
-        else if (array[3].length==2){
-          return(1440*(parseInt(array[3][0]+array[3][1])+monthStartTimes[array[2]]));
-        }
-        else if(array[3].length==1){
-          return(1440*(parseInt(array[3][0])+monthStartTimes[array[2]]));
+    } else if (array[3].length === 2) {
+        return(1440 * (parseInt(array[3][0] + array[3][1]) + monthStartTimes[array[2]]));
+    } else if (array[3].length === 1) {
+        return(1440 * (parseInt(array[3][0]) + monthStartTimes[array[2]]));
+    } else if (array[2].includes("/")) {
+        //edge case for audrey cho's janky formatting
+        if (array[2][2] === "/") {
+            if (array[2].length === 4) {
+                return(1440 * (monthStartTimes[array[2][0] + array[2][1]] + parseInt(array[2][3])));
+            } else if (CSVArray[i][2].length === 5) {
+                return(1440 * (monthStartTimes[array[2][0] + array[2][1]] + parseInt(array[2][3] + array[2][4])));
+            }
+        } else if (CSVArray[i][2][1] === "/") {
+            if (CSVArray[i][2].length === 3) {
+                return(1440 * (monthStartTimes[array[2][0]] + parseInt(array[2][2])));
+            } else if (CSVArray[i][2].length === 4) {
+                return(1440 * (monthStartTimes[array[2][0]] + parseInt(array[2][2] + array[2][3])));
+            }
         }
 
-        else if(array[2].includes("/")){
-          //edge case for audrey cho's janky formatting
-          if(array[2][2]=="/"){
-            if(array[2].length==4){
-              return(1440*(monthStartTimes[array[2][0]+array[2][1]]+parseInt(array[2][3])));
-            }
-            else if(CSVArray[i][2].length==5){
-              return(1440*(monthStartTimes[array[2][0]+array[2][1]]+parseInt(array[2][3]+array[2][4])));
-            }
-          }
-
-          else if(CSVArray[i][2][1]=="/"){
-            if(CSVArray[i][2].length==3){
-              return(1440*(monthStartTimes[array[2][0]]+parseInt(array[2][2])));
-            }
-            else if(CSVArray[i][2].length==4){
-              return(1440*(monthStartTimes[array[2][0]]+parseInt(array[2][2]+array[2][3])));
-            }
-          }
-
-        }
-          console.log("Failed to parse date '"+array[2]+"' '"+array[3]+"'.");
-        return null;
+    }
+    console.log("Failed to parse date '" + array[2] + "' '" + array[3] + "'.");
+    return null;
 }
 
-function roundToPlace(num,place){
-  return(Math.round(num/place)*place);
+function roundToPlace(num, place) {
+    return(Math.round(num / place) * place);
 }
 
 
 //var urlProvided = document.getElementById(spreadsheetURL).value;
-  
-function generateClassTimeSeries(idInput, courseOfInterest){
-    classData = []
-    startTime = studentList[idInput].assignmentArray[0].startTime - studentList[idInput].assignmentArray[0].startTime % 1440
+
+function generateClassTimeSeries(idInput, courseOfInterest) {
+    classData = [];
+    startTime = studentList[idInput].assignmentArray[0].startTime - studentList[idInput].assignmentArray[0].startTime % 1440;
     //console.log(startTime)
-    loopNumber = Math.floor((studentList[idInput].assignmentArray[studentList[idInput].assignmentArray.length-1].startTime - startTime)/1440)
-    for (var i=0; i<loopNumber; i++){
-        classData[i] = 0
+    loopNumber = Math.floor((studentList[idInput].assignmentArray[studentList[idInput].assignmentArray.length - 1].startTime - startTime) / 1440);
+    for (var i = 0; i < loopNumber; i++) {
+        classData[i] = 0;
     }
     //console.log(classData.length)
-    for (var i=0; i<studentList[idInput].assignmentArray.length;i++){
-        if (studentList[idInput].assignmentArray[i].course == null){
+    for (var i = 0; i < studentList[idInput].assignmentArray.length; i++) {
+        if (studentList[idInput].assignmentArray[i].course === null) {
             //console.log("MEEP")
             continue;
         }
         //console.log(studentList[idInput].assignmentArray[i].course.courseCode)
         //console.log(courseOfInterest)
-        if (studentList[idInput].assignmentArray[i].course.courseCode == courseOfInterest){
+        if (studentList[idInput].assignmentArray[i].course.courseCode === courseOfInterest) {
             //console.log("true")
-            for (var j=Math.floor((studentList[idInput].assignmentArray[i].startTime - startTime)/1440); j<classData.length; j++){
-                classData[j] += studentList[idInput].assignmentArray[i].assignmentDuration
+            for (var j = Math.floor((studentList[idInput].assignmentArray[i].startTime - startTime) / 1440); j < classData.length; j++) {
+                classData[j] += studentList[idInput].assignmentArray[i].assignmentDuration;
             }
         }
     }
-    return classData
+    return classData;
 }
 
-function generateLineData(idInput){
-    var courseList = studentList[idInput].courseList
+function generateLineData(idInput) {
+    var courseList = studentList[idInput].courseList;
     //console.log(courseList)
-    var dataArray = []
-    var loopNumber = courseList.length
+    var dataArray = [];
+    var loopNumber = courseList.length;
     //console.log(loopNumber)
-    for (var k=0;k<loopNumber;k++){
+    for (var k = 0; k < loopNumber; k++) {
         //console.log("Looping" + k)
-        dataArray[k] = generateClassTimeSeries(idInput,courseList[k].courseCode)
+        dataArray[k] = generateClassTimeSeries(idInput, courseList[k].courseCode);
     }
-    var courseNames = []
-    for (var n=0;n<courseList.length;n++){
-        courseNames[n] = courseList[n].courseCode
+    var courseNames = [];
+    for (var n = 0; n < courseList.length; n++) {
+        courseNames[n] = courseList[n].courseCode;
     }
-    var dayNumbers = []
-    for (var m=0;m<dataArray[0].length;m++){
-        dayNumbers[m] = m
+    var dayNumbers = [];
+    for (var m = 0; m < dataArray[0].length; m++) {
+        dayNumbers[m] = m;
     }
-    return [dataArray,courseNames,dayNumbers]
+    return [dataArray, courseNames, dayNumbers];
 }
 
-function generatePercentLineData(idInput){
-    var courseList = studentList[idInput].courseList
+function generatePercentLineData(idInput) {
+    var courseList = studentList[idInput].courseList;
     //console.log(courseList)
-    var prelimDataArray = []
-    var loopNumber = courseList.length
-    var dataArray = []
+    var prelimDataArray = [];
+    var loopNumber = courseList.length;
+    var dataArray = [];
     //console.log(loopNumber)
-    for (var k=0;k<loopNumber;k++){
+    for (var k = 0; k < loopNumber; k++) {
         //console.log("Looping" + k)
-        prelimDataArray[k] = generateClassTimeSeries(idInput,courseList[k].courseCode)
-        dataArray[k] = []
+        prelimDataArray[k] = generateClassTimeSeries(idInput, courseList[k].courseCode);
+        dataArray[k] = [];
     }
-    for (var k=0;k<loopNumber;k++){
-        for (var i=0;i<prelimDataArray[0].length;i++){
-            var timeSum = 0
-            for (var n=0;n<loopNumber;n++){
-                timeSum += prelimDataArray[n][k]
+    for (var k = 0; k < loopNumber; k++) {
+        for (var i = 0; i < prelimDataArray[0].length; i++) {
+            var timeSum = 0;
+            for (var n = 0; n < loopNumber; n++) {
+                timeSum += prelimDataArray[n][k];
                 //console.log("the data is: " + prelimDataArray[k][n])
             }
             //console.log("so the timeSum is: " + timeSum)
-            if (timeSum == 0){
-              console.log("Avoided div0 error")
-              dataArray[k][i] = 0
-            }
-            else{
-              console.log(prelimDataArray[k][i]/timeSum)
-              dataArray[k][i] = (prelimDataArray[k][i]/timeSum)
+            if (timeSum === 0) {
+                console.log("Avoided div0 error");
+                dataArray[k][i] = 0;
+            } else {
+                console.log(prelimDataArray[k][i] / timeSum);
+                dataArray[k][i] = (prelimDataArray[k][i] / timeSum);
             }
         }
     }
-    var courseNames = []
-    for (var n=0;n<courseList.length;n++){
-        courseNames[n] = courseList[n].courseCode
+    var courseNames = [];
+    for (var n = 0; n < courseList.length; n++) {
+        courseNames[n] = courseList[n].courseCode;
     }
-    var dayNumbers = []
-    for (var m=0;m<dataArray[0].length;m++){
-        dayNumbers[m] = m
+    var dayNumbers = [];
+    for (var m = 0; m < dataArray[0].length; m++) {
+        dayNumbers[m] = m;
     }
-    return [dataArray,courseNames,dayNumbers]
+    return [dataArray, courseNames, dayNumbers];
 }
 
-function dayFromTime(time){
-weekResidue = time % 10080
-daysSinceSunday = Math.floor(weekResidue/1440)
-return daysSinceSunday
+function dayFromTime(time) {
+    weekResidue = time % 10080;
+    daysSinceSunday = Math.floor(weekResidue / 1440);
+    return daysSinceSunday;
 
 }
 
-function generateWeekData(idInput){
-    weekProfile = [0,0,0,0,0,0,0]
-    for (i=0;i<studentList[idInput].assignmentArray.length;i++){
+function generateWeekData(idInput) {
+    weekProfile = [0, 0, 0, 0, 0, 0, 0];
+    for (i = 0; i < studentList[idInput].assignmentArray.length; i++) {
         //console.log("loopy")
-        weekProfile[dayFromTime(studentList[idInput].assignmentArray[i].startTime)] = weekProfile[dayFromTime(studentList[idInput].assignmentArray[i].startTime)] + studentList[idInput].assignmentArray[i].assignmentDuration
+        weekProfile[dayFromTime(studentList[idInput].assignmentArray[i].startTime)] = weekProfile[dayFromTime(studentList[idInput].assignmentArray[i].startTime)] + studentList[idInput].assignmentArray[i].assignmentDuration;
     }
-    return weekProfile
-}    
-    
-function updateGraph(){
-//idInput = parseInt(document.getElementById("doesThisWork").value)
-idInput = 0
-classNames = []
-for (i=0;i<courseList.length;i++){
-    classNames.push(courseList[i].courseCode)
+    return weekProfile;
 }
-avgClassTimes = []
-for (i=0;i<courseList.length;i++){
-    avgClassTimes.push(courseList[i].avgTotalTime)
-}
-studentClasses = [];
-for (i=0;i<studentList[idInput].courseList.length;i++){
-    studentClasses.push(studentList[idInput].courseList[i].courseCode)
-}
-studentClassTimes = [];
-for (i=0;i<studentList[idInput].courseList.length;i++){
-    console.log("hi")
-    studentClassTimes.push(studentList[idInput].courseList[i].totalTime)
-}
-weekTimes = generateWeekData(idInput);
-classTimeSeriesData = []
-percentTimeSeriesData = []
-for (var i=0; i<studentList[idInput].courseList.length;i++){
-            classTimeSeriesData[i] = {y:generateLineData(idInput)[0][i],x:generateLineData(idInput)[2],name:generateLineData(idInput)[1][i], mode: 'lines', type: 'scatter'}
-            console.log("This line is named: " + classTimeSeriesData[i]["name"])
-            percentTimeSeriesData[i] = {y:generatePercentLineData(idInput)[0][i],x:generatePercentLineData(idInput)[2],name:generatePercentLineData(idInput)[1][i], mode: 'lines', type: 'scatter'}
-}
-console.log("Here is the classTimeSeriesData: " + " y: " + classTimeSeriesData[0]["y"] + " x: " + classTimeSeriesData[0]["x"] + " names: " + classTimeSeriesData[0]["name"]);
-console.log("Here is the percentTimeSeriesData: " + "y: " + percentTimeSeriesData[1]["y"] +  "x: " + percentTimeSeriesData[1]["x"] +  " names: " + percentTimeSeriesData[1]["name"]);
-    
-trace1 = {
-  x: avgClassTimes, 
-  y: classNames, 
-  marker: {
-    color: 'rgba(55, 128, 191, 0.6)', 
-    line: {
-      color: 'rgba(55, 128, 191, 1.0)', 
-      width: 1
-    }
-  }, 
-  name: 'SF Zoo', 
-  orientation: 'h', 
-  type: 'bar'
-};
 
-data = [trace1];
-layout = {barmode: 'stack'};
+function updateGraph() {
+//idInput = parseInt(document.getElementById("doesThisWork").value)
+    idInput = 0;
+    classNames = [];
+    for (i = 0; i < courseList.length; i++) {
+        classNames.push(courseList[i].courseCode);
+    }
+    avgClassTimes = [];
+    for (i = 0; i < courseList.length; i++) {
+        avgClassTimes.push(courseList[i].avgTotalTime);
+    }
+    studentClasses = [];
+    for (i = 0; i < studentList[idInput].courseList.length; i++) {
+        studentClasses.push(studentList[idInput].courseList[i].courseCode);
+    }
+    studentClassTimes = [];
+    for (i = 0; i < studentList[idInput].courseList.length; i++) {
+        console.log("hi");
+        studentClassTimes.push(studentList[idInput].courseList[i].totalTime);
+    }
+    weekTimes = generateWeekData(idInput);
+    classTimeSeriesData = [];
+    percentTimeSeriesData = [];
+    for (var i = 0; i < studentList[idInput].courseList.length; i++) {
+        classTimeSeriesData[i] = {y: generateLineData(idInput)[0][i], x: generateLineData(idInput)[2], name: generateLineData(idInput)[1][i], mode: 'lines', type: 'scatter'};
+        console.log("This line is named: " + classTimeSeriesData[i]["name"]);
+        percentTimeSeriesData[i] = {y: generatePercentLineData(idInput)[0][i], x: generatePercentLineData(idInput)[2], name: generatePercentLineData(idInput)[1][i], mode: 'lines', type: 'scatter'};
+    }
+    console.log("Here is the classTimeSeriesData: " + " y: " + classTimeSeriesData[0]["y"] + " x: " + classTimeSeriesData[0]["x"] + " names: " + classTimeSeriesData[0]["name"]);
+    console.log("Here is the percentTimeSeriesData: " + "y: " + percentTimeSeriesData[1]["y"] + "x: " + percentTimeSeriesData[1]["x"] + " names: " + percentTimeSeriesData[1]["name"]);
+
+    trace1 = {
+        x: avgClassTimes,
+        y: classNames,
+        marker: {
+            color: 'rgba(55, 128, 191, 0.6)',
+            line: {
+                color: 'rgba(55, 128, 191, 1.0)',
+                width: 1
+            }
+        },
+        name: 'SF Zoo',
+        orientation: 'h',
+        type: 'bar'
+    };
+
+    data = [trace1];
+    layout = {barmode: 'stack'};
 
 //Uncomment the block below to produce the average class graph
 
-/* Plotly.plot('tester', {
-  data: data,
-  layout: layout
-}); */
+    /* Plotly.plot('tester', {
+     data: data,
+     layout: layout
+     }); */
 }
 
-function makeAllTheGraphs(){
-  
-  //Pie chart:
-  var pieDictionary = {}
-  for (var i=0; i<currentStudent.courses.length; i++){
-    pieDictionary[currentStudent.courses[i]] = 1; //should be 0 except for testing !!Warning!!
-  }
-  for (var j=0; j<assignments.length; j++){
-    var timeSum = 0 
-    for (var k=0; k<assignments[j].times.length; k++){
-      timeSum += ((assignments[j].times[k][1] - assignments[j].times[k][0])/1000)
+function makeAllTheGraphs() {
+
+    //Pie chart:
+    var pieDictionary = {};
+    for (var i = 0; i < currentStudent.courses.length; i++) {
+        pieDictionary[currentStudent.courses[i]] = 1; //should be 0 except for testing !!Warning!!
     }
-    pieDictionary[assignments[j].course] += timeSum
-  }
-  
-  console.log("Values for the pie chart are: " + getValueArrayFromDictionary(pieDictionary));
-  console.log("Labels for the pie chart are: " + Object.keys(pieDictionary));
-
-  var data_pie = [{
-    labels: Object.keys(pieDictionary),
-    values: getValueArrayFromDictionary(pieDictionary),
-    type: 'pie'
-  }];
-
-  var layout_pie = {
-    height: 400,
-    width: 500
-  };
-
-  Plotly.newPlot('graphSpace1', data_pie, layout_pie);
-  //Day of the week histogram:
-  var histogramDictionary = {"Monday" : 0, "Tuesday" : 0, "Wednesday" : 0, "Thursday" : 0, "Friday" : 0, "Saturday" : 0, "Sunday" : 0} // !!Warning!! should all be 0 except for testing
-  for (var i=0; i<assignments.length; i++){
-    for (var j=0; j<assignments[i].times.length; j++){
-      var timeSpent = ((assignments[i].times[j][1] - assignments[i].times[j][0])/1000)
-      histogramDictionary[getDayOfWeekFromTimestamp(assignments[i].times[j][0])] += timeSpent
-    } 
-  }
-  console.log()
-  var data_histogram = [{
-    x: Object.keys(histogramDictionary),
-    y: getValueArrayFromDictionary(histogramDictionary),
-    type: 'bar'
-  }];
-
-  var layout_histogram = {
-    height: 400,
-    width: 500
-  };
-
-  console.log("Value for the histogram are: " + getValueArrayFromDictionary(histogramDictionary));
-  console.log("Labels for histogram are: " + Object.keys(histogramDictionary));
-
-  Plotly.newPlot('graphSpace2', data_histogram, layout_histogram);
-
-  //Cumulative homework from each class (absolute values):
-  var cumulativeDictionary = {};
-  for (var i=0; i<currentStudent.courses.length; i++){
-    cumulativeDictionary[currentStudent.courses[i]] = {y:[], x:[], name:currentStudent.courses[i], mode:"lines", type:"scatter"};
-  }
-  var numberOfDays;
-  var earliestStart = 10000000000000000000;
-  if (assignments.length != 0){
-    for (var q=0; q<assignments.length; q++){
-      if (assignments[q].times.length != 0){
-        if (assignments[q].times[0][0]<earliestStart){
-          earliestStart = assignments[q].times[0][0];
+    for (var j = 0; j < assignments.length; j++) {
+        var timeSum = 0;
+        for (var k = 0; k < assignments[j].times.length; k++) {
+            timeSum += ((assignments[j].times[k][1] - assignments[j].times[k][0]) / 1000);
         }
-      }
+        pieDictionary[assignments[j].course] += timeSum;
     }
-    var now = Date.now();
-    numberOfDays = (((((now - earliestStart)/1000)/60)/60)/24);
-  }
-  else{
-    numberOfDays = 0;
-  }
-  for (var d=0; d<numberOfDays; d++){
-    if (d == 0){
-      for (var c=0; c<currentStudent.courses.length;c++){
-        //console.log("The dictionary is: " + JSON.stringify(cumulativeDictionary[currentStudent.courses[c]]));
-        cumulativeDictionary[currentStudent.courses[c]]["y"].push(0);
-        var assignmentTime = new Date(1515393944 + (1000*60*60*24*d)); //This timestamp used to be assignments[0].times[0][0]
-        cumulativeDictionary[currentStudent.courses[c]]["x"].push(getDateFromTimestamp(assignmentTime));
-      }
-    }
-    else{
-      for (var c=0; c<currentStudent.courses.length;c++){
-        //console.log("The dictionary is: " + JSON.stringify(cumulativeDictionary[currentStudent.courses[c]]));
-        cumulativeDictionary[currentStudent.courses[c]]["y"].push(cumulativeDictionary[currentStudent.courses[c]]["y"][d]);
-        var assignmentTime = new Date(1515393944 + (1000*60*60*24*d));
-        cumulativeDictionary[currentStudent.courses[c]]["x"].push(getDateFromTimestamp(assignmentTime));
-      }
-      for (var a=0; a<assignments.length; a++){
-        for (var n=0; n<assignments[a].times.length; n++){
-          var assignmentTime = new Date(assignments[a].times[n][0])
-          if (getDateFromTimestamp(assignmentTime) == cumulativeDictionary[assignments[a].course]["x"][d]){
-            cumulativeDictionary[assignments[a].course]["y"][d] = ((assignments[a].times[n][1] - assignments[a].times[n][0])/1000)
-          }
-        } 
-      } 
-    }
-  }
 
-  var data_cumulative = [];
-  for (var s=0; s<currentStudent.courses.length; s++){
-    data_cumulative[s] = cumulativeDictionary[currentStudent.courses[s]]
-  }
+    console.log("Values for the pie chart are: " + getValueArrayFromDictionary(pieDictionary));
+    console.log("Labels for the pie chart are: " + Object.keys(pieDictionary));
 
-  var layout_cumulative = {
-    height: 400,
-    width: 500
-  };
-
-
-  Plotly.newPlot('graphSpace3', data_cumulative, layout_cumulative);
-
-  //Cumulative homework from each class (as percent of total):
-
-  var thisIsNotDoneYet = `AAAAHHHHH! That previous function took way too much effort to make. I'll finish this one last. But... if you are seeing this message.... you really do need to finish this function before the website can be released....`
-  console.log(thisIsNotDoneYet);
-
-  //Homework per day line chart:
-
-  //Homework by time of day
-  var hourNames = ["1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", 
-"8 PM", "9 PM", "10 PM", "11 PM", "12 AM"]
-  var hourDictionary = {"1 AM": 0, "2 AM": 0, "3 AM": 0, "4 AM": 0, "5 AM": 0, "6 AM": 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, "12 PM": 0, "1 PM": 0, "2 PM": 0, "3 PM": 0, "4 PM": 0, "5 PM": 0, "6 PM": 0, "7 PM": 0, 
-"8 PM": 0, "9 PM": 0, "10 PM": 0, "11 PM": 0, "12 AM": 0}
-  for (var i=0; i<assignments.length; i++){
-    for (var t=0; t<assignments[i].times.length; t++){
-      var td0 = new Date(assignments[i].times[t][0])
-      var td1 = new Date(assignments[i].times[t][1])
-      var profile = getHourProfile(td0, td1);
-      for (var n=0; n<24; n++){
-        hourDictionary[hourNames[n]] += profile[n]
-      }
-    }
-  }
-
-  var data_hour = [{
-    x: Object.keys(hourDictionary),
-    y: getValueArrayFromDictionary(hourDictionary),
-    type: 'bar'
-  }];
-
-  var layout_hour = {
-    height: 400,
-    width: 500
-  };
-
-  console.log("Value for the histogram are: " + getValueArrayFromDictionary(histogramDictionary));
-  console.log("Labels for histogram are: " + Object.keys(histogramDictionary));
-
-  Plotly.newPlot('graphSpace4', data_hour, layout_hour);
-
-  //Homework calendar heatmap:
-}
-
-function getHourProfile(startTime, stopTime){ //takes start and stop times as Date objects
-  var profile = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-  var msInitial = startTime.getTime();
-  var msFinal = stopTime.getTime();
-  var hourInitial = msInitial/(1000*60*60);
-  var hourFinal = msFinal/(1000*60*60);
-  var startingHour = startTime.getHours();
-  for (var i = 0; i<(Math.ceil(hourFinal)-Math.floor(hourInitial)); i++){
-    if (i==0){
-      profile[startingHour] += 60 - (60*(hourInitial % 1));
-    }
-    else if (i==(Math.ceil(hourFinal)-Math.floor(hourInitial))-1){
-      profile[(startingHour + (Math.ceil(hourFinal)-Math.floor(hourInitial))-1) % 24] += 60*(hourFinal % 1);
-    }
-    else{
-      profile[(startingHour + i) % 24] += 60
-    }
-  }
-  return profile
-  //Return an array in the form [0,0,0,0,13,60,60,60,34,0,0,0] of minutes of time spent per hour for the given interval
-}
-
-function getHourFromTimestamps(timestamp){
-  var hourNames = ["1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", 
-"8 PM", "9 PM", "10 PM", "11 PM", "12 AM"]
-  var theHour = hourNames[timestamp.getHours()];
-  return theHour
-}
-
-function getDayOfWeekFromTimestamp(timestamp){
-  var a = new Date(timestamp);
-  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  var dayOfWeek = days[a.getDay()]
-  return dayOfWeek
-}
-
-function getDateFromTimestamp(timestamp){
-  var monthsOfTheYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-  var day = timestamp.getDate();
-  var month = monthsOfTheYear[timestamp.getMonth()]
-  var date = month + " " + day
-  return date
-}
-
-function getValueArrayFromDictionary(dictionary){
-  var keys = Object.keys(dictionary)
-  var values = []
-  for (var i = 0; i < keys.length; i++) {
-    values[i] = dictionary[keys[i]];
-    // use val
-  }
-  return values
-}
-
-function graphMaker(graphType, multipleDataSets, xData, yData, orientation, height, width){
-  var graphData = [{
-    values: xData,
-    labels: yData,
-    type: graphType
-  }];
-}
-    
-function pieGraph(){
     var data_pie = [{
-        values: studentClassTimes,
-        labels: studentClasses,
-        type: 'pie'
-      }];
+            labels: Object.keys(pieDictionary),
+            values: getValueArrayFromDictionary(pieDictionary),
+            type: 'pie'
+        }];
+
+    var layout_pie = {
+        height: 400,
+        width: 500
+    };
+
+    Plotly.newPlot('graphSpace1', data_pie, layout_pie);
+    //Day of the week histogram:
+    var histogramDictionary = {"Monday": 0, "Tuesday": 0, "Wednesday": 0, "Thursday": 0, "Friday": 0, "Saturday": 0, "Sunday": 0}; // !!Warning!! should all be 0 except for testing
+    for (var i = 0; i < assignments.length; i++) {
+        for (var j = 0; j < assignments[i].times.length; j++) {
+            var timeSpent = ((assignments[i].times[j][1] - assignments[i].times[j][0]) / 1000);
+            histogramDictionary[getDayOfWeekFromTimestamp(assignments[i].times[j][0])] += timeSpent;
+        }
+    }
+    console.log();
+    var data_histogram = [{
+            x: Object.keys(histogramDictionary),
+            y: getValueArrayFromDictionary(histogramDictionary),
+            type: 'bar'
+        }];
+
+    var layout_histogram = {
+        height: 400,
+        width: 500
+    };
+
+    console.log("Value for the histogram are: " + getValueArrayFromDictionary(histogramDictionary));
+    console.log("Labels for histogram are: " + Object.keys(histogramDictionary));
+
+    Plotly.newPlot('graphSpace2', data_histogram, layout_histogram);
+
+    //Cumulative homework from each class (absolute values):
+    var cumulativeDictionary = {};
+    for (var i = 0; i < currentStudent.courses.length; i++) {
+        cumulativeDictionary[currentStudent.courses[i]] = {y: [], x: [], name: currentStudent.courses[i], mode: "lines", type: "scatter"};
+    }
+    var numberOfDays;
+    var earliestStart = 10000000000000000000;
+    if (assignments.length !== 0) {
+        for (var q = 0; q < assignments.length; q++) {
+            if (assignments[q].times.length !== 0) {
+                if (assignments[q].times[0][0] < earliestStart) {
+                    earliestStart = assignments[q].times[0][0];
+                }
+            }
+        }
+        var now = Date.now();
+        numberOfDays = (((((now - earliestStart) / 1000) / 60) / 60) / 24);
+    } else {
+        numberOfDays = 0;
+    }
+    for (var d = 0; d < numberOfDays; d++) {
+        if (d === 0) {
+            for (var c = 0; c < currentStudent.courses.length; c++) {
+                //console.log("The dictionary is: " + JSON.stringify(cumulativeDictionary[currentStudent.courses[c]]));
+                cumulativeDictionary[currentStudent.courses[c]]["y"].push(0);
+                var assignmentTime = new Date(1515393944 + (1000 * 60 * 60 * 24 * d)); //This timestamp used to be assignments[0].times[0][0]
+                cumulativeDictionary[currentStudent.courses[c]]["x"].push(getDateFromTimestamp(assignmentTime));
+            }
+        } else {
+            for (var c = 0; c < currentStudent.courses.length; c++) {
+                //console.log("The dictionary is: " + JSON.stringify(cumulativeDictionary[currentStudent.courses[c]]));
+                cumulativeDictionary[currentStudent.courses[c]]["y"].push(cumulativeDictionary[currentStudent.courses[c]]["y"][d]);
+                var assignmentTime = new Date(1515393944 + (1000 * 60 * 60 * 24 * d));
+                cumulativeDictionary[currentStudent.courses[c]]["x"].push(getDateFromTimestamp(assignmentTime));
+            }
+            for (var a = 0; a < assignments.length; a++) {
+                for (var n = 0; n < assignments[a].times.length; n++) {
+                    var assignmentTime = new Date(assignments[a].times[n][0]);
+                    if (getDateFromTimestamp(assignmentTime) === cumulativeDictionary[assignments[a].course]["x"][d]) {
+                        cumulativeDictionary[assignments[a].course]["y"][d] = ((assignments[a].times[n][1] - assignments[a].times[n][0]) / 1000);
+                    }
+                }
+            }
+        }
+    }
+
+    var data_cumulative = [];
+    for (var s = 0; s < currentStudent.courses.length; s++) {
+        data_cumulative[s] = cumulativeDictionary[currentStudent.courses[s]];
+    }
+
+    var layout_cumulative = {
+        height: 400,
+        width: 500
+    };
+
+
+    Plotly.newPlot('graphSpace3', data_cumulative, layout_cumulative);
+
+    //Cumulative homework from each class (as percent of total):
+
+    var thisIsNotDoneYet = "AAAAHHHHH! That previous function took way too much effort to make. I'll finish this one last. But... if you are seeing this message.... you really do need to finish this function before the website can be released....";
+    console.log(thisIsNotDoneYet);
+
+    //Homework per day line chart:
+
+    //Homework by time of day
+    var hourNames = ["1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM",
+        "8 PM", "9 PM", "10 PM", "11 PM", "12 AM"];
+    var hourDictionary = {"1 AM": 0, "2 AM": 0, "3 AM": 0, "4 AM": 0, "5 AM": 0, "6 AM": 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, "12 PM": 0, "1 PM": 0, "2 PM": 0, "3 PM": 0, "4 PM": 0, "5 PM": 0, "6 PM": 0, "7 PM": 0,
+        "8 PM": 0, "9 PM": 0, "10 PM": 0, "11 PM": 0, "12 AM": 0};
+    for (var i = 0; i < assignments.length; i++) {
+        for (var t = 0; t < assignments[i].times.length; t++) {
+            var td0 = new Date(assignments[i].times[t][0]);
+            var td1 = new Date(assignments[i].times[t][1]);
+            var profile = getHourProfile(td0, td1);
+            for (var n = 0; n < 24; n++) {
+                hourDictionary[hourNames[n]] += profile[n];
+            }
+        }
+    }
+
+    var data_hour = [{
+            x: Object.keys(hourDictionary),
+            y: getValueArrayFromDictionary(hourDictionary),
+            type: 'bar'
+        }];
+
+    var layout_hour = {
+        height: 400,
+        width: 500
+    };
+
+    console.log("Value for the histogram are: " + getValueArrayFromDictionary(histogramDictionary));
+    console.log("Labels for histogram are: " + Object.keys(histogramDictionary));
+
+    Plotly.newPlot('graphSpace4', data_hour, layout_hour);
+
+    //Homework calendar heatmap:
+}
+
+function getHourProfile(startTime, stopTime) { //takes start and stop times as Date objects
+    var profile = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var msInitial = startTime.getTime();
+    var msFinal = stopTime.getTime();
+    var hourInitial = msInitial / (1000 * 60 * 60);
+    var hourFinal = msFinal / (1000 * 60 * 60);
+    var startingHour = startTime.getHours();
+    for (var i = 0; i < (Math.ceil(hourFinal) - Math.floor(hourInitial)); i++) {
+        if (i === 0) {
+            profile[startingHour] += 60 - (60 * (hourInitial % 1));
+        } else if (i === (Math.ceil(hourFinal) - Math.floor(hourInitial)) - 1) {
+            profile[(startingHour + (Math.ceil(hourFinal) - Math.floor(hourInitial)) - 1) % 24] += 60 * (hourFinal % 1);
+        } else {
+            profile[(startingHour + i) % 24] += 60;
+        }
+    }
+    return profile;
+    //Return an array in the form [0,0,0,0,13,60,60,60,34,0,0,0] of minutes of time spent per hour for the given interval
+}
+
+function getHourFromTimestamps(timestamp) {
+    var hourNames = ["1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM",
+        "8 PM", "9 PM", "10 PM", "11 PM", "12 AM"];
+    var theHour = hourNames[timestamp.getHours()];
+    return theHour;
+}
+
+function getDayOfWeekFromTimestamp(timestamp) {
+    var a = new Date(timestamp);
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var dayOfWeek = days[a.getDay()];
+    return dayOfWeek;
+}
+
+function getDateFromTimestamp(timestamp) {
+    var monthsOfTheYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var day = timestamp.getDate();
+    var month = monthsOfTheYear[timestamp.getMonth()];
+    var date = month + " " + day;
+    return date;
+}
+
+function getValueArrayFromDictionary(dictionary) {
+    var keys = Object.keys(dictionary);
+    var values = [];
+    for (var i = 0; i < keys.length; i++) {
+        values[i] = dictionary[keys[i]];
+        // use val
+    }
+    return values;
+}
+
+function graphMaker(graphType, multipleDataSets, xData, yData, orientation, height, width) {
+    var graphData = [{
+            values: xData,
+            labels: yData,
+            type: graphType
+        }];
+}
+
+function pieGraph() {
+    var data_pie = [{
+            values: studentClassTimes,
+            labels: studentClasses,
+            type: 'pie'
+        }];
 
     var layout = {
         height: 400,
         width: 500
     };
-      
+
     Plotly.newPlot('pie', data_pie);
-    
+
     var data_week = [{
-        y: weekTimes,
-        x: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        type: 'bar',
-        orientation: 'v'
-      }];
-    
+            y: weekTimes,
+            x: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            type: 'bar',
+            orientation: 'v'
+        }];
+
     Plotly.newPlot('week', data_week);
     Plotly.newPlot('classTimeSeries', classTimeSeriesData);
     Plotly.newPlot('percentTimeSeries', percentTimeSeriesData);
 }
 
-</script>
+    </script>
 
-	</body>
+</body>
 </html>
