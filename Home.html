@@ -373,6 +373,23 @@ var selectedAssignment;
 var copyOfTimes;
 var dateFormat = "Y-m-d H:i";
 
+var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+
+  function escapeHtml (string) {
+    return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+      return entityMap[s];
+    });
+  }
+
 function giveAlert(){
   alert('This form is broken right now, sorry! I will have it working soon. Until then, please send feedback/bugs to arujohn@nuevaschool.org');
 }
@@ -380,10 +397,10 @@ function giveAlert(){
 function updateButtonNames(assignment){
 
   if (addTimes(assignment.times) > 0){
-    document.getElementById("StartButton").innerHTML = "Resume"
+    document.getElementById("StartButton").innerText = "Resume";
   }
   else{
-    document.getElementById("StartButton").innerHTML = "Start"
+    document.getElementById("StartButton").innerText = "Start";
   }
   $('#StartButton').prop('disabled', false);
   $('#FinishButton').prop('disabled', false);
@@ -678,8 +695,8 @@ function timer(command, duration){
 
 //This function should deal with any button clicks from the left side (the manual entry option) by 1) changing the inner html of the start/stop/resume button to match it's current state, 2) start and stop the timer, and 3) send new information about assignments to the database, and get information the timer needs from the database
 function timerClick(button){
-  console.log("Someone clicked a timer button")
-  console.log("The button id was: " + button.id + " and the button value was " + button.innerHTML + ". The assignment id was: " + selectedAssignment._id)
+  console.log("Someone clicked a timer button");
+  console.log("The button id was: " + button.id + " and the button value was " + button.innerHTML + ". The assignment id was: " + selectedAssignment._id);
   //this should start the timer if the command issued is 'start', and should add a new assignment to the database
   if (button.innerHTML === 'Start'){
     timer('start', addTimes(selectedAssignment.times));
@@ -687,14 +704,14 @@ function timerClick(button){
   if (button.innerHTML === 'Stop'){
     var timesToAdd = timer('stop', addTimes(selectedAssignment.times));
     recordTimes(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
-    console.log("Missing feature here. Finish later.")
+    console.log("Missing feature here. Finish later.");
   }
   if (button.innerHTML === 'Resume'){
     timer('start', addTimes(selectedAssignment.times));
   }
   if (button.innerHTML === 'Finish'){
     if (running){
-      document.getElementById("StartButton").innerHTML = "Start"
+      document.getElementById("StartButton").innerText = "Start";
       var timesToAdd = timer('stop', addTimes(selectedAssignment.times));
       addTimesAndFinish(timesToAdd[0], timesToAdd[1], selectedAssignment._id);
     }
@@ -705,19 +722,19 @@ function timerClick(button){
   }
   if (button.innerHTML === 'Cancel'){
     timer('cancel', addTimes(selectedAssignment.times));
-    document.getElementById("StartButton").innerHTML = "Resume";
+    document.getElementById("StartButton").innerText = "Resume";
   }
   //the following 3 if statements deal with changing the innerHTML of the button, it should be complete
   if (button.innerHTML === 'Start'){
-    button.innerHTML = 'Stop';
+    button.innerText = 'Stop';
     console.log("The command was <<start>>");
   }
   else if (button.innerHTML === 'Stop'){
-    button.innerHTML = 'Resume';
+    button.innerText = 'Resume';
     console.log("The command was <<stop>>");
   }
   else if(button.innerHTML === 'Resume'){
-    button.innerHTML = 'Stop';
+    button.innerText = 'Stop';
     console.log("The command was <<resume>>");
   }
 }
@@ -726,15 +743,15 @@ function timerClick(button){
 
 function theIdOf(assignmentInfo){
   for (var a=0; a<assignments.length; a++){
-    if (assignments[i].studentId == currentStudent._id){
-      if (assignments[i].course == assignmentInfo[0]){
-        if (assignments[i].title == assignmentInfo[1]){
-          return assignments[i]._id
+    if (assignments[i].studentId === currentStudent._id){
+      if (assignments[i].course === assignmentInfo[0]){
+        if (assignments[i].title === assignmentInfo[1]){
+          return assignments[i]._id;
         }
       }
     }
   }
-  return(0)
+  return(0);
 }
 
 function newAssignment(assignmentID, assignmentInfo){
@@ -909,15 +926,15 @@ function justFinish(state, assignmentID){
 }
 
 function renderURLInput(){
-	console.log("Changing")
+	console.log("Changing");
   document.getElementById("buttons").style.display = "none";
 	document.getElementById("instructionsInd").style.display = "";
   document.getElementById("urlFormInd").style.display = "";
   document.getElementById("introMessage").style.display = "none";
-  document.getElementById("urlInputForm").innerHTML = currentStudent.spreadsheetURL
+  document.getElementById("urlInputForm").innerText = currentStudent.spreadsheetURL;
 }
 function renderDirrectInput(){
-  console.log("Changing")
+  console.log("Changing");
   document.getElementById("buttons").style.display = "none";
   document.getElementById("instructionsDir").style.display = "";
   document.getElementById("urlFormDir").style.display = "";
@@ -926,11 +943,11 @@ function renderDirrectInput(){
   //previousInputs are not stored for now, thus, always false:
 
   if(currentStudent.courses.length === 0){
-    classOptions = "<option value=''>- Class/Catagory -</option><option value='1'>Input class names below</option>"
+    classOptions = "<option value=''>- Class/Catagory -</option><option value='1'>Input class names below</option>";
   }
   else{
     for (var i = 0; i<currentStudent.courses.length; i++){
-        classOptions += "<option value='"+ currentStudent.courses[i] +"'>" + currentStudent.courses[i] + "</option>"
+        classOptions += "<option value='"+ escapeHtml(currentStudent.courses[i]) +"'>" + escapeHtml(currentStudent.courses[i]) + "</option>";
       }
   }
   document.getElementById("classOptions").innerHTML = classOptions;
@@ -938,15 +955,15 @@ function renderDirrectInput(){
 }
 
 function toggle(id){
-  timer("toggle")
-  if (document.getElementById(id).innerHTML == "start"){
-    document.getElementById(id).innerHTML = "stop"
+  timer("toggle");
+  if (document.getElementById(id).innerHTML === "start"){
+    document.getElementById(id).innerText = "stop";
   }
-  else if (document.getElementById(id).innerHTML == "stop"){
-    document.getElementById(id).innerHTML = "resume"
+  else if (document.getElementById(id).innerHTML === "stop"){
+    document.getElementById(id).innerText = "resume";
   }
   else{
-    document.getElementById(id).innerHTML = "stop"
+    document.getElementById(id).innerText = "stop";
   }
 }
 
@@ -962,10 +979,10 @@ function formatTableRow(time, n) {
 
 function formatDialog() {
     var content = $('#myModal .modal-content p');
-    var html = "Course: " + selectedAssignment.course +
-            "<br>Title: " + selectedAssignment.title +
-            "<br>Description: " + selectedAssignment.description +
-            "<br>Due Date: " + selectedAssignment.dtend +
+    var html = "Course: " + escapeHtml(selectedAssignment.course) +
+            "<br>Title: " + escapeHtml(selectedAssignment.title) +
+            "<br>Description: " + escapeHtml(selectedAssignment.description) +
+            "<br>Due Date: " + escapeHtml(selectedAssignment.dtend) +
             "<br>Time spent: " + milliSecondsToTime(addTimes(selectedAssignment.times)) +
             "<table><thead><tr><th>Start</th><th>End</th><th>Duration</th><th>Action</th></tr></thead><tbody id='timesTable'>";
     copyOfTimes = JSON.parse(JSON.stringify(selectedAssignment.times));
@@ -1075,10 +1092,10 @@ function generateTodoList(futureAssignments){
     $('#assignmentTable').html("");
     for (var i = 0; i < futureAssignments.length; i++) {
         var assignment = futureAssignments[i];
-        $('#assignmentTable').append("<tr id=" + assignment._id + "><td>" + assignment.course +
-                "</td><td class='long'>" + assignment.title +
+        $('#assignmentTable').append("<tr id=" + assignment._id + "><td>" + escapeHtml(assignment.course) +
+                "</td><td class='long'>" + escapeHtml(assignment.title) +
                 "</td><td>" + milliSecondsToTime(addTimes(assignment.times)) +
-                "</td><td>" + assignment.dtend + "</td></tr>");
+                "</td><td>" + escapeHtml(assignment.dtend) + "</td></tr>");
     }
     if (selectedId !== 0) {
         $('#'+selectedId).addClass('highlight');
@@ -1087,18 +1104,18 @@ function generateTodoList(futureAssignments){
 }
 
 function generatePastAssignments(pastAssignments){
-  console.log("generating past assignments, there are: " + pastAssignments.length + " to write")
+  console.log("generating past assignments, there are: " + pastAssignments.length + " to write");
   var pastList = "";
   for(var i=0; i<pastAssignments.length; i++){
-    pastList += "<option onmouseover='' id='"+pastAssignments[i][0]+"' value='" + pastAssignments[i][0] + "'>" + pastAssignments[i][1] + " | " + pastAssignments[i][2] + "</option>";
+    pastList += "<option onmouseover='' id='"+pastAssignments[i][0]+"' value='" + pastAssignments[i][0] + "'>" + escapeHtml(pastAssignments[i][1]) + " | " + escapeHtml(pastAssignments[i][2]) + "</option>";
   }
-  console.log("injecting: " + pastList)
-  document.getElementById("pastAssignments").innerHTML = pastList
+  console.log("injecting: " + pastList);
+  document.getElementById("pastAssignments").innerHTML = pastList;
 }
 
 function fetchICS(){
-  console.log("reading ICS file....")
-  var givenICSURL = 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics'
+  console.log("reading ICS file....");
+  var givenICSURL = 'https://nuevaschool.instructure.com/feeds/calendars/user_k04iamDbwp7wVajUopCZFjocNX3l4o9Xj2WwdCY3.ics';
   $(document).ready(function()
     {
       $.ajax({
@@ -1108,26 +1125,26 @@ function fetchICS(){
         fail:
           function(jqXHR, textStatus, errorThrown) 
 		        {
-			        console.log("Failed to fetch! The error is: " + jqXHR + " , " + errorThrown + " , " + errorThrown)
+			        console.log("Failed to fetch! The error is: " + jqXHR + " , " + errorThrown + " , " + errorThrown);
 		        },
         success: 
           function(data)
             {
-              console.log(data)
-              generateTodoList(data)
+              console.log(data);
+              generateTodoList(data);
             }
-      })
+      });
     }
-  )
+  );
 }
 
 function fetchCSV(){
-	console.log("fetching...")
+	console.log("fetching...");
     const givenURL = currentStudent.spreadsheetURL;
     if (!/gid/.test(givenURL)){
-        alert("To clarify, after sharing the document, paste the url as it appears in your browser NOT the sharing url")
+        alert("To clarify, after sharing the document, paste the url as it appears in your browser NOT the sharing url");
     }
-    console.log(csvURL)
+    console.log(csvURL);
     const regex = /(.\S*)\/edit#gid=(\d+)/g;
     const subst = '$1/export?format=csv&gid=$2';
     //The substituted value will be contained in the result variable
@@ -1160,7 +1177,7 @@ var processStartTime = 0;
 var processEndTime = 0;
 
 var reader = new FileReader();
-var CSVText = ""
+var CSVText = "";
 var CSVArray = [];
 var fileArray = [];
 var bufferNumber = 0;
@@ -1191,7 +1208,7 @@ function handleFileSelect(evt) {
 }
 
 function readSomeStuff(){
-  if(fileArray[bufferNumber]&&(bufferNumber!=fileArray.length-1||(fileArray.length==1&&bufferNumber==0))){
+  if(fileArray[bufferNumber]&&(bufferNumber!==fileArray.length-1||(fileArray.length===1&&bufferNumber===0))){
     //console.log("Reading student file #"+bufferNumber+".")
     //console.log(fileArray[bufferNumber]);
     reader.readAsText(fileArray[bufferNumber]);
@@ -1222,27 +1239,27 @@ function printCSV(){
 }
 
 function makeGraphSpace(){
-  var explaination = "<h2 id='inst_1'>Your Data, Visualized:</h2> <p  id='inst_2'>Here are some nice graphs built with the data you provided! They will update to reflect more assignments you add:</p>"
+  var explaination = "<h2 id='inst_1'>Your Data, Visualized:</h2> <p  id='inst_2'>Here are some nice graphs built with the data you provided! They will update to reflect more assignments you add:</p>";
   document.getElementById("instructions").innerHTML = explaination;
   var addMoreDataButton = "<button class='button button-large' onclick='loadDataInput()'>Add more data</button>";
   document.getElementById("addMoreDataButton").innerHTML = addMoreDataButton;
-	var theGraphSpace = "<div id='pie' style='width:1200px;height:500px;'></div><div id='week' style='width:1200px;height:500px;'></div><div id='classTimeSeries' style='width:1200px;height:500px;'></div><div id='percentTimeSeries' style='width:1200px;height:500px;'></div>"
+	var theGraphSpace = "<div id='pie' style='width:1200px;height:500px;'></div><div id='week' style='width:1200px;height:500px;'></div><div id='classTimeSeries' style='width:1200px;height:500px;'></div><div id='percentTimeSeries' style='width:1200px;height:500px;'></div>";
   document.getElementById("urlForm").innerHTML = theGraphSpace;
-  makeGraphs()
+  makeGraphs();
 }
 
 function loadDataInput(){
-  var classOptions = ""
-  if (studentList[0].courseList.length == 0){
-    alert("You need to input your class names first")
+  var classOptions = "";
+  if (studentList[0].courseList.length === 0){
+    alert("You need to input your class names first");
   }
   else{
     for (var i = 0; i<studentList[0].courseList.length; i++){
-      classOptions += "<option value='1'>" + studentList[0].courseList[i].courseCode + "</option>"
+      classOptions += "<option value='1'>" + studentList[0].courseList[i].courseCode + "</option>";
     }
   }
-  var classSelector = "<div class='12u$'><div class='select-wrapper'><select name='demo-category' id='demo-category'><option value=''>- Class/Catagory -</option>"+ classOptions +"</select></div>"
-  var descriptionAndSubmitButton = "<form method='post' action='#'><div class='row uniform'><div class='9u 12u$(small)'><input type='text' name='query' id='query' value='' placeholder='Describe the task/assignment (optional)' /></div><div class='3u$ 12u$(small)'><input type='submit' value='Start' class='fit' /></div></div></form>"
+  var classSelector = "<div class='12u$'><div class='select-wrapper'><select name='demo-category' id='demo-category'><option value=''>- Class/Catagory -</option>"+ classOptions +"</select></div>";
+  var descriptionAndSubmitButton = "<form method='post' action='#'><div class='row uniform'><div class='9u 12u$(small)'><input type='text' name='query' id='query' value='' placeholder='Describe the task/assignment (optional)' /></div><div class='3u$ 12u$(small)'><input type='submit' value='Start' class='fit' /></div></div></form>";
   var newAssignmentFormHTML = classSelector + descriptionAndSubmitButton;
   document.getElementById("newAssignmentForm").innerHTML = newAssignmentFormHTML;
   document.getElementById("addMoreDataButton").innerHTML = "";
@@ -1278,17 +1295,17 @@ function makeGraphs(){
         // If the current character is a quotation mark, and we're inside a
         // quoted field, and the next character is also a quotation mark,
         // add a quotation mark to the current column and skip the next character
-        if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+        if (cc === '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; };
 
         // If it's just one quotation mark, begin/end quoted field
-        if (cc == '"') { quote = !quote; continue; }
+        if (cc === '"') { quote = !quote; continue; };
 
         // If it's a comma and we're not in a quoted field, move on to the next column
-        if (cc == ',' && !quote) { ++col; continue; }
+        if (cc === ',' && !quote) { ++col; continue; };
 
         // If it's a newline and we're not in a quoted field, move on to the next
         // row and move to column 0 of that new row
-        if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+        if (cc === '\n' && !quote) { ++row; col = 0; continue; }
 
         // Otherwise, append the current character to the current column
         arr[row][col] += cc;
@@ -1309,7 +1326,7 @@ function makeTable(myArray,tableID,title,noprint) {
     result += "</table>";
 
     if(title){
-      result="<h2>"+title+"</h2>"+result
+      result="<h2>"+title+"</h2>"+result;
     }
     if(!tableID){
       tableID="table";
@@ -1337,7 +1354,7 @@ function pValue(inputArray,coefic){
 }
 
 function stdev(inputarray){
-   if(inputarray.length==0){return 0;}
+   if(inputarray.length===0){return 0;}
    var i,j,total = 0, mean = 0, diffSqredArr = [];
    for(i=0;i<inputarray.length;i+=1){
        total+=inputarray[i];
@@ -1353,10 +1370,10 @@ function stdev(inputarray){
 //approximation of normal distribution
 //https://home.ubalt.edu/ntsbarsh/Business-stat/otherapplets/pvalues.htm
 function normal(z) {
-		z=Math.abs(z)
-		var p=1+ z*(0.04986735+ z*(0.02114101+ z*(0.00327763+ z*(0.0000380036+ z*(0.0000488906+ z*0.000005383)))))
-		p=p*p; p=p*p; p=p*p
-		return 1/(p*p)
+		z=Math.abs(z);
+		var p=1+ z*(0.04986735+ z*(0.02114101+ z*(0.00327763+ z*(0.0000380036+ z*(0.0000488906+ z*0.000005383)))));
+		p=p*p; p=p*p; p=p*p;
+		return 1/(p*p);
 }
 
 
