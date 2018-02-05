@@ -178,7 +178,7 @@
                 <div id="urlFormDir" style="display:none">
                     <div class='row'>
                         <section class='6u 12u$(medium)'>
-                            <h3>Select from Todo List:</h3>
+                            <h3>Select from To do List:</h3>
                             <div id="table-scroll" class="table-scroll">
                                 <div id="faux-table" class="faux-table" aria-hidden="true"></div>
                                 <div id="table-wrap" class="table-wrap">
@@ -491,17 +491,6 @@ function loadPage() {
         }
     }
     renderAssignmentLists();
-
-    // Fix to do table
-    var mainTable = document.getElementById("main-table");
-    var tableHeight = mainTable.offsetHeight;
-    if (tableHeight > 300) {
-        var fauxTable = document.getElementById("faux-table");
-        document.getElementById("table-wrap").className += ' ' + 'fixedON';
-        var clonedElement = mainTable.cloneNode(true);
-        clonedElement.id = "";
-        fauxTable.appendChild(clonedElement);
-    }
 
     if (document.getElementById("givenICSURL")) {
         document.getElementById("givenICSURL").value = currentStudent.ICSURL;
@@ -1083,6 +1072,19 @@ function generateTodoList(futureAssignments) {
     if (selectedId !== 0) {
         $('#' + selectedId).addClass('highlight');
         selectedAssignment = findAssignment(selectedId);
+    }
+    // Fix to do table layout
+    var mainTable = document.getElementById("main-table");
+    var fauxTable = document.getElementById("faux-table");
+    var firstChild = fauxTable.firstChild;
+    var clonedElement = mainTable.cloneNode(true);
+    $(clonedElement).find("*").removeAttr("id");
+    clonedElement.id = "";
+    if (firstChild) {
+       fauxTable.replaceChild(clonedElement, firstChild);    
+    } else {
+       document.getElementById("table-wrap").className += ' ' + 'fixedON';
+       fauxTable.appendChild(clonedElement);
     }
 }
 
