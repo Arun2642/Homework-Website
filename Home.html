@@ -954,7 +954,7 @@ function formatDialog() {
     var html = "Course: " + escapeHtml(selectedAssignment.course) +
             "<br>Title: " + escapeHtml(selectedAssignment.title) +
             "<br>Description: " + escapeHtml(selectedAssignment.description) +
-            "<br>Due Date: " + escapeHtml(selectedAssignment.dtend) +
+            "<br>Due Date: " + formatDueDate(selectedAssignment.dtend) +
             "<br>Time spent: " + milliSecondsToTime(addTimes(selectedAssignment.times)) +
             "<table><thead><tr><th>Start</th><th>End</th><th>Duration</th><th>Action</th></tr></thead><tbody id='timesTable'>";
     copyOfTimes = JSON.parse(JSON.stringify(selectedAssignment.times));
@@ -1059,6 +1059,26 @@ function milliSecondsToTime(millis) {
     return time;
 }
 
+function formatDueDate(dtend) {
+    if (dtend) {
+       return dtend.replace(/(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})Z)?/g,function(match,year,month,day,hour,minute,second){
+           var result = year+"-"+month+"-"+day;
+           if (hour) {
+               var result = year+"-"+month+"-"+day+"T"+hour+":"+minute+":"+second+"Z";
+               var date = flatpickr.parseDate(result,"Z");
+               result = flatpickr.formatDate(date,dateFormat);
+               result = result.replace(/-/g, "&#8209;");
+               result = result.replace(/ /g, "&nbsp;");
+           } else {
+               result = year+"&#8209;"+month+"&#8209;"+day;               
+           }
+           return result;
+       });
+    } else {
+       return "-";
+    }
+}
+
 function generateTodoList(futureAssignments) {
     var selectedId = selectedAssignment ? selectedAssignment._id : 0;
     $('#assignmentTable').html("");
@@ -1067,7 +1087,7 @@ function generateTodoList(futureAssignments) {
         $('#assignmentTable').append("<tr id=" + assignment._id + "><td>" + escapeHtml(assignment.course) +
                 "</td><td class='long'>" + escapeHtml(assignment.title) +
                 "</td><td>" + milliSecondsToTime(addTimes(assignment.times)) +
-                "</td><td>" + escapeHtml(assignment.dtend) + "</td></tr>");
+                "</td><td>" + formatDueDate(assignment.dtend) + "</td></tr>");
     }
     if (selectedId !== 0) {
         $('#' + selectedId).addClass('highlight');
